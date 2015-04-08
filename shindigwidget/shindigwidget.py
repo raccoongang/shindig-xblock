@@ -35,7 +35,7 @@ class ShindigXBlock(XBlock):
         frag = Fragment(html.format(self=self))
         frag.add_javascript(self.resource_string("static/js/src/modernizr.js"))
         frag.add_css(self.resource_string("static/css/shindigwidget.css"))
-        frag.add_javascript(self.resource_string("static/js/src/shindigwidget.js"))
+        frag.add_javascript(self.resource_string("static/js/src/shindigwidget_instructor.js"))
         frag.initialize_js('ShindigXBlock')
 
         return frag
@@ -50,7 +50,7 @@ class ShindigXBlock(XBlock):
         frag = Fragment(html.format(self=self))
         frag.add_javascript(self.resource_string("static/js/src/modernizr.js"))
         frag.add_css(self.resource_string("static/css/shindigwidget.css"))
-        frag.add_javascript(self.resource_string("static/js/src/shindigwidget.js"))
+        frag.add_javascript(self.resource_string("static/js/src/shindigwidget_student.js"))
         frag.initialize_js('ShindigXBlock')
 
         return frag
