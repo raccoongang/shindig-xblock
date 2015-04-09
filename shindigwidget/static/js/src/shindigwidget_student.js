@@ -10,7 +10,6 @@ function ShindigXBlock(runtime, element) {
     };
 
     var shindig = (function(){
-        //TODO:  DRY this code out vis-à-vis instructor.js
         var host = document.getElementById("shindig-signup-student");
 
         if (!!host) {
@@ -52,7 +51,6 @@ function ShindigXBlock(runtime, element) {
 
     (function() {
         "use strict";
-        console.log('Welcome to Shindig!');
 
         //Set up local vars
         var postTarget, clearFilters, el, getEvents, populateEvents, buildTD, webcalURL, isFirstTime;
@@ -68,7 +66,6 @@ function ShindigXBlock(runtime, element) {
                 if (isFirstTime) {
                     isFirstTime = false;
                 } else {
-                    console.log("getting events");
                     getEvents();
                     //Set the Events tab as the active tab
                     var eventsRadioButton = document.getElementById('s3');
@@ -128,7 +125,6 @@ function ShindigXBlock(runtime, element) {
 
             //Populate event list rows
             if (!!eventList && !!data && len > 0 ) {
-                console.log("populating event list.");
 
                 for ( var i = 0; i < len; i++) {
 
