@@ -1,13 +1,5 @@
 /* Javascript for ShindigXBlock. */
-function ShindigXBlock(runtime, element) {
-    //TODO:  Get these values from the edX environment
-    var shindig_defaults = {
-        "institution": "Shindig University",
-        "course": "Shindig 101",
-        "customerServicePhone": "(800)888-8888",
-        "customerServiceEmail": "help@shindigevents.com",
-        "dummy": "dummy test value"
-    };
+function ShindigXBlock(runtime, element, shindig_defaults) {
 
     var shindig = (function(){
         var host = document.getElementById("shindig-signup-student");
