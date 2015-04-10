@@ -104,6 +104,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
         };
 
         populateEvents = function(data) {
+            $('.s-shindig-load').addClass('is-hidden');
             var eventDateSortable,
                 eventList = document.getElementById('s-event-list'),
                 len = data.length || 0,
@@ -124,7 +125,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                     item = data[i];
 
                     now = new Date();
-                    startTime = new Date(item.start);
+                    startTime = new Date(item.start*1000);
                     eventDate = startTime.toDateString();
                     try {
                         eventDateSortable = startTime.toISOString().slice(0,10);
@@ -137,8 +138,9 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                         startTime = ex.message;
                     }
 
-                    endTime = new Date(item.end);
-                    endTime   = endTime.toLocaleTimeString();
+                    endTime = 0;
+                    //endTime = new Date(item.end);
+                    //endTime   = endTime.toLocaleTimeString();
 
                     tr = document.createElement('tr');
                     tr.className += ("event-type " + item.event_type);
