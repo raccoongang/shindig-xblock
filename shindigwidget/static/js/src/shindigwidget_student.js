@@ -15,15 +15,18 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             var td, link;
             td = document.createElement('td');
             link = document.createElement('a');
-            link.href = item.link_url || item.event_url;
-            link.target="postTarget";
-            if (item.join_now){
-                link.innerHTML = "Join";
-                link.target ="_blank";
-            } else {
-                link.innerHTML = "RSVP";
-                link.target ="_blank";
-            }
+            //link.href = item.link_url || item.event_url;
+            link.href = shindig_defaults.links_to_events_lms + item.eid;
+            //link.target="postTarget";
+            link.target ="_blank";
+            //if (item.join_now){
+            //    link.innerHTML = "Join";
+            //    link.target ="_blank";
+            //} else {
+            //    link.innerHTML = "RSVP";
+            //    link.target ="_blank";
+            //}
+            link.innerHTML = "Events";
             td.appendChild(link);
             tr.appendChild(td);
         }

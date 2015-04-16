@@ -36,18 +36,23 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
 
         function setLinkFormat (tr, item) {
-            var td, link;
+            var td, link, eventLink;
             td = document.createElement('td');
             link = document.createElement('a');
             link.href = item.link_url;
             link.target="postTarget";
-            if (item.join_now){
-                link.innerHTML = "Join";
-                link.target="_blank"
-            } else {
-                link.innerHTML = "Delete";
-            }
+            //if (item.join_now){
+            //    link.innerHTML = "Join";
+            //    link.target="_blank"
+            //} else {
+            link.innerHTML = "Delete";
+            //}
             td.appendChild(link);
+            eventLink = document.createElement('a');
+            eventLink.href = shindig_defaults.links_to_events_cms + item.eid;
+            eventLink.target="_blank";
+            eventLink.innerHTML = "Events";
+            td.appendChild(eventLink);
             tr.appendChild(td);
         }
 

@@ -27,7 +27,9 @@ class ShindigXBlock(XBlock):
             "customerServicePhone": "(800)888-8888",
             "customerServiceEmail": "help@shindigevents.com",
             "institution": institution,
-            "course": course
+            "course": course,
+            "links_to_events_cms": "http://www.shindig.com/event/admin/",
+            "links_to_events_lms": "http://www.shindig.com/event/",
             }
 
 
