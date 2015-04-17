@@ -4,7 +4,8 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
     var shindig = (function(){
         var host = document.getElementById("shindig-signup-student");
 
-	host.action = shindig_defaults['action'];
+	    host.action = shindig_defaults.host_events + shindig_defaults.path_events;
+
         if (!!host) {
             //Quick hack to get host
             var a = document.createElement('a');
@@ -34,7 +35,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
         return {
             host: host,
-            path: 'api/events',
+            path: shindig_defaults.path_events,
             buildLink:setLinkFormat
         };
     }());
@@ -191,7 +192,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
             //Get existing events
             JSONP.get(
-                "//" + shindig.host + '/' + shindig.path + '/',
+                "//" + shindig.host + '/' + shindig.path,
                 {institution:institution, course:course},
                 populateEvents
 

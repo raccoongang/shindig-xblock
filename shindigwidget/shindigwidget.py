@@ -28,7 +28,8 @@ class ShindigXBlock(XBlock):
             "customerServiceEmail": "help@shindigevents.com",
             "institution": institution,
             "course": course,
-            "action": "//54.172.55.242:3000/events/"
+            "host_events": "http://192.168.33.10:3000/",
+            "path_events": "api/events/",
             "links_to_events_cms": "http://www.shindig.com/event/admin/",
             "links_to_events_lms": "http://www.shindig.com/event/",
             }
