@@ -44,8 +44,7 @@ function setFilterGrid(id)
 							
 			}//for
 		}//if
-		
-		ref_row == undefined ? ref_row=1 : ref_row=(ref_row+1);
+		ref_row == undefined ? ref_row=0 : ref_row=(ref_row+1);
 		var ncells = getCellsNb(id,ref_row);
 		tbl.tf_ncells = ncells;
 		if(tbl.tf_ref_row==undefined) tbl.tf_ref_row = ref_row;
@@ -898,7 +897,7 @@ function grabTag(obj,tagname)
 	- this is just a getElementsByTagName shortcut
 =====================================================*/
 {
-	return obj.querySelectorAll( tagname );
+    return obj.querySelectorAll( tagname );
 }
 
 function regexpEscape(s)

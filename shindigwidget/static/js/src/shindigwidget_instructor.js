@@ -248,8 +248,11 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                     eventList.appendChild(tr);
                 }
             }
-            setFilterGrid('event-table');
-            TF_Filter("event-table");
+
+            if (len > 0) {
+                setFilterGrid('event-table');
+                TF_Filter("event-table");
+            }
             //if (len > 0) {
             //    if (!document.querySelector('.fltrow')) {
             //        //Set event filters
