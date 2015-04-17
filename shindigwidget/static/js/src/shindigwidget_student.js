@@ -4,6 +4,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
     var shindig = (function(){
         var host = document.getElementById("shindig-signup-student");
 
+	host.action = shindig_defaults['action'];
         if (!!host) {
             //Quick hack to get host
             var a = document.createElement('a');

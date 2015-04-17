@@ -8,6 +8,8 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             recurring = form.querySelector('#RecurringEvent'),
             dates = form.querySelectorAll('[type=date]');
 
+	form.action = shindig_defaults['action'];
+
         if (!!form) {
             //Quick hack to get host
             var a = document.createElement('a');
