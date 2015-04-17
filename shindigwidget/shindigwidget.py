@@ -29,6 +29,8 @@ class ShindigXBlock(XBlock):
             "institution": institution,
             "course": course,
             "action": "//54.172.55.242:3000/events/"
+            "links_to_events_cms": "http://www.shindig.com/event/admin/",
+            "links_to_events_lms": "http://www.shindig.com/event/",
             }
 
 

@@ -16,15 +16,18 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             var td, link;
             td = document.createElement('td');
             link = document.createElement('a');
-            link.href = item.link_url || item.event_url;
-            link.target="postTarget";
-            if (item.join_now){
-                link.innerHTML = "Join";
-                link.target ="_blank";
-            } else {
-                link.innerHTML = "RSVP";
-                link.target ="_blank";
-            }
+            //link.href = item.link_url || item.event_url;
+            link.href = shindig_defaults.links_to_events_lms + item.eid;
+            //link.target="postTarget";
+            link.target ="_blank";
+            //if (item.join_now){
+            //    link.innerHTML = "Join";
+            //    link.target ="_blank";
+            //} else {
+            //    link.innerHTML = "RSVP";
+            //    link.target ="_blank";
+            //}
+            link.innerHTML = "Events";
             td.appendChild(link);
             tr.appendChild(td);
         }
@@ -105,6 +108,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
         };
 
         populateEvents = function(data) {
+            $('.s-shindig-load').addClass('is-hidden');
             var eventDateSortable,
                 eventList = document.getElementById('s-event-list'),
                 len = data.length || 0,
@@ -125,7 +129,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                     item = data[i];
 
                     now = new Date();
-                    startTime = new Date(item.start);
+                    startTime = new Date(item.start*1000);
                     eventDate = startTime.toDateString();
                     try {
                         eventDateSortable = startTime.toISOString().slice(0,10);
@@ -138,8 +142,9 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                         startTime = ex.message;
                     }
 
-                    endTime = new Date(item.end);
-                    endTime   = endTime.toLocaleTimeString();
+                    endTime = 0;
+                    //endTime = new Date(item.end);
+                    //endTime   = endTime.toLocaleTimeString();
 
                     tr = document.createElement('tr');
                     tr.className += ("event-type " + item.event_type);
