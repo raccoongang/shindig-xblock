@@ -124,7 +124,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
         return {
             host: host,
-            path: 'events',
+            path: 'api/events',
             buildLink:setLinkFormat
         };
     }());
@@ -282,7 +282,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
             //Get existing events
             JSONP.get(
-                "//" + shindig.host + '/' + shindig.path + '/',
+                '//' + shindig.host + '/' + shindig.path + '/',
                 {institution:institution, course:course},
                 populateEvents
 

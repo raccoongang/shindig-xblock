@@ -33,7 +33,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
         return {
             host: host,
-            path: 'events',
+            path: 'api/events',
             buildLink:setLinkFormat
         };
     }());
