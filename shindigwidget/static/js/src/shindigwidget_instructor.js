@@ -1,12 +1,4 @@
-function ShindigXBlock(runtime, element) {
-    //TODO:  Get these values from the edX environment
-    var shindig_defaults = {
-        "institution": "Shindig University",
-        "course": "Shindig 101",
-        "customerServicePhone": "(800)888-8888",
-        "customerServiceEmail": "help@shindigevents.com",
-        "dummy": "dummy test value"
-    };
+function ShindigXBlock(runtime, element, shindig_defaults) {
 
     var shindig = (function(){
         //TODO:  DRY this code out vis-à-vis student.js
@@ -15,6 +7,8 @@ function ShindigXBlock(runtime, element) {
             form = document.getElementById("shindig-signup"),
             recurring = form.querySelector('#RecurringEvent'),
             dates = form.querySelectorAll('[type=date]');
+
+	form.action = shindig_defaults['action'];
 
         if (!!form) {
             //Quick hack to get host
@@ -254,8 +248,11 @@ function ShindigXBlock(runtime, element) {
                     eventList.appendChild(tr);
                 }
             }
-            setFilterGrid('event-table');
-            TF_Filter("event-table");
+
+            if (len > 0) {
+                setFilterGrid('event-table');
+                TF_Filter("event-table");
+            }
             //if (len > 0) {
             //    if (!document.querySelector('.fltrow')) {
             //        //Set event filters

@@ -6,13 +6,11 @@ from xblock.core import XBlock
 from xblock.fields import Scope, Integer
 from xblock.fragment import Fragment
 
+
 class ShindigXBlock(XBlock):
     """
     TO-DO: document what your XBlock does.
     """
-
-
-
     # Fields are defined on the class.  You can access them in your code as
     # self.<fieldname>.
 
@@ -22,10 +20,23 @@ class ShindigXBlock(XBlock):
         help="A simple counter, to show something happening",
     )
 
+    def __init__(self, *args, **kwargs):
+        super(ShindigXBlock, self).__init__(*args, **kwargs)
+        institution, course, run = str(self.course_id).split('/')
+        self.shindig_defaults = {
+            "customerServicePhone": "(800)888-8888",
+            "customerServiceEmail": "help@shindigevents.com",
+            "institution": institution,
+            "course": course,
+            "action": "//54.172.55.242:3000/events/"
+            }
+
+
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
         data = pkg_resources.resource_string(__name__, path)
         return data.decode("utf8")
+
 
     def studio_view(self, context):
         """
@@ -34,8 +45,7 @@ class ShindigXBlock(XBlock):
         html = self.resource_string("static/html/shindig_instructor.html")
         frag = Fragment(html.format(self=self))
         frag.add_javascript(self.resource_string("static/js/src/shindigwidget_instructor.js"))
-        frag.initialize_js('ShindigXBlock')
-
+        frag.initialize_js('ShindigXBlock', json_args=self.shindig_defaults)
         return frag
 
     # TO-DO: change this view to display your data your own way.
@@ -52,8 +62,7 @@ class ShindigXBlock(XBlock):
         frag.add_javascript(self.resource_string("static/js/src/tablefilter.js"))
         frag.add_css(self.resource_string("static/css/shindigwidget.css"))
         frag.add_javascript(self.resource_string("static/js/src/shindigwidget_student.js"))
-        frag.initialize_js('ShindigXBlock')
-
+        frag.initialize_js('ShindigXBlock', json_args=self.shindig_defaults)
         return frag
 
     # TO-DO: change this handler to perform your own actions.  You may need more
