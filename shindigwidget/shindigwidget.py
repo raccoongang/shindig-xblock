@@ -1,6 +1,10 @@
 """TO-DO: Write a description of what this XBlock is."""
-
+from django.http import HttpResponseBadRequest
 import pkg_resources
+import requests
+
+from django.core.exceptions import PermissionDenied
+from webob.response import Response
 
 from xblock.core import XBlock
 from xblock.fields import Scope, Integer
@@ -34,12 +38,10 @@ class ShindigXBlock(XBlock):
             "links_to_events_lms": "http://www.shindig.com/event/",
             }
 
-
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
         data = pkg_resources.resource_string(__name__, path)
         return data.decode("utf8")
-
 
     def studio_view(self, context):
         """
@@ -92,3 +94,13 @@ class ShindigXBlock(XBlock):
                 <shindigwidget/>
              """),           
         ]
+
+    @XBlock.handler
+    def remove_events(self, request, suffix=''):
+        eid = request.params['eid']
+        url = self.shindig_defaults['host_events'] + self.shindig_defaults['path_events'] + eid
+        req = requests.request('DELETE', url)
+        if req.status_code == 200:
+            return Response(json_body={'remove': True})
+        else:
+            return Response(json_body={'remove': False})

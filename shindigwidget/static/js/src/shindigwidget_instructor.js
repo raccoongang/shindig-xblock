@@ -42,17 +42,21 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
         function setLinkFormat(tr, item) {
             var td, link, eventLink;
             td = document.createElement('td');
+
             link = document.createElement('a');
-            link.className = 'delete-event'
-            link.href = shindig_defaults.host_events + shindig_defaults.path_events + item.eid;
-            //link.target="postTarget";
+            link.className = 'delete-event';
+            link.href = '#';
+            link.setAttribute('data-eid', item.eid);
+            link.innerHTML = "Delete | ";
+            td.appendChild(link);
+
             //if (item.join_now){
             //    link.innerHTML = "Join";
             //    link.target="_blank"
             //} else {
-            link.innerHTML = "Delete | ";
+            //    link.innerHTML = "Delete | ";
             //}
-            td.appendChild(link);
+
             eventLink = document.createElement('a');
             eventLink.href = shindig_defaults.links_to_events_cms + item.eid;
             eventLink.target = "_blank";
@@ -263,7 +267,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                 TF_Filter("event-table");
             }
 
-            actionDelete();
+            actionDelete(getEvents);
             //if (len > 0) {
             //    if (!document.querySelector('.fltrow')) {
             //        //Set event filters
@@ -303,18 +307,17 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
         TblId.pop();
     });
 
-    var actionDelete = function () {
+    var actionDelete = function (callback) {
         $('.delete-event').click(function (event) {
             event.preventDefault();
             $.ajax({
-                url: event.currentTarget.href,
-                type: "DELETE",
-                xhrFields: {
-                    withCredentials: true
-                },
-                crossDomain: true,
-                success: function(){
-                  alert('Load was performed.');
+                url: runtime.handlerUrl(element, 'remove_events'),
+                type: "POST",
+                data: {'eid': $(event.currentTarget).data('eid')},
+                success: function(data){
+                    if (data.remove){
+                        callback();
+                    }
                 }
             });
         });
