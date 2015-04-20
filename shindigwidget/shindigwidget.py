@@ -26,13 +26,17 @@ class ShindigXBlock(XBlock):
 
     def __init__(self, *args, **kwargs):
         super(ShindigXBlock, self).__init__(*args, **kwargs)
-        institution, course, run = str(self.course_id).split('/')
+        try:
+            institution,  course, run = str(self.course_id).split('/')
+        except AttributeError:
+            institution = 'institution'
+            course = 'course'
         self.shindig_defaults = {
             "customerServicePhone": "(800)888-8888",
             "customerServiceEmail": "help@shindigevents.com",
             "institution": institution,
             "course": course,
-            "host_events": "http://192.168.33.10:3000/",
+            "host_events": "http://23.21.220.214:3000/",
             "path_events": "api/events/",
             "links_to_events_cms": "http://www.shindig.com/event/admin/",
             "links_to_events_lms": "http://www.shindig.com/event/",
@@ -49,6 +53,12 @@ class ShindigXBlock(XBlock):
         """
         html = self.resource_string("static/html/shindig_instructor.html")
         frag = Fragment(html.format(self=self))
+        if self.runtime.__class__.__name__ == 'WorkbenchRuntime':
+            frag.add_javascript(self.resource_string("static/js/src/modernizr.js"))
+            frag.add_javascript(self.resource_string("static/js/src/jsonp.js"))
+            frag.add_javascript(self.resource_string("static/js/src/sorttable.js"))
+            frag.add_javascript(self.resource_string("static/js/src/tablefilter.js"))
+            frag.add_css(self.resource_string("static/css/shindigwidget.css"))
         frag.add_javascript(self.resource_string("static/js/src/shindigwidget_instructor.js"))
         frag.initialize_js('ShindigXBlock', json_args=self.shindig_defaults)
         return frag
