@@ -143,9 +143,8 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                         startTime = ex.message;
                     }
 
-                    endTime = 0;
-                    //endTime = new Date(item.end);
-                    //endTime   = endTime.toLocaleTimeString();
+                    endTime = new Date(item.end * 1000);
+                    endTime   = endTime.toLocaleTimeString();
 
                     tr = document.createElement('tr');
                     tr.className += ("event-type " + item.event_type);

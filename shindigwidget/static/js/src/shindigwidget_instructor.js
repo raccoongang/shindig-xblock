@@ -124,6 +124,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
         //Default start date to current date
         document.getElementById('startdate').value = new Date().toISOString().slice(0, 10);
+        document.getElementById('enddate').value = new Date().toISOString().slice(0, 10);
 
         // onsubmit used for easier cross-browser compatibility
         form.onsubmit = validateForm;
@@ -223,6 +224,11 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
                     now = new Date();
                     startTime = new Date(item.start * 1000);
+                    startTime = new Date(startTime.getUTCFullYear(),
+                                         startTime.getUTCMonth(),
+                                         startTime.getUTCDate(),
+                                         startTime.getUTCHours(),
+                                         startTime.getUTCMinutes());
                     eventDate = startTime.toDateString();
                     try {
                         eventDateSortable = startTime.toISOString().slice(0, 10);
@@ -235,9 +241,14 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                         startTime = ex.message;
                     }
 
-                    endTime = 0;
-                    //endTime = new Date(item.end);
-                    //endTime   = endTime.toLocaleTimeString();
+
+                    endTime = new Date(item.end * 1000);
+                    endTime = new Date(endTime.getUTCFullYear(),
+                                       endTime.getUTCMonth(),
+                                       endTime.getUTCDate(),
+                                       endTime.getUTCHours(),
+                                       endTime.getUTCMinutes());
+                    endTime   = endTime.toLocaleTimeString();
 
                     tr = document.createElement('tr');
                     tr.className += ("event-type " + item.event_type);
