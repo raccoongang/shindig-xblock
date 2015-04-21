@@ -24,24 +24,6 @@ class ShindigXBlock(XBlock):
         help="A simple counter, to show something happening",
     )
 
-    def __init__(self, *args, **kwargs):
-        super(ShindigXBlock, self).__init__(*args, **kwargs)
-        try:
-            institution,  course, run = str(self.course_id).split('/')
-        except AttributeError:
-            institution = 'institution'
-            course = 'course'
-        self.shindig_defaults = {
-            "customerServicePhone": "(800)888-8888",
-            "customerServiceEmail": "help@shindigevents.com",
-            "institution": institution,
-            "course": course,
-            "host_events": "http://23.21.220.214:3000/",
-            "path_events": "api/events/",
-            "links_to_events_cms": "http://www.shindig.com/event/admin/",
-            "links_to_events_lms": "http://www.shindig.com/event/",
-            }
-
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
         data = pkg_resources.resource_string(__name__, path)
@@ -51,16 +33,13 @@ class ShindigXBlock(XBlock):
         """
         Create a fragment used to display the edit view in the Studio.
         """
+        shindig_defaults = self.shindig_defaults()
         html = self.resource_string("static/html/shindig_instructor.html")
         frag = Fragment(html.format(self=self))
         if self.runtime.__class__.__name__ == 'WorkbenchRuntime':
-            frag.add_javascript(self.resource_string("static/js/src/modernizr.js"))
-            frag.add_javascript(self.resource_string("static/js/src/jsonp.js"))
-            frag.add_javascript(self.resource_string("static/js/src/sorttable.js"))
-            frag.add_javascript(self.resource_string("static/js/src/tablefilter.js"))
-            frag.add_css(self.resource_string("static/css/shindigwidget.css"))
+            self.add_javascript_and_css(frag)
         frag.add_javascript(self.resource_string("static/js/src/shindigwidget_instructor.js"))
-        frag.initialize_js('ShindigXBlock', json_args=self.shindig_defaults)
+        frag.initialize_js('ShindigXBlock', json_args=shindig_defaults)
         return frag
 
     # TO-DO: change this view to display your data your own way.
@@ -69,15 +48,12 @@ class ShindigXBlock(XBlock):
         The primary view of the ShindigXBlock, shown to students
         when viewing courses.
         """
+        shindig_defaults = self.shindig_defaults()
         html = self.resource_string("static/html/shindig_student.html")
         frag = Fragment(html.format(self=self))
-        frag.add_javascript(self.resource_string("static/js/src/modernizr.js"))
-        frag.add_javascript(self.resource_string("static/js/src/jsonp.js"))
-        frag.add_javascript(self.resource_string("static/js/src/sorttable.js"))
-        frag.add_javascript(self.resource_string("static/js/src/tablefilter.js"))
-        frag.add_css(self.resource_string("static/css/shindigwidget.css"))
+        self.add_javascript_and_css(frag)
         frag.add_javascript(self.resource_string("static/js/src/shindigwidget_student.js"))
-        frag.initialize_js('ShindigXBlock', json_args=self.shindig_defaults)
+        frag.initialize_js('ShindigXBlock', json_args=shindig_defaults)
         return frag
 
     # TO-DO: change this handler to perform your own actions.  You may need more
@@ -114,3 +90,25 @@ class ShindigXBlock(XBlock):
             return Response(json_body={'remove': True})
         else:
             return Response(json_body={'remove': False})
+
+    def shindig_defaults(self):
+        try:
+            institution,  course, run = str(self.course_id).split('/')
+        except AttributeError:
+            institution = 'institution'
+            course = 'course'
+        return {"customerServicePhone": "(800)888-8888",
+                "customerServiceEmail": "help@shindigevents.com",
+                "institution": institution,
+                "course": course,
+                "host_events": "http://23.21.220.214:3000/",
+                "path_events": "api/events/",
+                "links_to_events_cms": "http://www.shindig.com/event/admin/",
+                "links_to_events_lms": "http://www.shindig.com/event/"}
+
+    def add_javascript_and_css(self, frag):
+        frag.add_javascript(self.resource_string("static/js/src/modernizr.js"))
+        frag.add_javascript(self.resource_string("static/js/src/jsonp.js"))
+        frag.add_javascript(self.resource_string("static/js/src/sorttable.js"))
+        frag.add_javascript(self.resource_string("static/js/src/tablefilter.js"))
+        frag.add_css(self.resource_string("static/css/shindigwidget.css"))
