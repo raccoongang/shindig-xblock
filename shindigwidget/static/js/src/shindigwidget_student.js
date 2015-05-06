@@ -18,7 +18,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             td = document.createElement('td');
             link = document.createElement('a');
             //link.href = item.link_url || item.event_url;
-            link.href = shindig_defaults.links_to_events_lms + item.eid;
+            link.href = shindig_defaults.links_to_events_lms + item.id;
             //link.target="postTarget";
             link.target ="_blank";
             //if (item.join_now){
@@ -83,12 +83,12 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
         }
 
         //Populate Event creation fields with provided default values
-        for (var element in shindig_defaults) {
-            if (shindig_defaults.hasOwnProperty(element)) {
+        for (var item in shindig_defaults) {
+            if (shindig_defaults.hasOwnProperty(item)) {
                 // Set default values for specific elements if they exist
-                el = document.getElementById(element);
+                el = document.getElementById(item);
                 if (el){
-                    el.value = shindig_defaults[element];
+                    el.value = shindig_defaults[item];
                 }
             }
         }
@@ -130,7 +130,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                     item = data[i];
 
                     now = new Date();
-                    startTime = new Date(item.start*1000);
+                    startTime = new Date(item.start);
                     eventDate = startTime.toDateString();
                     try {
                         eventDateSortable = startTime.toISOString().slice(0,10);
@@ -143,7 +143,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                         startTime = ex.message;
                     }
 
-                    endTime = new Date(item.end * 1000);
+                    endTime = new Date(item.end);
                     endTime   = endTime.toLocaleTimeString();
 
                     tr = document.createElement('tr');
@@ -154,7 +154,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                                item.subheading +
                                '<a href="'   +
                                    webcalURL +
-                                   item.eid  +
+                                   item.id  +
                                    '" title="Click to add to Calendar">' +
                                    '<i class="icon-calendar"></i>' +
                                '</a>');
@@ -182,20 +182,19 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
         };
 
-        getEvents = function() {
-            var institution, course;
-            //Get the current institution
-            institution = shindig_defaults.institution;
-            //Get the current course
-            course = shindig_defaults.course;
+        getEvents = function () {
+            $('.shindig-load').removeClass('is-hidden');
 
             //Get existing events
-            JSONP.get(
-                "//" + shindig.host + '/' + shindig.path,
-                {institution:institution, course:course},
-                populateEvents
-
-            );
+            $.ajax({
+                url: runtime.handlerUrl(element, 'get_events'),
+                type: "GET",
+                success: function(data){
+                    if (data.status){
+                        populateEvents(data.events);
+                    }
+                }
+            });
         };
 
         //Initialize event table

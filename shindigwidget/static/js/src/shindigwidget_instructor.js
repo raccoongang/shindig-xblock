@@ -46,7 +46,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             link = document.createElement('a');
             link.className = 'delete-event';
             link.href = '#';
-            link.setAttribute('data-eid', item.eid);
+            link.setAttribute('data-eid', item.id);
             link.innerHTML = "Delete | ";
             td.appendChild(link);
 
@@ -58,7 +58,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             //}
 
             eventLink = document.createElement('a');
-            eventLink.href = shindig_defaults.links_to_events_cms + item.eid;
+            eventLink.href = shindig_defaults.links_to_events_cms + item.id;
             eventLink.target = "_blank";
             eventLink.innerHTML = "Events";
             td.appendChild(eventLink);
@@ -176,12 +176,12 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
         }
 
         //Populate Event creation fields with provided default values
-        for (var element in shindig_defaults) {
-            if (shindig_defaults.hasOwnProperty(element)) {
+        for (var item in shindig_defaults) {
+            if (shindig_defaults.hasOwnProperty(item)) {
                 // Set default values for specific elements if they exist
-                el = document.getElementById(element);
+                el = document.getElementById(item);
                 if (el) {
-                    el.value = shindig_defaults[element];
+                    el.value = shindig_defaults[item];
                 }
             }
         }
@@ -223,7 +223,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                     item = data[i];
 
                     now = new Date();
-                    startTime = new Date(item.start * 1000);
+                    startTime = new Date(item.start);
                     startTime = new Date(startTime.getUTCFullYear(),
                                          startTime.getUTCMonth(),
                                          startTime.getUTCDate(),
@@ -242,7 +242,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                     }
 
 
-                    endTime = new Date(item.end * 1000);
+                    endTime = new Date(item.end);
                     endTime = new Date(endTime.getUTCFullYear(),
                                        endTime.getUTCMonth(),
                                        endTime.getUTCDate(),
@@ -258,7 +258,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                     item.subheading +
                     '<a href="' +
                     webcalURL +
-                    item.eid +
+                    item.id +
                     '" title="Click to add to Calendar">' +
                     '<i class="icon-calendar"></i>' +
                     '</a>');
@@ -295,18 +295,17 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
         getEvents = function () {
             $('.shindig-load').removeClass('is-hidden');
-            var institution, course;
-            //Get the current institution
-            institution = shindig_defaults.institution;
-            //Get the current course
-            course = shindig_defaults.course;
 
             //Get existing events
-            JSONP.get(
-                '//' + shindig.host + '/' + shindig.path,
-                {institution: institution, course: course},
-                populateEvents
-            );
+            $.ajax({
+                url: runtime.handlerUrl(element, 'get_events'),
+                type: "GET",
+                success: function(data){
+                    if (data.status){
+                        populateEvents(data.events);
+                    }
+                }
+            });
         };
 
         //Initialize event table

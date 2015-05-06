@@ -1,11 +1,12 @@
 """TO-DO: Write a description of what this XBlock is."""
-from django.http import HttpResponseBadRequest
+from django.conf import settings
+
 import pkg_resources
+import time
 import requests
 
-from django.core.exceptions import PermissionDenied
+from requests.auth import HTTPBasicAuth
 from webob.response import Response
-
 from xblock.core import XBlock
 from xblock.fields import Scope, Integer
 from xblock.fragment import Fragment
@@ -17,6 +18,20 @@ class ShindigXBlock(XBlock):
     """
     # Fields are defined on the class.  You can access them in your code as
     # self.<fieldname>.
+
+    SHINDIG_HOST_SERVER = "http://192.168.0.119:8787/"
+    # SHINDIG_HOST_SERVER = "http://23.21.220.214:3000/"
+    PATH_EVENTS = "api/events/"
+    PATH_TOKEN = "/o/token/"
+    AUTH_USERNAME = "admin"
+    AUTH_PASSWORD = "admin"
+    CLIENT_ID = "O9wtu5uxAHEQRpfHGE34VA4JRJAx1ipR8Gn4GHe3"
+    CLIENT_SECRET = "Fyspi6bn6vtQgVlrXyJHOuvR7DdO4R4A2XwxojvFYg92TtJr8d6weAlTK8oSUkJWCFdcti3IS3Ccb2WK4Svj8QnGvZjFAIaKXKA3xFVne78UyuD34LtKqRmCXILw6vGp"
+
+    CUSTOMER_SERVICE_PHONE = "(800)888-8888"
+    CUSTOMER_SERVICE_EMAIL = "help@shindigevents.com"
+    LINKS_TO_EVENTS_CMS = "http://www.shindig.com/event/admin/"
+    LINKS_TO_EVENTS_LMS = "http://www.shindig.com/event/"
 
     # TO-DO: delete count, and define your own fields.
     count = Integer(
@@ -83,28 +98,38 @@ class ShindigXBlock(XBlock):
 
     @XBlock.handler
     def remove_events(self, request, suffix=''):
-        eid = request.params['eid']
-        url = self.shindig_defaults['host_events'] + self.shindig_defaults['path_events'] + eid
-        req = requests.request('DELETE', url)
-        if req.status_code == 200:
-            return Response(json_body={'remove': True})
-        else:
-            return Response(json_body={'remove': False})
+        access_token = self.get_token(request)
+        if access_token:
+            url = self.SHINDIG_HOST_SERVER + self.PATH_EVENTS + request.params['eid']
+            headers = {"Authorization": "Bearer " + access_token}
+            req = requests.delete(url, headers=headers)
+            if req.status_code == 204:
+                return Response(json_body={'remove': True})
+        return Response(json_body={'remove': False})
 
-    def shindig_defaults(self):
+    @XBlock.handler
+    def get_events(self, request, suffix=''):
+        url = self.SHINDIG_HOST_SERVER + self.PATH_EVENTS
+        req = requests.get(url, params={'institution': self.institution, 'course': self.course})
+
+        if req.status_code == 200:
+            return Response(json_body={'events': req.json(), 'status': True})
+        return Response(json_body={'status': False})
+
+    def _course_id(self):
         try:
-            institution,  course, run = str(self.course_id).split('/')
+            course_id = self.course_id
         except AttributeError:
-            institution = 'institution'
-            course = 'course'
-        return {"customerServicePhone": "(800)888-8888",
-                "customerServiceEmail": "help@shindigevents.com",
-                "institution": institution,
-                "course": course,
-                "host_events": "http://23.21.220.214:3000/",
-                "path_events": "api/events/",
-                "links_to_events_cms": "http://www.shindig.com/event/admin/",
-                "links_to_events_lms": "http://www.shindig.com/event/"}
+            course_id = None
+        return course_id
+
+    @property
+    def institution(self):
+        return self._course_id() and str(self._course_id()).split('/')[0] or 'institution'
+
+    @property
+    def course(self):
+        return self._course_id() and str(self._course_id()).split('/')[1] or 'course'
 
     def add_javascript_and_css(self, frag):
         frag.add_javascript(self.resource_string("static/js/src/modernizr.js"))
@@ -112,3 +137,34 @@ class ShindigXBlock(XBlock):
         frag.add_javascript(self.resource_string("static/js/src/sorttable.js"))
         frag.add_javascript(self.resource_string("static/js/src/tablefilter.js"))
         frag.add_css(self.resource_string("static/css/shindigwidget.css"))
+
+    def shindig_defaults(self):
+        return {"customerServicePhone": self.CUSTOMER_SERVICE_PHONE,
+                "customerServiceEmail": self.CUSTOMER_SERVICE_EMAIL,
+                "institution": self.institution,
+                "course": self.course,
+                "host_events": self.SHINDIG_HOST_SERVER,
+                "path_events": self.PATH_EVENTS,
+                "links_to_events_cms": self.LINKS_TO_EVENTS_CMS,
+                "links_to_events_lms": self.LINKS_TO_EVENTS_LMS}
+
+    def get_token(self, request):
+        token = request.body_file.session.get("token")
+        expires_at = request.body_file.session.get("expires_at", 0)
+        if token and expires_at > time.time():
+            return token
+
+        client_auth = HTTPBasicAuth(self.CLIENT_ID, self.CLIENT_SECRET)
+        post_data = {"grant_type": "password",
+                     'username': self.AUTH_USERNAME,
+                     'password': self.AUTH_PASSWORD}
+        response = requests.post(self.SHINDIG_HOST_SERVER + self.PATH_TOKEN,
+                                 auth=client_auth,
+                                 data=post_data)
+
+        if response.status_code == 200:
+            token_json = response.json()
+            request.body_file.session["token"] = token_json["access_token"]
+            request.body_file.session["expires_at"] = time.time() + int(token_json["expires_in"])
+            return token_json["access_token"]
+        return None
