@@ -20,7 +20,7 @@ class ShindigXBlock(XBlock):
     SHINDIG_HOST_SERVER = "http://192.168.0.119:8787/"
     # SHINDIG_HOST_SERVER = "http://23.21.220.214:3000/"
     PATH_EVENTS = "api/events/"
-    PATH_TOKEN = "/o/token/"
+    PATH_TOKEN = "o/token/"
     AUTH_USERNAME = "admin"
     AUTH_PASSWORD = "admin"
     CLIENT_ID = "O9wtu5uxAHEQRpfHGE34VA4JRJAx1ipR8Gn4GHe3"
