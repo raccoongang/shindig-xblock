@@ -1,6 +1,4 @@
 """TO-DO: Write a description of what this XBlock is."""
-from django.conf import settings
-
 import pkg_resources
 import time
 import requests
@@ -93,19 +91,8 @@ class ShindigXBlock(XBlock):
             ("ShindigXBlock",
              """
                 <shindigwidget/>
-             """),           
+             """),
         ]
-
-    @XBlock.handler
-    def remove_events(self, request, suffix=''):
-        access_token = self.get_token(request)
-        if access_token:
-            url = self.SHINDIG_HOST_SERVER + self.PATH_EVENTS + request.params['eid']
-            headers = {"Authorization": "Bearer " + access_token}
-            req = requests.delete(url, headers=headers)
-            if req.status_code == 204:
-                return Response(json_body={'remove': True})
-        return Response(json_body={'remove': False})
 
     @XBlock.handler
     def get_events(self, request, suffix=''):
@@ -115,6 +102,28 @@ class ShindigXBlock(XBlock):
         if req.status_code == 200:
             return Response(json_body={'events': req.json(), 'status': True})
         return Response(json_body={'status': False})
+
+    @XBlock.handler
+    def create_event(self, request, suffix=''):
+        access_token = self.get_token(request)
+        if access_token:
+            url = self.SHINDIG_HOST_SERVER + self.PATH_EVENTS
+            headers = {"Authorization": "Bearer " + access_token}
+            req = requests.post(url, headers=headers, data=dict(request.params))
+            if req.status_code == 201:
+                return Response(json_body={'create': True})
+        return Response(json_body={'create': False})
+
+    @XBlock.handler
+    def remove_event(self, request, suffix=''):
+        access_token = self.get_token(request)
+        if access_token:
+            url = self.SHINDIG_HOST_SERVER + self.PATH_EVENTS + request.params['eid']
+            headers = {"Authorization": "Bearer " + access_token}
+            req = requests.delete(url, headers=headers)
+            if req.status_code == 204:
+                return Response(json_body={'remove': True})
+        return Response(json_body={'remove': False})
 
     def _course_id(self):
         try:

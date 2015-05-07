@@ -1,14 +1,12 @@
 function ShindigXBlock(runtime, element, shindig_defaults) {
 
+    var form = document.getElementById("shindig-signup");
+
     var shindig = (function () {
         //TODO:  DRY this code out vis-à-vis student.js
         var i,
             host,
-            form = document.getElementById("shindig-signup"),
-            recurring = form.querySelector('#RecurringEvent'),
             dates = form.querySelectorAll('[type=date]');
-
-        form.action = shindig_defaults.host_events + shindig_defaults.path_events;
 
         if (!!form) {
             //Quick hack to get host
@@ -29,7 +27,6 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             return this;
         };
 
-
         function checkEnter(e) {
             var evt = (evt) ? evt : ((event) ? event : null);
             var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
@@ -37,7 +34,6 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                 return false;
             }
         }
-
 
         function setLinkFormat(tr, item) {
             var td, link, eventLink;
@@ -78,44 +74,6 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             }
         }
 
-        function validateForm
-        (event) {
-            // fetch cross-browser event object and form node
-            event = (event ? event : window.event);
-
-            var form = (event.target ? event.target : event.srcElement),
-                formvalid = true; //false for testing
-
-            //Test checkboxes for valid state
-            if (recurring.checked) {
-                var checkboxes = form.querySelector('[name="days_of_the_week"]:checked');
-                if (!checkboxes) {
-                    formvalid = false;
-                    var errormsg = form.querySelector('.days-of-week-error');
-                    errormsg.classList.remove('hidden');
-                }
-            }
-
-            // cancel form submit if validation fails
-            if (!formvalid) {
-                if (event.preventDefault) event.preventDefault();
-                //show error message
-
-            } else {
-                if (document.querySelector('.fltrow')) {
-                    //Set filters
-                    var subheading = form.querySelector('#subheading').value,
-                        eventType = form.querySelector('[name="event_type"]:checked').value;
-                    setFilterGrid('event-table');
-                    TF_SetFilterValue('event-table', 0, eventType + ' - ' + subheading);
-                    TF_SetFilterValue('event-table', 1, form.querySelector('#description').value);
-                    TF_Filter("event-table");
-                }
-
-            }
-            return formvalid;
-        }
-
         // Add additional validation rules
         i = dates.length; //or 10
         while (i--) {
@@ -126,10 +84,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
         document.getElementById('startdate').value = new Date().toISOString().slice(0, 10);
         document.getElementById('enddate').value = new Date().toISOString().slice(0, 10);
 
-        // onsubmit used for easier cross-browser compatibility
-        form.onsubmit = validateForm;
         form.onkeypress = checkEnter;
-
 
         return {
             host: host,
@@ -143,28 +98,9 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
         "use strict";
 
         //Set up local vars
-        var postTarget, clearFilters, el, getEvents, populateEvents, buildTD, webcalURL, isFirstTime;
+        var clearFilters, el, getEvents, populateEvents, buildTD, webcalURL;
 
-        isFirstTime = true;
         webcalURL = "webcal://" + shindig.host + '/createical?eid=';
-
-
-        //Set up event handler for iframe target onload
-        postTarget = document.getElementById("postTarget");
-        if (!!postTarget) {
-            postTarget.onload = function () {
-                if (isFirstTime) {
-                    isFirstTime = false;
-                } else {
-                    getEvents();
-                    //Set the Events tab as the active tab
-                    var eventsRadioButton = document.getElementById('s3');
-                    if (eventsRadioButton) {
-                        eventsRadioButton.checked = true;
-                    }
-                }
-            };
-        }
 
         //Set up event handler for Clear Filters
         clearFilters = document.getElementById("shindig-clear-filters");
@@ -186,13 +122,6 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             }
         }
 
-        //Initialize events list
-        JSONP.init({
-            error: function (ex) {
-                alert("Failed to load : " + ex.url);
-            }
-        });
-
         buildTD = function (tr, data) {
             var td;
             td = document.createElement('td');
@@ -203,15 +132,12 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
         populateEvents = function (data) {
             $('.shindig-load').addClass('is-hidden');
-            var eventDateSortable,
-                eventList = document.getElementById('event-list'),
+            var eventList = document.getElementById('event-list'),
                 len = data.length || 0,
                 item = null,
                 tr = null;
 
-
             //Reset event list
-            isFirstTime = false;
             eventList.innerHTML = "";
 
             //Populate event list rows
@@ -311,6 +237,58 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
         //Initialize event table
         getEvents();
 
+        $('#shindig-signup').on('submit', createEvent);
+
+        function createEvent(event) {
+             // fetch cross-browser event object and form node
+            event = (event ? event : window.event);
+            if (event.preventDefault) event.preventDefault();
+            var formvalid = validateForm(event);
+            if (formvalid) {
+                $.ajax({
+                    url: runtime.handlerUrl(element, 'create_event'),
+                    type: "POST",
+                    data: $('#shindig-signup').serialize(),
+                    success: function(data) {
+                        if (data.create){
+                            if (document.querySelector('.fltrow')) {
+                                //Set filters
+                                var subheading = form.querySelector('#subheading').value,
+                                    eventType = form.querySelector('[name="event_type"]:checked').value;
+                                setFilterGrid('event-table');
+                                TF_SetFilterValue('event-table', 0, eventType + ' - ' + subheading);
+                                TF_SetFilterValue('event-table', 1, form.querySelector('#description').value);
+                                TF_Filter("event-table");
+                            }
+                            getEvents();
+                            //Set the Events tab as the active tab
+                            var eventsRadioButton = document.getElementById('s3');
+                            if (eventsRadioButton) {
+                                eventsRadioButton.checked = true;
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        function validateForm(event) {
+            var form = (event.target ? event.target : event.srcElement),
+                formvalid = true; //false for testing
+
+            //Test checkboxes for valid state
+            var recurring = form.querySelector('#RecurringEvent');
+            if (recurring.checked) {
+                var checkboxes = form.querySelector('[name="days_of_the_week"]:checked');
+                if (!checkboxes) {
+                    formvalid = false;
+                    var errormsg = form.querySelector('.days-of-week-error');
+                    errormsg.classList.remove('hidden');
+                }
+            }
+            return formvalid;
+        }
+
     })();
 
     $('.action-cancel').click(function (event) {
@@ -321,7 +299,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
         $('.delete-event').click(function (event) {
             event.preventDefault();
             $.ajax({
-                url: runtime.handlerUrl(element, 'remove_events'),
+                url: runtime.handlerUrl(element, 'remove_event'),
                 type: "POST",
                 data: {'eid': $(event.currentTarget).data('eid')},
                 success: function(data){
@@ -332,5 +310,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             });
         });
     }
+
+
 
 }
