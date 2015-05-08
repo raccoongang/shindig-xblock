@@ -18,7 +18,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             td = document.createElement('td');
             link = document.createElement('a');
             //link.href = item.link_url || item.event_url;
-            link.href = shindig_defaults.links_to_events_lms + item.id;
+            link.href = shindig_defaults.links_to_events_lms + item.eid;
             //link.target="postTarget";
             link.target ="_blank";
             //if (item.join_now){
@@ -130,7 +130,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                     item = data[i];
 
                     now = new Date();
-                    startTime = new Date(item.start);
+                    startTime = new Date(item.start * 1000);
                     eventDate = startTime.toDateString();
                     try {
                         eventDateSortable = startTime.toISOString().slice(0,10);
@@ -143,7 +143,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                         startTime = ex.message;
                     }
 
-                    endTime = new Date(item.end);
+                    endTime = new Date(item.end * 1000);
                     endTime   = endTime.toLocaleTimeString();
 
                     tr = document.createElement('tr');
@@ -154,7 +154,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                                item.subheading +
                                '<a href="'   +
                                    webcalURL +
-                                   item.id  +
+                                   item.eid  +
                                    '" title="Click to add to Calendar">' +
                                    '<i class="icon-calendar"></i>' +
                                '</a>');
