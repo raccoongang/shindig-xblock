@@ -17,12 +17,12 @@ class ShindigXBlock(XBlock):
     # Fields are defined on the class.  You can access them in your code as
     # self.<fieldname>.
 
-    SHINDIG_HOST_SERVER = "http://192.168.0.119:8787/"
-    # SHINDIG_HOST_SERVER = "http://23.21.220.214:3000/"
+    SHINDIG_HOST_SERVER = "http://shindig-server.raccoongang.com/"
+    #SHINDIG_HOST_SERVER = "http://23.21.220.214:3000/"
     PATH_EVENTS = "api/events/"
     PATH_TOKEN = "o/token/"
-    AUTH_USERNAME = "admin"
-    AUTH_PASSWORD = "admin"
+    AUTH_USERNAME = "root"
+    AUTH_PASSWORD = "keifOkbiv9"
     CLIENT_ID = "LV0tm4l5S47uRQn3yYlVDcWGkahO5dOgA99Y2Ifn"
     CLIENT_SECRET = "engLelV6EjtJf8Pai1CEvvxSgDlfSkaaLp2aQ1UbazRQ59HP40dVksyXMOr8ycHRSDZHFVcbtbFwf3tTtyYdHv54BLnQGEejEqJ5WNNgVZgXrovSvTdQjlJDvrAIZMW7"
 
