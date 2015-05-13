@@ -1,5 +1,9 @@
-/* Javascript for ShindigXBlock. */
 function ShindigXBlock(runtime, element, shindig_defaults) {
+
+    if (!shindig_defaults.is_valid_settings){
+        alert('xBlock settings are not properly configured!');
+        return
+    }
 
     var shindig = (function(){
         var host = document.getElementById("shindig-signup-student");
