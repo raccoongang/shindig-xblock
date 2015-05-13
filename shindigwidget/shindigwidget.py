@@ -65,7 +65,11 @@ class ShindigXBlock(XBlock):
         html = self.resource_string("static/html/shindig_student.html")
         frag = Fragment(html.format(self=self))
         self.add_javascript_and_css(frag)
+        frag.add_javascript(self.resource_string("static/js/src/addthisevent.min.js"))
+        frag.add_javascript(self.resource_string("static/js/src/jstz.min.js"))
         frag.add_javascript(self.resource_string("static/js/src/shindigwidget_student.js"))
+        frag.add_css(self.resource_string("static/css/addthisevent.theme8.css"))
+
         frag.initialize_js('ShindigXBlock', json_args=shindig_defaults)
         return frag
 

@@ -150,10 +150,10 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                     now = new Date();
                     startTime = new Date(item.start * 1000);
                     startTime = new Date(startTime.getUTCFullYear(),
-                                         startTime.getUTCMonth(),
-                                         startTime.getUTCDate(),
-                                         startTime.getUTCHours(),
-                                         startTime.getUTCMinutes());
+                        startTime.getUTCMonth(),
+                        startTime.getUTCDate(),
+                        startTime.getUTCHours(),
+                        startTime.getUTCMinutes());
                     eventDate = startTime.toDateString();
                     try {
                         eventDateSortable = startTime.toISOString().slice(0, 10);
@@ -169,24 +169,18 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
                     endTime = new Date(item.end * 1000);
                     endTime = new Date(endTime.getUTCFullYear(),
-                                       endTime.getUTCMonth(),
-                                       endTime.getUTCDate(),
-                                       endTime.getUTCHours(),
-                                       endTime.getUTCMinutes());
-                    endTime   = endTime.toLocaleTimeString();
+                        endTime.getUTCMonth(),
+                        endTime.getUTCDate(),
+                        endTime.getUTCHours(),
+                        endTime.getUTCMinutes());
+                    endTime = endTime.toLocaleTimeString();
 
                     tr = document.createElement('tr');
                     tr.className += ("event-type " + item.event_type);
 
-                    buildTD(tr, item.event_type +
-                    ' - ' +
-                    item.subheading +
-                    '<a href="' +
-                    webcalURL +
-                    item.eid +
-                    '" title="Click to add to Calendar">' +
-                    '<i class="icon-calendar"></i>' +
-                    '</a>');
+                    buildTD(
+                        tr, item.event_type + ' - ' + item.subheading
+                    );
                     buildTD(tr, item.description);
                     special = buildTD(tr, eventDate);
                     //Set custom sort key for date value
@@ -225,8 +219,8 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             $.ajax({
                 url: runtime.handlerUrl(element, 'get_events'),
                 type: "GET",
-                success: function(data){
-                    if (data.status){
+                success: function (data) {
+                    if (data.status) {
                         populateEvents(data.events);
                     }
                 }
@@ -239,7 +233,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
         $('#shindig-signup').on('submit', createEvent);
 
         function createEvent(event) {
-             // fetch cross-browser event object and form node
+            // fetch cross-browser event object and form node
             event = (event ? event : window.event);
             if (event.preventDefault) event.preventDefault();
             var formvalid = validateForm(event);
@@ -248,8 +242,8 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                     url: runtime.handlerUrl(element, 'create_event'),
                     type: "POST",
                     data: $('#shindig-signup').serialize(),
-                    success: function(data) {
-                        if (data.create){
+                    success: function (data) {
+                        if (data.create) {
                             if (document.querySelector('.fltrow')) {
                                 //Set filters
                                 var subheading = form.querySelector('#subheading').value,
@@ -301,8 +295,8 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                 url: runtime.handlerUrl(element, 'remove_event'),
                 type: "POST",
                 data: {'eid': $(event.currentTarget).data('eid')},
-                success: function(data){
-                    if (data.remove){
+                success: function (data) {
+                    if (data.remove) {
                         callback();
                     }
                 }
