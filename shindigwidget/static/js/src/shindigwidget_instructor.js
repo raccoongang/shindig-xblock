@@ -309,4 +309,12 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
         });
     };
 
+    $.ajax({
+        url: runtime.handlerUrl(element, 'get_user_email_and_username'),
+        type: "GET",
+        success: function (data) {
+            $(element).find("[data-user-email]").val(data.email);
+        }
+    });
+
 }

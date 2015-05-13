@@ -16,7 +16,6 @@ class ShindigXBlock(XBlock):
     PATH_TOKEN = "o/token/"
 
     CUSTOMER_SERVICE_PHONE = "(800)888-8888"
-    CUSTOMER_SERVICE_EMAIL = "help@shindigevents.com"
     LINKS_TO_EVENTS_CMS = "http://www.shindig.com/event/admin/"
     LINKS_TO_EVENTS_LMS = "http://www.shindig.com/event/"
 
@@ -96,6 +95,11 @@ class ShindigXBlock(XBlock):
                 return Response(json_body={'remove': True})
         return Response(json_body={'remove': False})
 
+    @XBlock.handler
+    def get_user_email_and_username(self, request, suffix=''):
+        user = request.body_file.user
+        return Response(json_body={'email': user.email, 'username': user.username})
+
     def get_course_id(self):
         try:
             course_id = self.course_id
@@ -121,7 +125,6 @@ class ShindigXBlock(XBlock):
     def shindig_defaults(self):
         shindig_settings = self.get_shindig_settings()
         return {"customerServicePhone": self.CUSTOMER_SERVICE_PHONE,
-                "customerServiceEmail": self.CUSTOMER_SERVICE_EMAIL,
                 "institution": self.institution,
                 "course": self.course,
                 "host_events": self.SHINDIG_HOST_SERVER,
