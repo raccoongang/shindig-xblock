@@ -11,8 +11,7 @@ from xblock.fragment import Fragment
 
 class ShindigXBlock(XBlock):
 
-    # SHINDIG_HOST_SERVER = "http://shindig-server.raccoongang.com/"
-    SHINDIG_HOST_SERVER = "http://192.168.0.119:8787/"
+    SHINDIG_HOST_SERVER = "http://shindig-server.raccoongang.com/"
     PATH_EVENTS = "api/events/"
     PATH_TOKEN = "o/token/"
     PATH_HASH_KEY_USER = "api/lti_users/"
