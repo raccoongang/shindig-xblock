@@ -67,7 +67,10 @@ class ShindigXBlock(XBlock):
     @XBlock.handler
     def get_events(self, request, suffix=''):
         url = self.SHINDIG_HOST_SERVER + self.PATH_EVENTS
-        req = requests.get(url, params={'institution': self.institution, 'course': self.course})
+        course = self.get_course_obj()
+        req = requests.get(url,
+                           params={'institution': course.org if course else None,
+                                   'course': course.number if course else None})
 
         if req.status_code == 200:
             return Response(json_body={'events': req.json(), 'status': True})
@@ -79,7 +82,10 @@ class ShindigXBlock(XBlock):
         if access_token:
             url = self.SHINDIG_HOST_SERVER + self.PATH_EVENTS
             headers = {"Authorization": "Bearer " + access_token}
-            req = requests.post(url, headers=headers, data=dict(request.params))
+            data = dict(request.params)
+            course = self.get_course_obj()
+            data['course_run'] = course.url_name if course else 'course_run'
+            req = requests.post(url, headers=headers, data=data)
             if req.status_code == 201:
                 return Response(json_body={'create': True})
         return Response(json_body={'create': False})
@@ -100,20 +106,12 @@ class ShindigXBlock(XBlock):
         user = request.body_file.user
         return Response(json_body={'email': user.email, 'username': user.username})
 
-    def get_course_id(self):
+    def get_course_obj(self):
         try:
-            course_id = self.course_id
+            course = self.runtime.modulestore.get_course(self.course_id)
         except AttributeError:
-            course_id = None
-        return course_id
-
-    @property
-    def institution(self):
-        return self.get_course_id() and str(self.get_course_id()).split('/')[0] or 'institution'
-
-    @property
-    def course(self):
-        return self.get_course_id() and str(self.get_course_id()).split('/')[1] or 'course'
+            course = None
+        return course
 
     def add_javascript_and_css(self, frag):
         frag.add_javascript(self.resource_string("static/js/src/modernizr.js"))
@@ -124,9 +122,10 @@ class ShindigXBlock(XBlock):
 
     def shindig_defaults(self):
         shindig_settings = self.get_shindig_settings()
+        course = self.get_course_obj()
         return {"customerServicePhone": self.CUSTOMER_SERVICE_PHONE,
-                "institution": self.institution,
-                "course": self.course,
+                "institution": course.org if course else 'institution',
+                "course": course.number if course else 'course',
                 "host_events": self.SHINDIG_HOST_SERVER,
                 "path_events": self.PATH_EVENTS,
                 "links_to_events_cms": self.LINKS_TO_EVENTS_CMS,
@@ -158,9 +157,9 @@ class ShindigXBlock(XBlock):
 
     def get_shindig_settings(self):
         shindig_settings = {}
-        course_id = self.get_course_id()
-        if course_id:
-            lti_passports = self.runtime.modulestore.get_course(self.course_id).lti_passports
+        course = self.get_course_obj()
+        if course:
+            lti_passports = course.lti_passports
             for lti_passport in lti_passports:
                 try:
                     name, key, secret = [i.strip() for i in lti_passport.split(':')]
