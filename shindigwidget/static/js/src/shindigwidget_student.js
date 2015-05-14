@@ -22,7 +22,11 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             td = document.createElement('td');
             link = document.createElement('a');
             //link.href = item.link_url || item.event_url;
-            link.href = shindig_defaults.links_to_events_lms + item.eid;
+            if (item.temp_link) {
+                link.href = shindig_defaults.links_to_events_lms + item.temp_link;
+            } else {
+                link.href = shindig_defaults.links_to_events_lms + item.eid;
+            }
             //link.target="postTarget";
             link.target = "_blank";
             //if (item.join_now){
