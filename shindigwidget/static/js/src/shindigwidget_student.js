@@ -17,15 +17,15 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             host = a.host;
         }
 
-        function setLinkFormat(tr, item) {
+        function setLinkFormat(tr, item, hashKeyUser) {
             var td, link;
             td = document.createElement('td');
             link = document.createElement('a');
             //link.href = item.link_url || item.event_url;
             if (item.temp_link) {
-                link.href = shindig_defaults.links_to_events_lms + item.temp_link;
+                link.href = shindig_defaults.links_to_events_lms + item.temp_link + '/?hashKeyUser=' + hashKeyUser;
             } else {
-                link.href = shindig_defaults.links_to_events_lms + item.eid;
+                link.href = shindig_defaults.links_to_events_lms + item.eid + '/?hashKeyUser=' + hashKeyUser;
             }
             //link.target="postTarget";
             link.target = "_blank";
@@ -117,7 +117,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             return td;
         };
 
-        populateEvents = function (data) {
+        populateEvents = function (data, hashKeyUser) {
             //Setup settings
             initSettingsAddthisevent();
 
@@ -206,7 +206,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                     special.setAttribute('sorttable_customkey', eventDateSortable);
                     buildTD(tr, startTime);
                     buildTD(tr, endTime);
-                    shindig.buildLink(tr, item);
+                    shindig.buildLink(tr, item, hashKeyUser);
                     eventList.appendChild(tr);
                 }
             }
@@ -243,6 +243,8 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
         };
 
 
+        var hashKeyUser = false;
+
         getEvents = function () {
             $('.shindig-load').removeClass('is-hidden');
 
@@ -252,10 +254,15 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                 type: "GET",
                 success: function (data) {
                     if (data.status) {
-                        populateEvents(data.events);
-                        addthisevent.generate();
-                        // Hide advertising
-                        $('.frs').hide();
+                        var intervalID = setInterval(function () {
+                            if (getHashKeyUser.isResolved()) {
+                                populateEvents(data.events, hashKeyUser);
+                                addthisevent.generate();
+                                // Hide advertising
+                                $('.frs').hide();
+                                clearInterval(intervalID)
+                            }
+                        })
                     }
                 }
             });
@@ -264,6 +271,13 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
         //Initialize event table
         getEvents();
 
+        var getHashKeyUser = $.ajax({
+            url: runtime.handlerUrl(element, 'get_hash_key_user'),
+            type: "GET",
+            success: function (data) {
+                hashKeyUser = data.hash_key;
+            }
+        })
 
     })();
 

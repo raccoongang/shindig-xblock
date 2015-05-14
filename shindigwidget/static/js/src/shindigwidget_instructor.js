@@ -40,7 +40,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             }
         }
 
-        function setLinkFormat(tr, item) {
+        function setLinkFormat(tr, item, hashKeyUser) {
             var td, link, eventLink;
             td = document.createElement('td');
 
@@ -60,9 +60,9 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
             eventLink = document.createElement('a');
             if (item.temp_link) {
-                eventLink.href = shindig_defaults.links_to_events_cms + item.temp_link;
+                eventLink.href = shindig_defaults.links_to_events_cms + item.temp_link + '/?hashKeyUser=' + hashKeyUser;
             } else {
-                eventLink.href = shindig_defaults.links_to_events_cms + item.eid;
+                eventLink.href = shindig_defaults.links_to_events_cms + item.eid + '/?hashKeyUser=' + hashKeyUser;
             }
             eventLink.target = "_blank";
             eventLink.innerHTML = "Events";
@@ -138,7 +138,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             return td;
         };
 
-        populateEvents = function (data) {
+        populateEvents = function (data, hashKeyUser) {
             $('.shindig-load').addClass('is-hidden');
             var eventList = document.getElementById('event-list'),
                 len = data.length || 0,
@@ -196,7 +196,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                     special.setAttribute('sorttable_customkey', eventDateSortable);
                     buildTD(tr, startTime);
                     buildTD(tr, endTime);
-                    shindig.buildLink(tr, item);
+                    shindig.buildLink(tr, item, hashKeyUser);
                     eventList.appendChild(tr);
                 }
             }
@@ -221,6 +221,8 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
         };
 
+        var hashKeyUser = false;
+
         getEvents = function () {
             $('.shindig-load').removeClass('is-hidden');
 
@@ -230,7 +232,12 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                 type: "GET",
                 success: function (data) {
                     if (data.status) {
-                        populateEvents(data.events);
+                        var intervalID = setInterval(function () {
+                            if (getHashKeyUser.isResolved()) {
+                                populateEvents(data.events, hashKeyUser);
+                                clearInterval(intervalID)
+                            }
+                        })
                     }
                 }
             });
@@ -238,6 +245,14 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
         //Initialize event table
         getEvents();
+
+        var getHashKeyUser = $.ajax({
+            url: runtime.handlerUrl(element, 'get_hash_key_user'),
+            type: "GET",
+            success: function (data) {
+                hashKeyUser = data.hash_key;
+            }
+        });
 
         $('#shindig-signup').on('submit', createEvent);
 

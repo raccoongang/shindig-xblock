@@ -11,9 +11,11 @@ from xblock.fragment import Fragment
 
 class ShindigXBlock(XBlock):
 
-    SHINDIG_HOST_SERVER = "http://shindig-server.raccoongang.com/"
+    # SHINDIG_HOST_SERVER = "http://shindig-server.raccoongang.com/"
+    SHINDIG_HOST_SERVER = "http://192.168.0.119:8787/"
     PATH_EVENTS = "api/events/"
     PATH_TOKEN = "o/token/"
+    PATH_HASH_KEY_USER = "api/lti_users/"
 
     CUSTOMER_SERVICE_PHONE = "(800)888-8888"
     LINKS_TO_EVENTS_CMS = "http://www.shindig.com/event/admin/"
@@ -105,6 +107,18 @@ class ShindigXBlock(XBlock):
     def get_user_email_and_username(self, request, suffix=''):
         user = request.body_file.user
         return Response(json_body={'email': user.email, 'username': user.username})
+
+    @XBlock.handler
+    def get_hash_key_user(self, request, suffix=''):
+        access_token = self.get_token(request)
+        if access_token:
+            url = self.SHINDIG_HOST_SERVER + self.PATH_HASH_KEY_USER
+            headers = {"Authorization": "Bearer " + access_token}
+            data = {'email': request.body_file.user.email, 'username': request.body_file.user.username}
+            req = requests.post(url, headers=headers, data=data)
+            if req.status_code == 201:
+                return Response(json_body=req.json())
+        return Response(json_body={'hash_key': False})
 
     def get_course_obj(self):
         try:
