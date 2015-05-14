@@ -60,9 +60,9 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
             eventLink = document.createElement('a');
             if (item.temp_link) {
-                eventLink.href = shindig_defaults.links_to_events_cms + item.temp_link + '/?hashKeyUser=' + hashKeyUser;
+                eventLink.href = shindig_defaults.links_to_events_cms + item.temp_link + '/?hash_key=' + hashKeyUser;
             } else {
-                eventLink.href = shindig_defaults.links_to_events_cms + item.eid + '/?hashKeyUser=' + hashKeyUser;
+                eventLink.href = shindig_defaults.links_to_events_cms + item.eid + '/?hash_key=' + hashKeyUser;
             }
             eventLink.target = "_blank";
             eventLink.innerHTML = "Events";

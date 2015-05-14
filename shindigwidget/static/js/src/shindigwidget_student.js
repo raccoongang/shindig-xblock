@@ -23,9 +23,9 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             link = document.createElement('a');
             //link.href = item.link_url || item.event_url;
             if (item.temp_link) {
-                link.href = shindig_defaults.links_to_events_lms + item.temp_link + '/?hashKeyUser=' + hashKeyUser;
+                link.href = shindig_defaults.links_to_events_lms + item.temp_link + '/?hash_key=' + hashKeyUser;
             } else {
-                link.href = shindig_defaults.links_to_events_lms + item.eid + '/?hashKeyUser=' + hashKeyUser;
+                link.href = shindig_defaults.links_to_events_lms + item.eid + '/?hash_key=' + hashKeyUser;
             }
             //link.target="postTarget";
             link.target = "_blank";
