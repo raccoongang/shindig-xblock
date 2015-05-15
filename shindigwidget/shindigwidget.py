@@ -1,4 +1,5 @@
 """TO-DO: Write a description of what this XBlock is."""
+import re
 import pkg_resources
 import time
 import requests
@@ -7,6 +8,35 @@ from requests.auth import HTTPBasicAuth
 from webob.response import Response
 from xblock.core import XBlock
 from xblock.fragment import Fragment
+
+
+def _quote_slashes(match):
+    """
+    Helper function for `quote_slashes`
+    """
+    matched = match.group(0)
+    # We have to escape ';', because that is our
+    # escape sequence identifier (otherwise, the escaping)
+    # couldn't distinguish between us adding ';_' to the string
+    # and ';_' appearing naturally in the string
+    if matched == ';':
+        return ';;'
+    elif matched == '/':
+        return ';_'
+    else:
+        return matched
+
+
+def quote_slashes(text):
+    """
+    Quote '/' characters so that they aren't visible to
+    django's url quoting, unquoting, or url regex matching.
+
+    Escapes '/'' to the sequence ';_', and ';' to the sequence
+    ';;'. By making the escape sequence fixed length, and escaping
+    identifier character ';', we are able to reverse the escaping.
+    """
+    return re.sub(ur'[;/]', _quote_slashes, text)
 
 
 class ShindigXBlock(XBlock):
@@ -31,7 +61,8 @@ class ShindigXBlock(XBlock):
         """
         shindig_defaults = self.shindig_defaults()
         html = self.resource_string("static/html/shindig_instructor.html")
-        frag = Fragment(html.format(self=self))
+        frag = Fragment(html.format(self=self,
+                                    url_hash_key_user=self.get_handler_url('get_hash_key_user')))
         if self.runtime.__class__.__name__ == 'WorkbenchRuntime':
             self.add_javascript_and_css(frag)
         frag.add_javascript(self.resource_string("static/js/src/shindigwidget_instructor.js"))
@@ -192,3 +223,9 @@ class ShindigXBlock(XBlock):
                'PASSWORD' in settings and \
                'CLIENT_ID' in settings and \
                'CLIENT_SECRET' in settings
+
+    def get_handler_url(self, handler_name):
+        return '/courses/{course_id}/xblock/{usage_id}/handler/{handler_name}'\
+            .format(course_id=unicode(self.course_id),
+                    usage_id=quote_slashes(unicode(self.scope_ids.usage_id).encode('utf-8')),
+                    handler_name=handler_name)
