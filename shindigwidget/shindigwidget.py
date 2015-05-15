@@ -131,6 +131,7 @@ class ShindigXBlock(XBlock):
         frag.add_javascript(self.resource_string("static/js/src/jsonp.js"))
         frag.add_javascript(self.resource_string("static/js/src/sorttable.js"))
         frag.add_javascript(self.resource_string("static/js/src/tablefilter.js"))
+        frag.add_javascript(self.resource_string("static/js/src/dateFormat.js"))
         frag.add_css(self.resource_string("static/css/shindigwidget.css"))
 
     def shindig_defaults(self):

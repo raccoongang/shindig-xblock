@@ -173,10 +173,10 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                         '<div title="Add to Calendar" class="addthisevent">' +
                         '<i class="icon-calendar"></i>' +
                         '<span class="start">' +
-                        convertUtcToDate(item.start, "m/d/Y H:i") +
+                        convertUtcToDate(item.start, "mm/dd/yyyy HH:MM") +
                         '</span>' +
                         '<span class="end">' +
-                        convertUtcToDate(item.end, "m/d/Y H:i") +
+                        convertUtcToDate(item.end, "mm/dd/yyyy HH:MM") +
                         '</span>' +
                         '<span class="timezone">' +
                         tz.name() +
@@ -262,7 +262,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                                 $('.frs').hide();
                                 clearInterval(intervalID)
                             }
-                        })
+                        }, 300)
                     }
                 }
             });

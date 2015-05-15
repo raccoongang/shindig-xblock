@@ -237,7 +237,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                                 populateEvents(data.events, hashKeyUser);
                                 clearInterval(intervalID)
                             }
-                        })
+                        }, 300)
                     }
                 }
             });
