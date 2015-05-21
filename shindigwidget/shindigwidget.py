@@ -148,6 +148,9 @@ class ShindigXBlock(XBlock):
             req = requests.post(url, headers=headers, data=data)
             if req.status_code == 201:
                 return Response(json_body=req.json())
+            else:
+                del request.body_file.session["token"]
+                del request.body_file.session["expires_at"]
         return Response(json_body={'hash_key': False})
 
     def get_course_obj(self):
