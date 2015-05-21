@@ -59,7 +59,7 @@
     height: 28px;
     *margin-top: 4px;
     line-height: 28px;
-    width: 220px;
+    width: 270px;
     background-color: #fff; }
   #shindig-signup textarea, #shindig-signup-student textarea {
     height: auto; }
@@ -172,6 +172,12 @@
     background-position: -120px -96px; }
   #shindig-signup .icon-calendar, #shindig-signup-student .icon-calendar {
     background-position: -192px -120px; }
+  #shindig-signup .icon-person, #shindig-signup-student .icon-person {
+    background-position: -168px -0px; }
+  #shindig-signup .icon-search, #shindig-signup-student .icon-search {
+    background-position: -48px -0px; }
+  #shindig-signup .icon-clear, #shindig-signup-student .icon-clear {
+    background-position: -50px -98px; }
   #shindig-signup .well, #shindig-signup-student .well {
     min-height: 20px;
     padding: 19px;
@@ -707,6 +713,13 @@
   z-index: 999;
   white-space: nowrap;
   font-size: 0; }
+    .tab-container .tabs .logo-holder{
+        position: absolute;
+        right: 8px;
+        top: 6px;
+        width: 177px;
+        height: 32px;
+    }
   #shindig-signup .tab-container .tabs label, #shindig-signup-student .tab-container .tabs label {
     display: inline-block;
     vertical-align: bottom;
@@ -973,5 +986,468 @@ and also iPads specifically.
   color: #777; }
 .shindig-legend li {
   display: inline-block !important; }
+
+#shindig-signup.form-horizontal .column-holder,
+#shindig-signup-student.form-horizontal .column-holder{
+    margin: 0 0 15px;
+    padding: 25px 0 0;
+}
+.column-holder:after,
+.event-holder:after{
+    display: block;
+    clear: both;
+    content: '';
+}
+#shindig-signup.form-horizontal .column-holder .column-left,
+#shindig-signup-student.form-horizontal .column-holder .column-left{
+    width: 380px;
+    float: left;
+    margin: 0 30px 0 0;
+}
+#shindig-signup.form-horizontal .column-holder .column-right,
+#shindig-signup-student.form-horizontal .column-holder .column-right{
+    overflow: hidden;
+}
+
+@media only screen and (max-width: 960px){
+    #shindig-signup.form-horizontal .column-holder .column-right,
+    #shindig-signup-student.form-horizontal .column-holder .column-right{
+        width: 380px;
+        clear: both;
+    }
+}
+
+#shindig-signup.form-horizontal .column-holder .control-group,
+#shindig-signup-student.form-horizontal .column-holder .control-group {
+    margin-bottom: 56px;
+}
+
+#shindig-signup.form-horizontal .column-holder .control-label,
+#shindig-signup-student.form-horizontal .column-holder .control-label { float: left;
+    width: 70px;
+}
+
+#shindig-signup.form-horizontal .column-holder .controls,
+#shindig-signup-student.form-horizontal .column-holder .controls {
+    margin-left: 80px;
+}
+#shindig-signup.form-horizontal .event-holder,
+#shindig-signup-student.form-horizontal .event-holder{
+    margin: -6px 40px 0 80px;
+}
+#shindig-signup.form-horizontal .event-holder .column-left,
+#shindig-signup-student.form-horizontal .event-holder .column-left{
+    min-width: 360px;
+    width: 46%;
+    float: left;
+}
+#shindig-signup.form-horizontal .event-holder .column-right,
+#shindig-signup-student.form-horizontal .event-holder .column-right{
+    min-width: 362px;
+    width: 46%;
+    float: right;
+}
+
+#shindig-signup.form-horizontal .event-holder .control-label,
+#shindig-signup-student.form-horizontal .event-holder .control-label{
+    width: auto;
+    display: block;
+    float: none;
+    margin: 0 0 8px;
+    text-align: left;
+}
+#shindig-signup.form-horizontal .event-holder .controls,
+#shindig-signup-student.form-horizontal .event-holder .controls{
+    margin-left: 0;
+    display: block;
+}
+
+#shindig-signup input[type='date'],
+#shindig-signup-student input[type='date']{
+    width: 104px;
+    padding: 3px;
+}
+#shindig-signup input[type='time'],
+#shindig-signup-student input[type='time']{
+    width: 63px;
+    padding: 3px;
+}
+
+#shindig-signup .control-group .time-unit,
+#shindig-signup-student .control-group .time-unit{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0 0 7px;
+}
+#shindig-signup .control-group .time-unit:first-child,
+#shindig-signup-student .control-group .time-unit:first-child{
+    margin-left: 0;
+}
+#shindig-signup .control-group .time-unit .controls:after,
+#shindig-signup-student .control-group .time-unit .controls:after{
+    display: block;
+    clear: both;
+    content: '';
+}
+#shindig-signup .control-group .time-unit .controls .add-on,
+#shindig-signup-student .control-group .time-unit .controls .add-on,
+#shindig-signup .control-group .time-unit .controls input,
+#shindig-signup-student .control-group .time-unit .controls input{
+    float: left;
+}
+
+#shindig-signup .event-holder textarea.input-xlarge,
+#shindig-signup-student .event-holder textarea.input-xlarge{
+    width: 345px;
+    height: 112px;
+}
+
+#shindig-signup .event-holder input#subheading,
+#shindig-signup-student .event-holder input#subheading{
+    width: 328px;
+}
+#shindig-signup .event-holder input#customerServicePhone,
+#shindig-signup-student .event-holder input#customerServicePhone{
+    width: 267px;
+}
+
+#shindig-signup.form-horizontal .event-holder .control-group,
+#shindig-signup-student.form-horizontal .event-holder .control-group {
+    margin-bottom: 6px;
+}
+
+#shindig-signup .event-holder .column-right .input-xlarge,
+#shindig-signup-student .event-holder .column-right .input-xlarge{
+    width: 277px;
+}
+#shindig-signup .control-group.indent,
+#shindig-signup-student .control-group.indent{
+    margin: 0 0 0 185px;
+}
+
+#shindig-signup .schedule,
+#shindig-signup-student .schedule{
+    background: #DDDDDD;
+}
+.schedule:after{
+    display: block;
+    clear: both;
+    content: '';
+}
+#shindig-signup .schedule .top-bar,
+#shindig-signup-student .schedule .top-bar{
+    padding: 7px 20px 7px 10px;
+}
+.schedule .top-bar:after{
+    display: block;
+    clear: both;
+    content:'';
+}
+#shindig-signup .schedule .legend,
+#shindig-signup-student .schedule .legend{
+    overflow: hidden;
+    margin: 0 0 0 -10px;
+    padding: 4px 0 0 10px;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 24px;
+    background: none;
+    box-shadow: none;
+}
+#shindig-signup .schedule .legend em,
+#shindig-signup-student .schedule .legend em{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0 0 20px;
+    font-style: normal;
+}
+#shindig-signup .schedule .legend span,
+#shindig-signup-student .schedule .legend span{
+     display: inline-block;
+     vertical-align: middle;
+     width: 30px;
+     height: 16px;
+     margin: -2px 5px 0 0;
+     border: 1px solid #999999;
+}
+#shindig-signup .top-bar .utils,
+#shindig-signup-student .top-bar .utils{
+    float: right;
+    white-space: nowrap;
+}
+#shindig-signup .top-bar .utils .input-prepend,
+#shindig-signup-student .top-bar .utils .input-prepend{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 32px 0 0;
+}
+#shindig-signup .top-bar .utils .search-box,
+#shindig-signup-student .top-bar .utils .search-box{
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    overflow: hidden;
+}
+#shindig-signup .top-bar .utils .search-box input[type='text'],
+#shindig-signup-student .top-bar .utils .search-box input[type='text'],
+#shindig-signup .top-bar .utils .search-box button,
+#shindig-signup-student .top-bar .utils .search-box button{
+    float: left;
+}
+#shindig-signup .top-bar .utils .search-box input[type='text'],
+#shindig-signup-student .top-bar .utils .search-box input[type='text']{
+    padding-left:38px;
+}
+#shindig-signup .top-bar .utils .search-box .add-on,
+#shindig-signup-student .top-bar .utils .search-box .add-on{
+    position: absolute;
+    left: 7px;
+    top: 6px;
+    opacity: .5;
+}
+#shindig-signup .top-bar .utils .search-box input[type='text'],
+#shindig-signup-student .top-bar .utils .search-box input[type='text']{
+    padding-left:26px;
+    width: 130px;
+    height: 28px;
+}
+#shindig-signup .top-bar .utils .search-box .search-btn,
+#shindig-signup-student .top-bar .utils .search-box .search-btn{
+    width: 60px;
+    height: 28px;
+    margin: 0 10px 0 -3px;
+    padding: 0;
+    color: #6c6c6c;
+    font-weight: bold;
+    font-size: 11px;
+    line-height: 26px;
+    border: 1px solid #cbcbcb;
+    background: #f5f5f5;
+    border-radius: 0 3px 3px 0;
+}
+#shindig-signup .top-bar .utils .search-box .search-clear,
+#shindig-signup-student .top-bar .utils .search-box .search-clear{
+    width: 20px;
+    height: 20px;
+    margin: 4px 0 0;
+    padding: 0;
+    color: #6c6c6c;
+    font-weight: bold;
+    font-size: 0;
+    line-height: 0;
+    box-shadow: none;
+    border: 5px solid #222;
+    background-color: transparent;
+    background-clip: border-box;
+    background-image: url(//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/img/glyphicons-halflings.png);
+    border-radius: 50%;
+    opacity: 0.5;
+}
+#shindig-signup .top-bar .utils .search-box .search-clear:hover,
+#shindig-signup-student .top-bar .utils .search-box .search-clear:hover{
+    opacity: 0.8;
+}
+
+#shindig-signup .schedule .list-holder,
+#shindig-signup-student .schedule .list-holder{
+    padding: 1px;
+    border-bottom: 1px solid #FFFFFF;
+    background: #e8e8e8;
+}
+#shindig-signup .schedule .list-holder:after,
+#shindig-signup-student .schedule .list-holder:after{
+    width: 100%;
+    display: table;
+    clear: both;
+    content: '';
+}
+#shindig-signup .schedule .list-holder .list-item,
+#shindig-signup-student .schedule .list-holder .list-item{
+    width: 100%;
+    border-top: 1px solid #FFFFFF;
+}
+.schedule .list-holder .list-item:after{
+    display: block;
+    clear: both;
+    content: '';
+}
+
+#shindig-signup .schedule .list-holder .list-item .event,
+#shindig-signup-student .schedule .list-holder .list-item .event{
+    padding: 6px 20px 10px;
+    border-left: 8px solid #F0F0F0;
+}
+.schedule .list-holder .list-item .event:after{
+    display: block;
+    clear: both;
+    content: '';
+}
+#shindig-signup .schedule .list-holder .list-item.orange .event,
+#shindig-signup-student .schedule .list-holder .list-item.orange .event{
+    border-left-color: #FFD98B;
+}
+#shindig-signup .schedule .list-holder .list-item.purple .event,
+#shindig-signup-student .schedule .list-holder .list-item.purple .event{
+    border-left-color: #E6BCFE;
+}
+#shindig-signup .schedule .list-holder .list-item.magenta .event,
+#shindig-signup-student .schedule .list-holder .list-item.magenta .event{
+    border-left-color: #A2EBBC;
+}
+#shindig-signup.form-horizontal .schedule .control-group,
+#shindig-signup-student.form-horizontal .schedule .control-group {
+    margin: 0;
+}
+#shindig-signup.form-horizontal .schedule .more .controls,
+#shindig-signup-student.form-horizontal .schedule .more .controls {
+    margin: 6px 5px 6px 28px;
+}
+
+#shindig-signup.form-horizontal .schedule .btn-success,
+#shindig-signup-student.form-horizontal .schedule .btn-success{
+    width: 62px;
+    height: 24px;
+    margin: 0px 0 0 10px;
+    padding: 4px 5px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 15px;
+}
+#shindig-signup.form-horizontal .schedule a.btn-success,
+#shindig-signup-student.form-horizontal .schedule a.btn-success{
+    height: 26px;
+    box-sizing: border-box;
+}
+#shindig-signup.form-horizontal .schedule .active .btn-success,
+#shindig-signup-student.form-horizontal .schedule .active .btn-success{
+    margin: 0 0 0 10px;
+}
+#shindig-signup.form-horizontal .schedule .btn-success.del,
+#shindig-signup-student.form-horizontal .schedule .btn-success.del{
+    background: #e86767;
+}
+#shindig-signup.form-horizontal .schedule .btn-success.del:hover,
+#shindig-signup-student.form-horizontal .schedule .btn-success.del:hover{
+    background: #be3d3d;
+}
+#shindig-signup.form-horizontal .schedule .more .controls,
+#shindig-signup-student.form-horizontal .schedule .more .controls {
+    margin: 7px 5px 7px 28px;
+}
+#shindig-signup.form-horizontal .schedule .more .btn-info,
+#shindig-signup-student.form-horizontal .schedule .more .btn-info{
+    height: 18px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 15px;
+
+}
+#shindig-signup .event .title-holder,
+#shindig-signup-student .event .title-holder,{
+    margin: 0 0 12px;
+}
+.event .title-holder:after{
+    display: block;
+    clear: both;
+    content: '';
+}
+#shindig-signup .event .title-holder .wrap,
+#shindig-signup-student .event .title-holder .wrap{
+    position: relative;
+    overflow: hidden;
+    padding: 0 15px 0 17px;
+}
+#shindig-signup .event .title-holder .date,
+#shindig-signup-student .event .title-holder .date{
+    float: right;
+    font-size: 14px;
+    margin: 0;
+    color: #009FE6;
+    text-decoration: none;
+}
+.event .title-holder .date:hover{
+    text-decoration: underline;
+}
+#shindig-signup .schedule .event.active .title-holder .date,
+#shindig-signup-student .schedule .event.active .title-holder .date{
+    margin: 0;
+    font-style: normal;
+}
+#shindig-signup .event .title-holder h2,
+#shindig-signup-student .event .title-holder h2{
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    margin: 0;
+    color: #333;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    text-transform: none;
+}
+
+#shindig-signup .event .icon-wrap,
+#shindig-signup-student  .event .icon-wrap{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 14px;
+    height: 14px;
+    background-image: url(//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/img/glyphicons-halflings.png);
+    background-position: -456px -72px;
+    border-radius: 50%;
+    opacity: 0.5;
+    cursor: pointer;
+}
+#shindig-signup .event.active .icon-wrap,
+#shindig-signup-student  .event.active .icon-wrap{
+    background-position: -312px -120px;
+}
+
+.event .event-info{
+    display: none;
+}
+
+.event.active .event-info{
+    display: block;
+}
+
+div.ui-loading.shindig-load p{
+    text-align: center;
+}
+
+@media only screen and (max-width: 990px){
+    #shindig-signup .top-bar .utils,
+    #shindig-signup-student .top-bar .utils{
+        float: none;
+        margin: 0 0 0 20px;
+    }
+}
+
+@media only screen and (max-width: 1350px){
+    #shindig-signup.form-horizontal .event-holder .column-right,
+    #shindig-signup-student.form-horizontal .event-holder .column-right{
+        min-width: 360px;
+        width: auto;
+        float: none;
+        clear: both;
+    }
+    #shindig-signup .btn,
+    #shindig-signup-student .btn{
+        padding: 4px 18px;
+    }
+    #shindig-signup .event-holder input#customerServicePhone,
+    #shindig-signup-student .event-holder input#customerServicePhone{
+        width: 314px;
+    }
+    #shindig-signup .event-holder .column-right .input-xlarge,
+    #shindig-signup-student .event-holder .column-right .input-xlarge{
+        width: 324px;
+    }
+    #shindig-signup .control-group.indent,
+    #shindig-signup-student .control-group.indent{
+        margin: 0 0 0 214px;
+    }
+}
 
 /*# sourceMappingURL=main.css.map */

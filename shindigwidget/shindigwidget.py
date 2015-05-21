@@ -78,11 +78,7 @@ class ShindigXBlock(XBlock):
         html = self.resource_string("static/html/shindig_student.html")
         frag = Fragment(html.format(self=self))
         self.add_javascript_and_css(frag)
-        frag.add_javascript(self.resource_string("static/js/src/addthisevent.min.js"))
-        frag.add_javascript(self.resource_string("static/js/src/jstz.min.js"))
         frag.add_javascript(self.resource_string("static/js/src/shindigwidget_student.js"))
-        frag.add_css(self.resource_string("static/css/addthisevent.theme8.css"))
-
         frag.initialize_js('ShindigXBlock', json_args=shindig_defaults)
         return frag
 
@@ -119,7 +115,8 @@ class ShindigXBlock(XBlock):
             data['course_run'] = course.url_name if course else 'course_run'
             req = requests.post(url, headers=headers, data=data)
             if req.status_code == 201:
-                return Response(json_body={'create': True})
+                return Response(json_body={'create': True,
+                                           'event': req.json()})
         return Response(json_body={'create': False})
 
     @XBlock.handler
@@ -160,15 +157,15 @@ class ShindigXBlock(XBlock):
     def add_javascript_and_css(self, frag):
         frag.add_javascript(self.resource_string("static/js/src/modernizr.js"))
         frag.add_javascript(self.resource_string("static/js/src/jsonp.js"))
-        frag.add_javascript(self.resource_string("static/js/src/sorttable.js"))
-        frag.add_javascript(self.resource_string("static/js/src/tablefilter.js"))
-        frag.add_javascript(self.resource_string("static/js/src/dateFormat.js"))
+        frag.add_javascript(self.resource_string("static/js/src/addthisevent.min.js"))
+        frag.add_javascript(self.resource_string("static/js/src/jstz.min.js"))
         frag.add_css(self.resource_string("static/css/shindigwidget.css"))
+        frag.add_css(self.resource_string("static/css/addthisevent.theme7.css"))
 
     def shindig_defaults(self):
         shindig_settings = self.get_shindig_settings()
         course = self.get_course_obj()
-        return {"customerServicePhone": self.CUSTOMER_SERVICE_PHONE,
+        return {"service_phone": self.CUSTOMER_SERVICE_PHONE,
                 "institution": course.org if course else 'institution',
                 "course": course.number if course else 'course',
                 "host_events": self.SHINDIG_HOST_SERVER,

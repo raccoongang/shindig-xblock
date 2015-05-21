@@ -7,7 +7,7 @@
 .addthisevent .data 					{display:none!important;}
 
 /* The button */
-.addthisevent-drop 						{display:inline;position:relative;z-index:999998;font-family:Roboto,Optima,Segoe,"Segoe UI",Candara,Calibri,Arial,sans-serif;font-weight:300;color:#333;text-decoration:none;font-size:16px;cursor:pointer;}
+.addthisevent-drop 						{display:inline-block;position:relative;z-index:4;font-family:Roboto,Optima,Segoe,"Segoe UI",Candara,Calibri,Arial,sans-serif;font-weight:300;color:#333;text-decoration:none;font-size:16px;cursor:pointer;}
 .addthisevent-drop:hover 				{color:#555;font-size:16px;text-decoration:underline;}
 
 /* The drop down */

@@ -5,250 +5,56 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
         return
     }
 
-    var shindig = (function () {
-        var host = document.getElementById("shindig-signup-student");
 
-        host.action = shindig_defaults.host_events + shindig_defaults.path_events;
+    window.RequireJS.require.config({
+        paths: {
+            moment: '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min'
 
-        if (!!host) {
-            //Quick hack to get host
-            var a = document.createElement('a');
-            a.href = host.action;
-            host = a.host;
-        }
-
-        function setLinkFormat(tr, item, hashKeyUser) {
-            var td, link;
-            td = document.createElement('td');
-            link = document.createElement('a');
-            //link.href = item.link_url || item.event_url;
-            if (item.temp_link) {
-                link.href = shindig_defaults.links_to_events_lms + item.temp_link + '/?hash_key=' + hashKeyUser;
-            } else {
-                link.href = shindig_defaults.links_to_events_lms + item.eid + '/?hash_key=' + hashKeyUser;
-            }
-            //link.target="postTarget";
-            link.target = "_blank";
-            //if (item.join_now){
-            //    link.innerHTML = "Join";
-            //    link.target ="_blank";
-            //} else {
-            //    link.innerHTML = "RSVP";
-            //    link.target ="_blank";
-            //}
-            link.innerHTML = "Events";
-            td.appendChild(link);
-            tr.appendChild(td);
-        }
-
-        return {
-            host: host,
-            path: shindig_defaults.path_events,
-            buildLink: setLinkFormat
-        };
-    }());
-
-    /*
-     * Lightweight Event Management for Shindig
-     * Copyright 2014 Charles Fulnecky for Shindig. All rights reserved.
-     * TODO: Insert licencing here
-     */
-
-    (function () {
-        "use strict";
-
-        //Set up local vars
-        var postTarget, clearFilters, el, getEvents, populateEvents, buildTD, webcalURL, isFirstTime, convertUtcToDate, initSettingsAddthisevent;
-
-
-        isFirstTime = true;
-        webcalURL = "webcal://" + shindig.host + '/createical?eid=';
-
-
-        //Set up event handler for iframe target onload
-        postTarget = document.getElementById("postTarget");
-        if (!!postTarget) {
-            postTarget.onload = function () {
-                if (isFirstTime) {
-                    isFirstTime = false;
-                } else {
-                    getEvents();
-                    //Set the Events tab as the active tab
-                    var eventsRadioButton = document.getElementById('s3');
-                    if (eventsRadioButton) {
-                        eventsRadioButton.checked = true;
-                    }
-                }
-            };
-        }
-
-        //Set up event handler for Clear Filters
-        clearFilters = document.getElementById("s-shindig-clear-filters");
-        if (!!clearFilters) {
-            clearFilters.onclick = function () {
-                TF_ClearFilters('s-event-table');
-                TF_Filter('s-event-table');
-            };
-        }
-
-        //Populate Event creation fields with provided default values
-        for (var item in shindig_defaults) {
-            if (shindig_defaults.hasOwnProperty(item)) {
-                // Set default values for specific elements if they exist
-                el = document.getElementById(item);
-                if (el) {
-                    el.value = shindig_defaults[item];
-                }
+        },
+        shim: {
+            'moment': {
+                exports: 'moment'
             }
         }
+    });
 
-        //Initialize events list
-        JSONP.init({
-            error: function (ex) {
-                alert("Failed to load : " + ex.url);
+    window.RequireJS.require(['moment'], function(moment) {
+
+        moment.locale('en', {
+            calendar : {
+                sameDay: '[Today from] h:mma',
+                nextDay: '[Tomorrow from] h:mma',
+                sameElse: '[On] dddd MMM Do [from] h:mma',
+                lastWeek: '[On] dddd MMM Do [from] h:mma',
+                nextWeek: '[On] dddd MMM Do [from] h:mma',
+                lastDay: '[On] dddd MMM Do [from] h:mma'
             }
         });
 
-        buildTD = function (tr, data) {
-            var td;
-            td = document.createElement('td');
-            td.innerHTML = data;
-            tr.appendChild(td);
-            return td;
-        };
-
-        populateEvents = function (data, hashKeyUser) {
-            //Setup settings
-            initSettingsAddthisevent();
-
-            $('.s-shindig-load').addClass('is-hidden');
-            var eventDateSortable,
-                eventList = document.getElementById('s-event-list'),
-                len = data.length || 0,
-                item = null,
-                tr = null;
-
-
-            //Reset event list
-            isFirstTime = false;
-            eventList.innerHTML = "";
-
-            //Populate event list rows
-            if (!!eventList && !!data && len > 0) {
-
-                for (var i = 0; i < len; i++) {
-
-                    var eventDate, eventDateSortable, now, startTime, endTime, special;
-                    item = data[i];
-
-                    now = new Date();
-                    startTime = new Date(item.start * 1000);
-                    eventDate = startTime.toDateString();
-                    try {
-                        eventDateSortable = startTime.toISOString().slice(0, 10);
-                    } catch (ex) {
-                        eventDateSortable = ex.message;
-                    }
-                    try {
-                        startTime = startTime.toLocaleTimeString();
-                    } catch (ex) {
-                        startTime = ex.message;
-                    }
-
-                    endTime = new Date(item.end * 1000);
-                    endTime = endTime.toLocaleTimeString();
-
-                    tr = document.createElement('tr');
-                    tr.className += ("event-type " + item.event_type);
-
-
-                    var tz = jstz.determine();
-
-
-
-                    buildTD(tr, item.event_type +
-                        ' - ' +
-                        item.subheading +
-
-                        '<div title="Add to Calendar" class="addthisevent">' +
-                        '<i class="icon-calendar"></i>' +
-                        '<span class="start">' +
-                        convertUtcToDate(item.start, "mm/dd/yyyy HH:MM") +
-                        '</span>' +
-                        '<span class="end">' +
-                        convertUtcToDate(item.end, "mm/dd/yyyy HH:MM") +
-                        '</span>' +
-                        '<span class="timezone">' +
-                        tz.name() +
-                        '</span>' +
-                        '<span class="title">' +
-                        item.event_type + ' - ' + item.subheading +
-                        '</span>' +
-                        '<span class="description">' +
-                        item.description +
-                        '</span>' +
-                        '<span class="location">Location of the event</span>' +
-                        '<span class="organizer">' +
-                        item.institution +
-                        '</span>' +
-                        '<span class="organizer_email">' +
-                        item.service_email +
-                        '</span>' +
-                        '<span class="all_day_event">false</span>' +
-                        '<span class="date_format">MM/DD/YYYY</span>' +
-                        '</div>'
-
-                    );
-
-                    buildTD(tr, item.description);
-                    special = buildTD(tr, eventDate);
-                    //Set custom sort key for date value
-                    special.setAttribute('sorttable_customkey', eventDateSortable);
-                    buildTD(tr, startTime);
-                    buildTD(tr, endTime);
-                    shindig.buildLink(tr, item, hashKeyUser);
-                    eventList.appendChild(tr);
-                }
-            }
-            if (len > 0) {
-                if (!document.querySelector('.fltrow')) {
-                    //Set event filters
-                    window.setTimeout(function () {
-                        setFilterGrid('s-event-table');
-                        TF_Filter("s-event-table");
-                    }, 100);
-                } else {
-                    TF_Filter("s-event-table");
-                }
-            }
-
-        };
-
-        initSettingsAddthisevent = function () {
-            addthisevent.settings({
-                        license: "replace-with-your-licensekey",
-                        css: false,
-                        outlook: {show: true, text: "Outlook Calendar"},
-                        google: {show: true, text: "Google Calendar"},
-                        yahoo: {show: true, text: "Yahoo Calendar"},
-                        outlookcom: {show: true, text: "Outlook.com"},
-                        appleical: {show: true, text: "Apple iCalendar"},
-                        dropdown: {order: "appleical,google,outlook,outlookcom,yahoo"}
-                    });
-        };
-        convertUtcToDate = function (utcSeconds, format) {
-            var date = new Date(0);
-            date.setUTCSeconds(utcSeconds);
-            return date.format(format)
-        };
-
+        addthisevent.settings({
+            license: "replace-with-your-licensekey",
+            css: false,
+            outlook: {show: true, text: "Outlook Calendar"},
+            google: {show: true, text: "Google Calendar"},
+            yahoo: {show: true, text: "Yahoo Calendar"},
+            outlookcom: {show: true, text: "Outlook.com"},
+            appleical: {show: true, text: "Apple iCalendar"},
+            dropdown: {order: "appleical,google,outlook,outlookcom,yahoo"}
+        });
 
         var hashKeyUser = false;
+        var getHashKeyUser = $.ajax({
+            url: runtime.handlerUrl(element, 'get_hash_key_user'),
+            type: "GET",
+            success: function (data) {
+                hashKeyUser = data.hash_key;
+            }
+        });
 
-        getEvents = function () {
-            $('.shindig-load').removeClass('is-hidden');
-
-            //Get existing events
+        // initialize event list
+        var dataEvents = [];
+        var getEvents = function () {
+            $('.shindig-load', element).removeClass('is-hidden');
             $.ajax({
                 url: runtime.handlerUrl(element, 'get_events'),
                 type: "GET",
@@ -256,30 +62,103 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                     if (data.status) {
                         var intervalID = setInterval(function () {
                             if (getHashKeyUser.isResolved()) {
-                                populateEvents(data.events, hashKeyUser);
-                                addthisevent.generate();
-                                // Hide advertising
-                                $('.frs').hide();
+                                dataEvents = data.events;
+                                renderEvents(dataEvents.slice(0, 3));
                                 clearInterval(intervalID)
                             }
                         }, 300)
+
                     }
                 }
             });
         };
 
-        //Initialize event table
         getEvents();
 
-        var getHashKeyUser = $.ajax({
-            url: runtime.handlerUrl(element, 'get_hash_key_user'),
-            type: "GET",
-            success: function (data) {
-                hashKeyUser = data.hash_key;
+        var renderEvents = function(events) {
+            var eventList = '';
+            var template = _.template($('#event-item-student', element).text());
+            _.each(events, function(event){
+                var values = getValuesForTemplate(event);
+                eventList += template(values);
+            });
+            $('.shindig-load', element).addClass('is-hidden');
+            $("[data-event-list]", element).html(eventList);
+            $('[data-event]:first', element).addClass('active');
+            addthisevent.generate();
+            actionToggleActive();
+            if (dataEvents.length > events.length) {
+                $('[data-block-more]', element).removeClass('is-hidden');
+            } else {
+                $('[data-block-more]', element).addClass('is-hidden');
             }
-        })
 
-    })();
+        };
 
+        var getValuesForTemplate = function (data) {
+            var eventTypeClass = {OH: 'purple', DS: 'orange', SH: 'magenta'};
+            var tz = jstz.determine();
+            var linksText = 'RSVP';
+            if (moment.unix(data.start) < moment()) {
+                linksText = 'Join';
+            }
+            return {
+                eventType: eventTypeClass[data.event_type],
+                title: data.subheading,
+                description: data.description,
+                stringDate: moment.unix(data.start).calendar() + moment.unix(data.end).format("[ to] h:mma"),
+                startDate: moment.unix(data.start).format("MM/DD/YY HH:mm"),
+                endDate: moment.unix(data.end).format("MM/DD/YY HH:mm"),
+                timezone: tz.name(),
+                institution: shindig_defaults.institution,
+                email: shindig_defaults.service_phone,
+                eid: data.eid,
+                linksToEvent: shindig_defaults.links_to_events_lms,
+                linksText: linksText,
+                hashKeyUser: hashKeyUser
+            }
+        };
 
+        $('[data-btn-more], [data-search-clear]', element).on('click', function (event) {
+            event.preventDefault();
+            $('[data-search-text]', element).val('');
+            $('[data-search-date]', element).val('');
+            renderEvents(dataEvents);
+        });
+
+        var search = function(event) {
+            event.preventDefault();
+            var searchText = $('[data-search-text]', element).val();
+            var searchDate = $('[data-search-date]', element).val();
+            if (searchText || searchDate) {
+                var searchEvent = _.filter(dataEvents, function (data) {
+                    var isText = data.subheading.indexOf(searchText) != -1;
+                    var isDate = moment.unix(data.start).isSame(moment(searchDate), 'day');
+                    if (searchText && searchDate) {
+                        return isText && isDate
+                    }
+                    if (searchText) {
+                        return isText
+                    }
+                    if (searchDate) {
+                        return isDate
+                    }
+                });
+                renderEvents(searchEvent);
+            }
+        };
+
+        $('[data-search-btn]', element).on('click', search);
+        $('[data-search-text]', element).on('keypress', function (event) {
+            if (event.which == 13) {
+                search(event)
+            }
+        });
+
+        var actionToggleActive = function () {
+            $('[data-toggle-active]', element).on('click', function (event) {
+                $(event.currentTarget).parents('.event').toggleClass('active');
+            })
+        };
+    });
 }
