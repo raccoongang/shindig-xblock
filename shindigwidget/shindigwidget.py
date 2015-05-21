@@ -141,7 +141,10 @@ class ShindigXBlock(XBlock):
         if access_token:
             url = self.SHINDIG_HOST_SERVER + self.PATH_HASH_KEY_USER
             headers = {"Authorization": "Bearer " + access_token}
-            data = {'email': request.body_file.user.email, 'username': request.body_file.user.username}
+            edx_role = 'staff' if request.body_file.user.is_staff else 'student'
+            data = {'email': request.body_file.user.email,
+                    'username': request.body_file.user.username,
+                    'edx_role': edx_role}
             req = requests.post(url, headers=headers, data=data)
             if req.status_code == 201:
                 return Response(json_body=req.json())
