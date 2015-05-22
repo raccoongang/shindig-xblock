@@ -193,7 +193,8 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                             dataEvents.push(data.event);
                             dataEvents.sort(function(ev1, ev2) {
                                 return ev1.start - ev2.start
-                            })
+                            });
+                            clearForm();
                         } else {
                             alert('Error create');
                             renderEvents(dataEvents.slice(0, 3));
@@ -232,6 +233,14 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             $('[data-toggle-active]', element).on('click', function (event) {
                 $(event.currentTarget).parents('.event').toggleClass('active');
             })
+        };
+
+        var clearForm = function(){
+            $(element).find('[data-title]').val('');
+            $(element).find('[data-description]').val('');
+            $(element).find('[data-startdate]').val(moment.utc().format('YYYY-MM-DD'));
+            $(element).find('[data-start-time]').val('');
+            $(element).find('[data-end-time]').val('');
         };
     });
 }
