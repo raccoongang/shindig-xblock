@@ -148,7 +148,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                 var searchEvent = _.filter(dataEvents, function (data) {
                     var isTextTitle = data.subheading.toLowerCase().indexOf(searchText) != -1;
                     var isTextDescription = data.description.toLowerCase().indexOf(searchText) != -1;
-                    var isDate = moment.unix(data.start).isSame(moment(searchDate), 'day');
+                    var isDate = moment.unix(data.start).utc().isSame(moment.utc(searchDate), 'day');
                     if (searchText && searchDate) {
                         return (isTextTitle || isTextDescription) && isDate
                     }
