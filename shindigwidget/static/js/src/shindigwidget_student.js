@@ -102,6 +102,12 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             if (moment.unix(data.start) < moment()) {
                 linksText = 'Join';
             }
+            var linksToEvent;
+            if (data.temp_link) {
+                linksToEvent = shindig_defaults.links_to_events_lms + data.temp_link + '/?hash_key=' + hashKeyUser
+            } else {
+                linksToEvent = shindig_defaults.links_to_events_lms + data.eid + '/?hash_key=' + hashKeyUser
+            }
             return {
                 eventType: eventTypeClass[data.event_type],
                 title: data.subheading,
@@ -113,9 +119,8 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                 institution: shindig_defaults.institution,
                 email: shindig_defaults.service_phone,
                 eid: data.eid,
-                linksToEvent: shindig_defaults.links_to_events_lms,
-                linksText: linksText,
-                hashKeyUser: hashKeyUser
+                linksToEvent: linksToEvent,
+                linksText: linksText
             }
         };
 
