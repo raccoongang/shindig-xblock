@@ -140,18 +140,20 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             renderEvents(dataEvents);
         });
 
-        var search = function() {
-            var searchText = $('[data-search-text]', element).val();
+        var search = function(event) {
+            event.preventDefault();
+            var searchText = $('[data-search-text]', element).val().toLowerCase();
             var searchDate = $('[data-search-date]', element).val();
             if (searchText || searchDate) {
                 var searchEvent = _.filter(dataEvents, function (data) {
-                    var isText = data.subheading.indexOf(searchText) != -1;
-                    var isDate = moment.unix(data.start).utc().isSame(moment.utc(searchDate), 'day');
+                    var isTextTitle = data.subheading.toLowerCase().indexOf(searchText) != -1;
+                    var isTextDescription = data.description.toLowerCase().indexOf(searchText) != -1;
+                    var isDate = moment.unix(data.start).isSame(moment(searchDate), 'day');
                     if (searchText && searchDate) {
-                        return isText && isDate
+                        return (isTextTitle || isTextDescription) && isDate
                     }
                     if (searchText) {
-                        return isText
+                        return isTextTitle || isTextDescription
                     }
                     if (searchDate) {
                         return isDate
@@ -164,8 +166,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
         $('[data-search-btn]', element).on('click', search);
         $('[data-search-text]', element).on('keypress', function (event) {
             if (event.which == 13) {
-                event.preventDefault();
-                search()
+                search(event);
             }
         });
         $('[data-search-date]', element).on('change', function (event) {

@@ -133,17 +133,18 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
         var search = function(event) {
             event.preventDefault();
-            var searchText = $('[data-search-text]', element).val();
+            var searchText = $('[data-search-text]', element).val().toLowerCase();
             var searchDate = $('[data-search-date]', element).val();
             if (searchText || searchDate) {
                 var searchEvent = _.filter(dataEvents, function (data) {
-                    var isText = data.subheading.indexOf(searchText) != -1;
+                    var isTextTitle = data.subheading.toLowerCase().indexOf(searchText) != -1;
+                    var isTextDescription = data.description.toLowerCase().indexOf(searchText) != -1;
                     var isDate = moment.unix(data.start).isSame(moment(searchDate), 'day');
                     if (searchText && searchDate) {
-                        return isText && isDate
+                        return (isTextTitle || isTextDescription) && isDate
                     }
                     if (searchText) {
-                        return isText
+                        return isTextTitle || isTextDescription
                     }
                     if (searchDate) {
                         return isDate
