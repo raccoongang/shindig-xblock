@@ -1065,11 +1065,13 @@ and also iPads specifically.
 #shindig-signup input[type='date'],
 #shindig-signup-student input[type='date']{
     width: 104px;
+    height: 20px;
     padding: 3px;
 }
 #shindig-signup input[type='time'],
 #shindig-signup-student input[type='time']{
     width: 63px;
+    height: 20px;
     padding: 3px;
 }
 
@@ -1306,12 +1308,12 @@ and also iPads specifically.
 #shindig-signup.form-horizontal .schedule .btn-success,
 #shindig-signup-student.form-horizontal .schedule .btn-success{
     width: 62px;
-    height: 24px;
+    height: 26px;
     margin: 0px 0 0 10px;
     padding: 4px 5px;
     font-weight: bold;
     font-size: 14px;
-    line-height: 15px;
+    line-height: 17px;
 }
 #shindig-signup.form-horizontal .schedule a.btn-success,
 #shindig-signup-student.form-horizontal .schedule a.btn-success{
@@ -1339,7 +1341,7 @@ and also iPads specifically.
     height: 18px;
     font-weight: bold;
     font-size: 14px;
-    line-height: 15px;
+    line-height: 18px;
 
 }
 #shindig-signup .event .title-holder,
@@ -1355,6 +1357,7 @@ and also iPads specifically.
 #shindig-signup-student .event .title-holder .wrap{
     position: relative;
     overflow: hidden;
+    margin: 0 0 0 -17px;
     padding: 0 15px 0 17px;
 }
 #shindig-signup .event .title-holder .date,
@@ -1390,7 +1393,7 @@ and also iPads specifically.
 #shindig-signup-student  .event .icon-wrap{
     position: absolute;
     left: 0;
-    top: 0;
+    top: 4px;
     width: 14px;
     height: 14px;
     background-image: url(//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/img/glyphicons-halflings.png);
