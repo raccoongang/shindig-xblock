@@ -45,6 +45,7 @@ class ShindigXBlock(XBlock):
     PATH_EVENTS = "api/events/"
     PATH_TOKEN = "o/token/"
     PATH_HASH_KEY_USER = "api/lti_users/"
+    PATH_WIDGET = 'embed_events_widget/'
 
     CUSTOMER_SERVICE_PHONE = "(800)888-8888"
     LINKS_TO_EVENTS_CMS = "http://www.shindig.com/event/admin/"
@@ -62,7 +63,7 @@ class ShindigXBlock(XBlock):
         shindig_defaults = self.shindig_defaults()
         html = self.resource_string("static/html/shindig_instructor.html")
         frag = Fragment(html.format(self=self,
-                                    url_hash_key_user=self.get_handler_url('get_hash_key_user')))
+                                    embed_code=self.embed_code(shindig_defaults)))
         if self.runtime.__class__.__name__ == 'WorkbenchRuntime':
             self.add_javascript_and_css(frag)
         frag.add_javascript(self.resource_string("static/js/src/shindigwidget_instructor.js"))
@@ -174,8 +175,7 @@ class ShindigXBlock(XBlock):
         return {"service_phone": self.CUSTOMER_SERVICE_PHONE,
                 "institution": course.org if course else 'institution',
                 "course": course.number if course else 'course',
-                "host_events": self.SHINDIG_HOST_SERVER,
-                "path_events": self.PATH_EVENTS,
+                "course_run": course.url_name if course else 'course_run',
                 "links_to_events_cms": self.LINKS_TO_EVENTS_CMS,
                 "links_to_events_lms": self.LINKS_TO_EVENTS_LMS,
                 'is_valid_settings': self.is_valid_settings(shindig_settings)}
@@ -232,3 +232,26 @@ class ShindigXBlock(XBlock):
             .format(course_id=unicode(self.course_id),
                     usage_id=quote_slashes(unicode(self.scope_ids.usage_id).encode('utf-8')),
                     handler_name=handler_name)
+
+    def embed_code(self, shindig_defaults):
+        code = '''
+<iframe id='iframe-shindig' src='' width='100%' height='720' marginwidth='0' marginheight='0' frameborder='0' scrolling='yes'>You need an iFrame capable browser to view this.</iframe>
+<script>
+    var urlUserDetail = '{}';
+    $.ajax({{
+        url: urlUserDetail,
+        type: 'GET',
+        success: function (data) {{
+            var url = '{}{}' + data.hash_key + '/?course={}&institution={}&course_run={}';
+            $('#iframe-shindig').attr('src', url);
+        }}
+    }});
+</script>
+        '''.format(self.get_handler_url('get_hash_key_user'),
+                   self.SHINDIG_HOST_SERVER,
+                   self.PATH_WIDGET,
+                   shindig_defaults['course'],
+                   shindig_defaults['institution'],
+                   shindig_defaults['course_run'])
+
+        return code

@@ -129,8 +129,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                 email: shindig_defaults.service_phone,
                 eid: data.eid,
                 linksToEvent: linksToEvent,
-                linksText: linksText,
-                hashKeyUser: hashKeyUser
+                linksText: linksText
             }
         };
 
