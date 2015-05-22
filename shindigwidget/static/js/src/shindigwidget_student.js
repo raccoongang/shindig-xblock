@@ -132,7 +132,9 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
         });
 
         var search = function(event) {
-            event.preventDefault();
+            if (event) {
+                event.preventDefault();
+            }
             var searchText = $('[data-search-text]', element).val().toLowerCase();
             var searchDate = $('[data-search-date]', element).val();
             if (searchText || searchDate) {
