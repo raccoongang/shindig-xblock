@@ -168,6 +168,15 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                 search()
             }
         });
+        $('[data-search-date]', element).on('change', function (event) {
+            var searchDate = $(event.currentTarget).val();
+            var searchText = $('[data-search-text]', element).val();
+            if (searchText || searchDate) {
+                search();
+            } else {
+                renderEvents(dataEvents);
+            }
+        });
 
         // create new event
         var form = $('#shindig-signup', element);

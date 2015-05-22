@@ -159,6 +159,15 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                 search(event)
             }
         });
+        $('[data-search-date]', element).on('change', function (event) {
+            var searchDate = $(event.currentTarget).val();
+            var searchText = $('[data-search-text]', element).val();
+            if (searchText || searchDate) {
+                search();
+            } else {
+                renderEvents(dataEvents);
+            }
+        });
 
         var actionToggleActive = function () {
             $('[data-toggle-active]', element).on('click', function (event) {
