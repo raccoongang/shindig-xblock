@@ -142,7 +142,11 @@ class ShindigXBlock(XBlock):
         if access_token:
             url = self.SHINDIG_HOST_SERVER + self.PATH_HASH_KEY_USER
             headers = {"Authorization": "Bearer " + access_token}
-            edx_role = 'staff' if request.body_file.user.is_staff else 'student'
+            if request.body_file.user.courseaccessrole_set.filter(course_id=self.course_id,
+                                                                  role__in=['staff', 'instructor']).exists():
+                edx_role = 'staff'
+            else:
+                edx_role = 'student'
             data = {'email': request.body_file.user.email,
                     'username': request.body_file.user.username,
                     'edx_role': edx_role}
