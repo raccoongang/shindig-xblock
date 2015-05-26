@@ -1,4 +1,4 @@
-function ShindigXBlock(runtime, element, shindig_defaults) {
+function ShindigStudentXBlock(runtime, element, shindig_defaults) {
 
     if (!shindig_defaults.is_valid_settings){
         alert('xBlock settings are not properly configured!');

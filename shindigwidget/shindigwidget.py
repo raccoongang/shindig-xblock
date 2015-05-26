@@ -67,7 +67,7 @@ class ShindigXBlock(XBlock):
         if self.runtime.__class__.__name__ == 'WorkbenchRuntime':
             self.add_javascript_and_css(frag)
         frag.add_javascript(self.resource_string("static/js/src/shindigwidget_instructor.js"))
-        frag.initialize_js('ShindigXBlock', json_args=shindig_defaults)
+        frag.initialize_js('ShindigStudioXBlock', json_args=shindig_defaults)
         return frag
 
     def student_view(self, context=None):
@@ -80,7 +80,7 @@ class ShindigXBlock(XBlock):
         frag = Fragment(html.format(self=self))
         self.add_javascript_and_css(frag)
         frag.add_javascript(self.resource_string("static/js/src/shindigwidget_student.js"))
-        frag.initialize_js('ShindigXBlock', json_args=shindig_defaults)
+        frag.initialize_js('ShindigStudentXBlock', json_args=shindig_defaults)
         return frag
 
     @staticmethod

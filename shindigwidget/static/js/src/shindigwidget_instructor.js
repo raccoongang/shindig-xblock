@@ -1,4 +1,4 @@
-function ShindigXBlock(runtime, element, shindig_defaults) {
+function ShindigStudioXBlock(runtime, element, shindig_defaults) {
 
     if (!shindig_defaults.is_valid_settings){
         alert('xBlock settings are not properly configured!');
@@ -61,6 +61,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
 
         // initialize event list
         var dataEvents = [];
+        var isChangedEvents = false;
         var getEvents = function () {
             $('.shindig-load', element).removeClass('is-hidden');
             $.ajax({
@@ -202,6 +203,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                             $('[data-search-text]', element).val(data.event.subheading);
                             $('[data-search-date]', element).val(moment.unix(data.event.start).utc().format('YYYY-MM-DD'));
                             renderEvents([data.event]);
+                            isChangedEvents = true;
                             dataEvents.push(data.event);
                             dataEvents.sort(function(ev1, ev2) {
                                 return ev1.start - ev2.start
@@ -234,6 +236,7 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
                         if (data.remove) {
                             $(event.currentTarget).parents('.list-item').remove();
                             var dataEid = _.map(dataEvents, function(data){ return data.eid });
+                            isChangedEvents = true;
                             dataEvents.splice(_.indexOf(dataEid, eid), 1);
                         }
                     }
@@ -254,5 +257,12 @@ function ShindigXBlock(runtime, element, shindig_defaults) {
             $(element).find('[data-start-time]').val('');
             $(element).find('[data-end-time]').val('');
         };
+
+        $('.action-cancel').on('click', function () {
+            if (isChangedEvents) {
+                runtime.notify('save', {state: 'start'});
+                runtime.notify('save', {state: 'end'});
+            }
+        })
     });
 }
