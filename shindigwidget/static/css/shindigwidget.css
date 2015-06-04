@@ -1101,13 +1101,18 @@ and also iPads specifically.
 #shindig-signup .event-holder textarea.input-xlarge,
 #shindig-signup-student .event-holder textarea.input-xlarge{
     width: 345px;
-    height: 112px;
+    height: 41px;
 }
 
 #shindig-signup .event-holder input#subheading,
 #shindig-signup-student .event-holder input#subheading{
     width: 328px;
 }
+
+#shindig-signup .event-holder input#event-name{
+    width: 328px;
+}
+
 #shindig-signup .event-holder input#customerServicePhone,
 #shindig-signup-student .event-holder input#customerServicePhone{
     width: 267px;
