@@ -120,6 +120,7 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
             }
             return {
                 eventType: eventTypeClass[data.event_type],
+                name: data.event_name,
                 title: data.subheading,
                 description: data.description,
                 stringDate: moment.unix(data.start).utc().calendar() + moment.unix(data.end).utc().format("[ to] h:mma"),

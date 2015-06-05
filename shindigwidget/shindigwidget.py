@@ -158,7 +158,12 @@ class ShindigXBlock(XBlock):
                     'edx_role': edx_role}
             req = requests.post(url, headers=headers, data=data)
             if req.status_code == 201:
-                return Response(json_body=req.json())
+                req_data = req.json()
+                if edx_role == 'staff':
+                    shindig_settings = self.get_shindig_settings()
+                    req_data.update({'user_email_shindig': shindig_settings['EMAIL'],
+                                     'user_password_shindig': shindig_settings['PASSWORD']})
+                return Response(json_body=req_data)
             else:
                 del request.body_file.session["token"]
                 del request.body_file.session["expires_at"]
@@ -258,6 +263,9 @@ class ShindigXBlock(XBlock):
         type: 'GET',
         success: function (data) {{
             var url = '{}{}' + data.hash_key + '/?course={}&institution={}&course_run={}';
+            if (data.user_email_shindig) {{
+                url += '&email=' + data.user_email_shindig + '&password=' + data.user_password_shindig;
+            }}
             $('#iframe-shindig').attr('src', url);
         }}
     }});
