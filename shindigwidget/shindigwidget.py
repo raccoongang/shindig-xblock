@@ -48,8 +48,8 @@ class ShindigXBlock(XBlock):
     PATH_WIDGET = 'embed_events_widget/'
 
     CUSTOMER_SERVICE_PHONE = "(800)888-8888"
-    LINKS_TO_EVENTS_CMS = "http://www.shindig.com/event/admin/"
-    LINKS_TO_EVENTS_LMS = "http://www.shindig.com/event/"
+    LINKS_TO_EVENTS_CMS = "http://dev.shindig.com/event/admin/"
+    LINKS_TO_EVENTS_LMS = "http://dev.shindig.com/event/"
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
@@ -108,17 +108,23 @@ class ShindigXBlock(XBlock):
     @XBlock.handler
     def create_event(self, request, suffix=''):
         access_token = self.get_token(request)
+        shindig_settings = self.get_shindig_settings()
         if access_token:
             url = self.SHINDIG_HOST_SERVER + self.PATH_EVENTS
             headers = {"Authorization": "Bearer " + access_token}
             data = dict(request.params)
             course = self.get_course_obj()
             data['course_run'] = course.url_name if course else 'course_run'
+            data['email'] = shindig_settings['EMAIL']
+            data['password'] = shindig_settings['PASSWORD']
             req = requests.post(url, headers=headers, data=data)
+
             if req.status_code == 201:
                 return Response(json_body={'create': True,
                                            'event': req.json()})
-        return Response(json_body={'create': False})
+            else:
+                return Response(json_body={'create': False, 'error': req.json().get(['error'], '')})
+        return Response(json_body={'create': False, 'error': ''})
 
     @XBlock.handler
     def remove_event(self, request, suffix=''):
@@ -194,8 +200,8 @@ class ShindigXBlock(XBlock):
 
             client_auth = HTTPBasicAuth(shindig_settings.get('CLIENT_ID'), shindig_settings.get('CLIENT_SECRET'))
             post_data = {"grant_type": "password",
-                         'username': shindig_settings.get('USERNAME'),
-                         'password': shindig_settings.get('PASSWORD')}
+                         'username': shindig_settings.get('SERVER_USERNAME'),
+                         'password': shindig_settings.get('SERVER_PASSWORD')}
             response = requests.post(self.SHINDIG_HOST_SERVER + self.PATH_TOKEN,
                                      auth=client_auth,
                                      data=post_data)
@@ -217,19 +223,24 @@ class ShindigXBlock(XBlock):
                     name, key, secret = [i.strip() for i in lti_passport.split(':')]
                 except ValueError:
                     return shindig_settings
-                if name == 'shindig_user':
-                    shindig_settings.update({'USERNAME': key,
-                                            'PASSWORD': secret})
+                if name == 'shindig_server_user':
+                    shindig_settings.update({'SERVER_USERNAME': key,
+                                             'SERVER_PASSWORD': secret})
                 elif name == 'shindig_auth':
                     shindig_settings.update({'CLIENT_ID': key,
                                              'CLIENT_SECRET': secret})
+                elif name == 'shindig_user':
+                    shindig_settings.update({'EMAIL': key,
+                                             'PASSWORD': secret})
         return shindig_settings
 
     def is_valid_settings(self, settings):
-        return 'USERNAME' in settings and \
+        return 'EMAIL' in settings and \
                'PASSWORD' in settings and \
                'CLIENT_ID' in settings and \
-               'CLIENT_SECRET' in settings
+               'CLIENT_SECRET' in settings and \
+               'SERVER_USERNAME' in settings and \
+               'SERVER_PASSWORD' in settings
 
     def get_handler_url(self, handler_name):
         return '/courses/{course_id}/xblock/{usage_id}/handler/{handler_name}'\

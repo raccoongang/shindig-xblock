@@ -210,7 +210,8 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
                             });
                             clearForm();
                         } else {
-                            alert('Error create');
+                            var error = 'Error create. ' + data.error;
+                            alert(error);
                             renderEvents(dataEvents.slice(0, 3));
                         }
                     }
