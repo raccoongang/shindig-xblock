@@ -253,6 +253,7 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
         };
 
         var clearForm = function(){
+            $(element).find('[data-name]').val('');
             $(element).find('[data-title]').val('');
             $(element).find('[data-description]').val('');
             $(element).find('[data-startdate]').val(moment.utc().format('YYYY-MM-DD'));
