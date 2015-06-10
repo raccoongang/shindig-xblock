@@ -650,7 +650,8 @@
     vertical-align: middle;
     float: none; }
   #shindig-signup input[data-toggle]:checked + label,
-  #shindig-signup input[data-toggle]:checked + label:active, #shindig-signup-student input[data-toggle]:checked + label,
+  #shindig-signup input[data-toggle]:checked + label:active,
+  #shindig-signup-student input[data-toggle]:checked + label,
   #shindig-signup-student input[data-toggle]:checked + label:active {
     background-color: #0044CC;
     color: #FFFFFF;
@@ -1070,7 +1071,7 @@ and also iPads specifically.
 }
 #shindig-signup input[type='time'],
 #shindig-signup-student input[type='time']{
-    width: 63px;
+    width: 104px;
     height: 20px;
     padding: 3px;
 }
@@ -1079,11 +1080,7 @@ and also iPads specifically.
 #shindig-signup-student .control-group .time-unit{
     display: inline-block;
     vertical-align: middle;
-    margin: 0 0 0 7px;
-}
-#shindig-signup .control-group .time-unit:first-child,
-#shindig-signup-student .control-group .time-unit:first-child{
-    margin-left: 0;
+    margin: 0 20px 0 0;
 }
 #shindig-signup .control-group .time-unit .controls:after,
 #shindig-signup-student .control-group .time-unit .controls:after{
@@ -1101,31 +1098,28 @@ and also iPads specifically.
 #shindig-signup .event-holder textarea.input-xlarge,
 #shindig-signup-student .event-holder textarea.input-xlarge{
     width: 345px;
-    height: 41px;
+    height: 83px;
 }
 
 #shindig-signup .event-holder input#subheading,
-#shindig-signup-student .event-holder input#subheading{
-    width: 328px;
-}
-
-#shindig-signup .event-holder input#event-name{
-    width: 328px;
-}
-
+#shindig-signup-student .event-holder input#subheading,
+#shindig-signup .event-holder input#event-name,
+#shindig-signup-student .event-holder input#event-name,
 #shindig-signup .event-holder input#customerServicePhone,
-#shindig-signup-student .event-holder input#customerServicePhone{
-    width: 267px;
+#shindig-signup-student .event-holder input#customerServicePhone,
+#shindig-signup .event-holder input#courseadmineml,
+#shindig-signup-student .event-holder input#courseadmineml{
+    width: 328px;
 }
 
 #shindig-signup.form-horizontal .event-holder .control-group,
 #shindig-signup-student.form-horizontal .event-holder .control-group {
-    margin-bottom: 6px;
+    margin-bottom: 0px;
 }
 
 #shindig-signup .event-holder .column-right .input-xlarge,
 #shindig-signup-student .event-holder .column-right .input-xlarge{
-    width: 277px;
+    width: 270px;
 }
 #shindig-signup .control-group.indent,
 #shindig-signup-student .control-group.indent{
@@ -1423,6 +1417,10 @@ and also iPads specifically.
 div.ui-loading.shindig-load p{
     text-align: center;
 }
+#shindig-signup .event-f .btn,
+#shindig-signup-student .event-f .btn{
+    padding: 4px 30px;
+}
 
 @media only screen and (max-width: 990px){
     #shindig-signup .top-bar .utils,
@@ -1444,6 +1442,18 @@ div.ui-loading.shindig-load p{
     #shindig-signup-student .btn{
         padding: 4px 18px;
     }
+    #shindig-signup .event-f .btn,
+    #shindig-signup-student .event-f .btn{
+        padding: 4px 44px;
+    }
+    #shindig-signup .days-week .btn,
+    #shindig-signup-student .days-week .btn{
+        padding: 4px 14px;
+    }
+    #shindig-signup .event-t .btn,
+    #shindig-signup-student .event-t .btn{
+        padding: 4px 19px;
+    }
     #shindig-signup .event-holder input#customerServicePhone,
     #shindig-signup-student .event-holder input#customerServicePhone{
         width: 314px;
@@ -1454,7 +1464,7 @@ div.ui-loading.shindig-load p{
     }
     #shindig-signup .control-group.indent,
     #shindig-signup-student .control-group.indent{
-        margin: 0 0 0 214px;
+        margin: 0 0 0 224px;
     }
 }
 
