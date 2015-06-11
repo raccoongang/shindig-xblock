@@ -112,18 +112,20 @@ class ShindigXBlock(XBlock):
         if access_token:
             url = self.SHINDIG_HOST_SERVER + self.PATH_EVENTS
             headers = {"Authorization": "Bearer " + access_token}
-            data = dict(request.params)
+            data = request.params.mixed()
             course = self.get_course_obj()
-            data['course_run'] = course.url_name if course else 'course_run'
-            data['email'] = shindig_settings['EMAIL']
-            data['password'] = shindig_settings['PASSWORD']
+            data.update({
+                'course_run': course.url_name if course else 'course_run',
+                'email': shindig_settings['EMAIL'],
+                'password': shindig_settings['PASSWORD']
+            })
             req = requests.post(url, headers=headers, data=data)
 
             if req.status_code == 201:
                 return Response(json_body={'create': True,
                                            'event': req.json()})
             else:
-                return Response(json_body={'create': False, 'error': req.json().get(['error'], '')})
+                return Response(json_body={'create': False, 'error': req.json().get('error', '')})
         return Response(json_body={'create': False, 'error': ''})
 
     @XBlock.handler

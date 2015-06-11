@@ -38,7 +38,7 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
         // initialize default fields
         $(element).find('[data-institution]').val(shindig_defaults.institution);
         $(element).find('[data-course]').val(shindig_defaults.course);
-        $(element).find('[data-service-phone]').val(shindig_defaults.service_phone);
+        //$(element).find('[data-service-phone]').val(shindig_defaults.service_phone);
         $(element).find('[data-startdate]').val(moment.utc().format('YYYY-MM-DD'));
 
         $.ajax({
@@ -46,7 +46,7 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
             type: "GET",
             success: function (data) {
                 $(element).find("[data-user-email]").val(data.email);
-                $(element).find("[data-username]").val(data.username);
+                //$(element).find("[data-username]").val(data.username);
             }
         });
 
@@ -203,9 +203,9 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
                         if (data.create) {
                             $('[data-search-text]', element).val(data.event.subheading);
                             $('[data-search-date]', element).val(moment.unix(data.event.start).utc().format('YYYY-MM-DD'));
-                            renderEvents([data.event]);
+                            renderEvents(data.event);
                             isChangedEvents = true;
-                            dataEvents.push(data.event);
+                            dataEvents = dataEvents.concat(data.event);
                             dataEvents.sort(function(ev1, ev2) {
                                 return ev1.start - ev2.start
                             });
@@ -266,6 +266,10 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
                 runtime.notify('save', {state: 'start'});
                 runtime.notify('save', {state: 'end'});
             }
+        });
+
+        $('[name = "series"]', element).on('change', function (event) {
+            $('[data-toggle-series]').toggleClass('hidden');
         })
     });
 }

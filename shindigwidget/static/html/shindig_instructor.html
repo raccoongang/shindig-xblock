@@ -186,45 +186,45 @@
                   <div class="controls event-type">
                     <div class="input-prepend">
                       <div class="btn-group event-f" data-toggle="buttons-radio">
-                        <input type="radio" id="OneTimeEvent" name="event_frequency" value="One Time Event" data-toggle="button" checked="checked" required="required">
+                        <input type="radio" id="OneTimeEvent" name="series" value="false" data-toggle="button" checked="checked" required="required">
                         <label class="btn btn-info"
                                title="Select for single day event"
-                               onclick="document.getElementById('enddate').required=false;"
+                               onclick="document.getElementById('enddate').required=false; $('[data-label-text-startdate]').text('On');"
                                for="OneTimeEvent">&nbsp;&nbsp;&nbsp;&nbsp;One Time&nbsp;&nbsp;&nbsp;&nbsp;</label>
                         <!-- Input for RecurrentEvent -->
-                        <input type="radio" id="RecurringEvent" name="event_frequency" value="Recurring Event" data-toggle="button" required="required">
+                        <input type="radio" id="RecurringEvent" name="series" value="true" data-toggle="button" required="required">
                         <label class="btn btn-info"
                                title="Select for Recurrent Events (ex: MWF between now and 2014-12-25)"
-                               onclick="document.getElementById('enddate').required=true"
+                               onclick="document.getElementById('enddate').required=true; $('[data-label-text-startdate]').text('Beginning');"
                                for="RecurringEvent" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Recurring&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                       </div>
                     </div>
                   </div>
                   <!-- Days of the Week -->
-                  <label class="control-label">Every</label>
-                  <div class="controls day-of-week">
+                  <label data-toggle-series class="control-label hidden">Every</label>
+                  <div data-toggle-series class="controls day-of-week hidden">
                     <div title="For repeating events, select which days of the week the event will take place on."
                          class="input-prepend">
                       <div class="btn-group days-week" data-toggle="buttons-radio">
-                        <input type="checkbox" id="Sun" name="days_of_the_week" value="0" data-toggle="button">
+                        <input type="checkbox" id="Sun" name="schedule[]" value="Sun" data-toggle="button">
                         <label class="btn btn-info" for="Sun" onclick="">Sun</label>
 
-                        <input type="checkbox" id="Mon" name="days_of_the_week" value="1" data-toggle="button" checked="checked">
+                        <input type="checkbox" id="Mon" name="schedule[]" value="Mon" data-toggle="button" checked="checked">
                         <label class="btn btn-info" for="Mon" onclick="">Mon</label>
 
-                        <input type="checkbox" id="Tue" name="days_of_the_week" value="2" data-toggle="button">
+                        <input type="checkbox" id="Tue" name="schedule[]" value="Tue" data-toggle="button">
                         <label class="btn btn-info" for="Tue" onclick="">Tue</label>
 
-                        <input type="checkbox" id="Wed" name="days_of_the_week" value="3" data-toggle="button">
+                        <input type="checkbox" id="Wed" name="schedule[]" value="Wed" data-toggle="button">
                         <label class="btn btn-info" for="Wed" onclick="">Wed</label>
 
-                        <input type="checkbox" id="Thu" name="days_of_the_week" value="4" data-toggle="button">
+                        <input type="checkbox" id="Thu" name="schedule[]" value="Thu" data-toggle="button">
                         <label class="btn btn-info" for="Thu" onclick="">Thu</label>
 
-                        <input type="checkbox" id="Fri" name="days_of_the_week" value="5" data-toggle="button">
+                        <input type="checkbox" id="Fri" name="schedule[]" value="Fri" data-toggle="button">
                         <label class="btn btn-info" for="Fri" onclick="">Fri</label>
 
-                        <input type="checkbox" id="Sat" name="days_of_the_week" value="6" data-toggle="button">
+                        <input type="checkbox" id="Sat" name="schedule[]" value="Sat" data-toggle="button">
                         <label class="btn btn-info" for="Sat" onclick="">Sat</label>
                       </div>
                     </div>
@@ -234,7 +234,7 @@
                 <!-- Date -->
                 <div class="control-group required">
                   <div class="time-unit">
-                    <label class="control-label">Beginning</label>
+                    <label data-label-text-startdate class="control-label">On</label>
                     <div class="controls">
                       <div title="Enter or use the calendar to select an event date or date range for recurring events." class="input-prepend">
                         <span class="add-on"><i class="icon-calendar"></i></span>
@@ -242,7 +242,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="time-unit">
+                  <div data-toggle-series class="time-unit hidden">
                     <label class="control-label">Until</label>
                     <div class="controls">
                       <div title="Enter or use the calendar to select an event date or date range for recurring events." class="input-prepend">
