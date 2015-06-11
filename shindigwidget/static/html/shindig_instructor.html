@@ -192,7 +192,7 @@
                                onclick="document.getElementById('enddate').required=false; $('[data-label-text-startdate]').text('On');"
                                for="OneTimeEvent">&nbsp;&nbsp;&nbsp;&nbsp;One Time&nbsp;&nbsp;&nbsp;&nbsp;</label>
                         <!-- Input for RecurrentEvent -->
-                        <input type="radio" id="RecurringEvent" name="series" value="true" data-toggle="button" required="required">
+                        <input data-recurring type="radio" id="RecurringEvent" name="series" value="true" data-toggle="button" required="required">
                         <label class="btn btn-info"
                                title="Select for Recurrent Events (ex: MWF between now and 2014-12-25)"
                                onclick="document.getElementById('enddate').required=true; $('[data-label-text-startdate]').text('Beginning');"
@@ -206,29 +206,29 @@
                     <div title="For repeating events, select which days of the week the event will take place on."
                          class="input-prepend">
                       <div class="btn-group days-week" data-toggle="buttons-radio">
-                        <input type="checkbox" id="Sun" name="schedule[]" value="Sun" data-toggle="button">
+                        <input data-schedule type="checkbox" id="Sun" name="schedule[]" value="Sun" data-toggle="button">
                         <label class="btn btn-info" for="Sun" onclick="">Sun</label>
 
-                        <input type="checkbox" id="Mon" name="schedule[]" value="Mon" data-toggle="button" checked="checked">
+                        <input data-schedule type="checkbox" id="Mon" name="schedule[]" value="Mon" data-toggle="button" checked="checked">
                         <label class="btn btn-info" for="Mon" onclick="">Mon</label>
 
-                        <input type="checkbox" id="Tue" name="schedule[]" value="Tue" data-toggle="button">
+                        <input data-schedule type="checkbox" id="Tue" name="schedule[]" value="Tue" data-toggle="button">
                         <label class="btn btn-info" for="Tue" onclick="">Tue</label>
 
-                        <input type="checkbox" id="Wed" name="schedule[]" value="Wed" data-toggle="button">
+                        <input data-schedule type="checkbox" id="Wed" name="schedule[]" value="Wed" data-toggle="button">
                         <label class="btn btn-info" for="Wed" onclick="">Wed</label>
 
-                        <input type="checkbox" id="Thu" name="schedule[]" value="Thu" data-toggle="button">
+                        <input data-schedule type="checkbox" id="Thu" name="schedule[]" value="Thu" data-toggle="button">
                         <label class="btn btn-info" for="Thu" onclick="">Thu</label>
 
-                        <input type="checkbox" id="Fri" name="schedule[]" value="Fri" data-toggle="button">
+                        <input data-schedule type="checkbox" id="Fri" name="schedule[]" value="Fri" data-toggle="button">
                         <label class="btn btn-info" for="Fri" onclick="">Fri</label>
 
-                        <input type="checkbox" id="Sat" name="schedule[]" value="Sat" data-toggle="button">
+                        <input data-schedule type="checkbox" id="Sat" name="schedule[]" value="Sat" data-toggle="button">
                         <label class="btn btn-info" for="Sat" onclick="">Sat</label>
                       </div>
                     </div>
-                    <div class="days-of-week-error hidden">You must select at least one day of the week</div>
+                    <div data-schedul-error class="days-of-week-error hidden">You must select at least one day of the week</div>
                   </div>
                 </div>
                 <!-- Date -->

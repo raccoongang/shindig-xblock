@@ -204,6 +204,8 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
                             $('[data-search-text]', element).val(data.event[0].event_name);
                             if (data.event.length == 1) {
                                 $('[data-search-date]', element).val(moment.unix(data.event[0].start).utc().format('YYYY-MM-DD'));
+                            } else {
+                                $('[data-search-date]', element).val('');
                             }
                             renderEvents(data.event);
                             isChangedEvents = true;
@@ -224,6 +226,17 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
 
         function validateForm() {
             var formValid = true;
+
+            // validation schedule
+            var recurring = $('[data-recurring]', element)[0];
+            if (recurring.checked) {
+                var dayOfTheWeek = $('[data-schedule]:checked', element);
+                if (!dayOfTheWeek.length) {
+                    formValid = false;
+                    $('[data-schedul-error]', element).removeClass('hidden');
+                }
+            }
+
             return formValid;
         }
 
@@ -273,6 +286,10 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
 
         $('[name = "series"]', element).on('change', function (event) {
             $('[data-toggle-series]').toggleClass('hidden');
-        })
+        });
+
+        $('[data-schedule]', element).on('change', function () {
+            $('[data-schedul-error]', element).addClass('hidden');
+        });
     });
 }
