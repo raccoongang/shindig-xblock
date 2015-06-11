@@ -1010,14 +1010,6 @@ and also iPads specifically.
     overflow: hidden;
 }
 
-@media only screen and (max-width: 960px){
-    #shindig-signup.form-horizontal .column-holder .column-right,
-    #shindig-signup-student.form-horizontal .column-holder .column-right{
-        width: 380px;
-        clear: both;
-    }
-}
-
 #shindig-signup.form-horizontal .column-holder .control-group,
 #shindig-signup-student.form-horizontal .column-holder .control-group {
     margin-bottom: 56px;
@@ -1128,7 +1120,7 @@ and also iPads specifically.
 
 #shindig-signup .schedule,
 #shindig-signup-student .schedule{
-    background: #DDDDDD;
+    background: #fff;
 }
 .schedule:after{
     display: block;
@@ -1138,6 +1130,7 @@ and also iPads specifically.
 #shindig-signup .schedule .top-bar,
 #shindig-signup-student .schedule .top-bar{
     padding: 7px 20px 7px 10px;
+    background: #e8e8e8;
 }
 .schedule .top-bar:after{
     display: block;
@@ -1149,11 +1142,17 @@ and also iPads specifically.
     overflow: hidden;
     margin: 0 0 0 -10px;
     padding: 4px 0 0 10px;
+    text-align: center;
     font-weight: bold;
     font-size: 10px;
     line-height: 24px;
     background: none;
     box-shadow: none;
+}
+#shindig-signup .schedule .legend .desc,
+#shindig-signup-student .schedule .legend .desc{
+    color: #468EA2;
+    font: italic 19px/23px "Helvetica Neue Medium", Arial, sans-serif;
 }
 #shindig-signup .schedule .legend em,
 #shindig-signup-student .schedule .legend em{
@@ -1188,6 +1187,7 @@ and also iPads specifically.
     vertical-align: middle;
     position: relative;
     overflow: hidden;
+    margin: 15px 0;
 }
 #shindig-signup .top-bar .utils .search-box input[type='text'],
 #shindig-signup-student .top-bar .utils .search-box input[type='text'],
@@ -1252,8 +1252,7 @@ and also iPads specifically.
 #shindig-signup .schedule .list-holder,
 #shindig-signup-student .schedule .list-holder{
     padding: 1px;
-    border-bottom: 1px solid #FFFFFF;
-    background: #e8e8e8;
+    border-top: 1px solid #e8e8e8;
 }
 #shindig-signup .schedule .list-holder:after,
 #shindig-signup-student .schedule .list-holder:after{
@@ -1265,24 +1264,47 @@ and also iPads specifically.
 #shindig-signup .schedule .list-holder .list-item,
 #shindig-signup-student .schedule .list-holder .list-item{
     width: 100%;
-    border-top: 1px solid #FFFFFF;
+    position: relative;
+    border: solid #e8e8e8;
+    border-width: 0 1px 1px;
 }
 .schedule .list-holder .list-item:after{
     display: block;
     clear: both;
     content: '';
 }
-
+#shindig-signup .schedule .list-holder .list-item .plane,
+#shindig-signup-student .schedule .list-holder .list-item .plane{
+    position: absolute;
+    left: -15px;
+    top: -7px;
+    width: 200px;
+    padding: 2px 10px 2px 21px;
+    color: #FFFFFF;
+    font:italic bold 12px/15px "Helvetica Neue Medium", Arial, sans-serif;
+    background: #468EA2;
+}
+#shindig-signup .schedule .list-holder .list-item .plane:before,
+#shindig-signup-student .schedule .list-holder .list-item .plane:before{
+    position: absolute;
+    left: 0;
+    bottom: -15px;
+    width: 0;
+    height: 0;
+    content: '';
+    border-top: 15px solid #000000;
+    border-left: 15px solid transparent;
+}
 #shindig-signup .schedule .list-holder .list-item .event,
 #shindig-signup-student .schedule .list-holder .list-item .event{
-    padding: 6px 20px 10px;
-    border-left: 8px solid #F0F0F0;
+    padding: 14px 20px 14px 30px;
 }
 .schedule .list-holder .list-item .event:after{
     display: block;
     clear: both;
     content: '';
 }
+/*
 #shindig-signup .schedule .list-holder .list-item.orange .event,
 #shindig-signup-student .schedule .list-holder .list-item.orange .event{
     border-left-color: #FFD98B;
@@ -1295,45 +1317,14 @@ and also iPads specifically.
 #shindig-signup-student .schedule .list-holder .list-item.magenta .event{
     border-left-color: #A2EBBC;
 }
+*/
 #shindig-signup.form-horizontal .schedule .control-group,
 #shindig-signup-student.form-horizontal .schedule .control-group {
     margin: 0;
 }
 #shindig-signup.form-horizontal .schedule .more .controls,
 #shindig-signup-student.form-horizontal .schedule .more .controls {
-    margin: 6px 5px 6px 28px;
-}
-
-#shindig-signup.form-horizontal .schedule .btn-success,
-#shindig-signup-student.form-horizontal .schedule .btn-success{
-    width: 62px;
-    height: 26px;
-    margin: 0px 0 0 10px;
-    padding: 4px 5px;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 17px;
-}
-#shindig-signup.form-horizontal .schedule a.btn-success,
-#shindig-signup-student.form-horizontal .schedule a.btn-success{
-    height: 26px;
-    box-sizing: border-box;
-}
-#shindig-signup.form-horizontal .schedule .active .btn-success,
-#shindig-signup-student.form-horizontal .schedule .active .btn-success{
-    margin: 0 0 0 10px;
-}
-#shindig-signup.form-horizontal .schedule .btn-success.del,
-#shindig-signup-student.form-horizontal .schedule .btn-success.del{
-    background: #e86767;
-}
-#shindig-signup.form-horizontal .schedule .btn-success.del:hover,
-#shindig-signup-student.form-horizontal .schedule .btn-success.del:hover{
-    background: #be3d3d;
-}
-#shindig-signup.form-horizontal .schedule .more .controls,
-#shindig-signup-student.form-horizontal .schedule .more .controls {
-    margin: 7px 5px 7px 28px;
+    margin: 13px 21px 0px 12px;
 }
 #shindig-signup.form-horizontal .schedule .more .btn-info,
 #shindig-signup-student.form-horizontal .schedule .more .btn-info{
@@ -1344,7 +1335,7 @@ and also iPads specifically.
 
 }
 #shindig-signup .event .title-holder,
-#shindig-signup-student .event .title-holder,{
+#shindig-signup-student .event .title-holder{
     margin: 0 0 12px;
 }
 .event .title-holder:after{
@@ -1356,16 +1347,25 @@ and also iPads specifically.
 #shindig-signup-student .event .title-holder .wrap{
     position: relative;
     overflow: hidden;
-    margin: 0 0 0 -17px;
-    padding: 0 15px 0 17px;
+    margin: 0 0 0 -22px;
+    padding: 0 15px 0 22px;
 }
 #shindig-signup .event .title-holder .date,
 #shindig-signup-student .event .title-holder .date{
     float: right;
-    font-size: 14px;
     margin: 0;
-    color: #009FE6;
+    color: #000;
+    font: 16px/19px "Helvetica Neue Medium", Arial, sans-serif;
     text-decoration: none;
+}
+#shindig-signup .event .title-holder .date.today,
+#shindig-signup-student .event .title-holder .date.today{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+#shindig-signup .event .title-holder .date.tomorrow,
+#shindig-signup-student .event .title-holder .date.tomorrow{
+    text-transform: uppercase;
 }
 .event .title-holder .date:hover{
     text-decoration: underline;
@@ -1382,9 +1382,7 @@ and also iPads specifically.
     overflow: hidden;
     margin: 0;
     color: #333;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 17px;
+    font: bold 16px/19px "Helvetica Neue Medium", Arial, sans-serif;
     text-transform: none;
 }
 
@@ -1392,7 +1390,7 @@ and also iPads specifically.
 #shindig-signup-student  .event .icon-wrap{
     position: absolute;
     left: 0;
-    top: 4px;
+    top: 2px;
     width: 14px;
     height: 14px;
     background-image: url(//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/img/glyphicons-halflings.png);
@@ -1408,6 +1406,7 @@ and also iPads specifically.
 
 .event .event-info{
     display: none;
+    font: 16px/19px "Helvetica Neue Medium", Arial, sans-serif;
 }
 
 .event.active .event-info{
@@ -1420,6 +1419,59 @@ div.ui-loading.shindig-load p{
 #shindig-signup .event-f .btn,
 #shindig-signup-student .event-f .btn{
     padding: 4px 30px;
+}
+#shindig-signup .schedule button.btn-shape,
+#shindig-signup-student .schedule button.btn-shape,
+#shindig-signup .schedule a.btn-shape,
+#shindig-signup-student .schedule a.btn-shape{
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+    height: 21px;
+    margin: 0 0 0 10px;
+    padding: 1px 12px;
+    color: #fff;
+    text-shadow: none;
+    text-transform: uppercase;
+    font: 12px/19px "Helvetica Neue Medium", Arial, sans-serif;
+    border: 1px solid #333;
+    border-radius: 14px;
+    background: #333;
+    box-shadow: none;
+}
+#shindig-signup .schedule button.btn-shape.more,
+#shindig-signup-student .schedule button.btn-shape.more{
+    border-color: #9E3C09;
+    background: #E97ACE;
+}
+#shindig-signup .schedule button.btn-shape.join,
+#shindig-signup .schedule a.btn-shape.join,
+#shindig-signup-student .schedule button.btn-shape.join,
+#shindig-signup-student .schedule a.btn-shape.join{
+    border-color: #0887B6;
+    background: #0bb5f4;
+    height: 17px;
+}
+#shindig-signup .schedule button.btn-shape.rsvp,
+#shindig-signup .schedule a.btn-shape.rsvp,
+#shindig-signup-student .schedule button.btn-shape.rsvp,
+#shindig-signup-student .schedule a.btn-shape.rsvp{
+    border-color: #BE883C;
+    background: #f7b455;
+    height: 17px;
+}
+#shindig-signup .schedule button.btn-shape.dlt,
+#shindig-signup-student .schedule button.btn-shape.dlt{
+    border-color: #9E3C09;
+    background: #E86767;
+}
+
+@media only screen and (max-width: 960px){
+    #shindig-signup.form-horizontal .column-holder .column-right,
+    #shindig-signup-student.form-horizontal .column-holder .column-right{
+        width: 380px;
+        clear: both;
+    }
 }
 
 @media only screen and (max-width: 990px){

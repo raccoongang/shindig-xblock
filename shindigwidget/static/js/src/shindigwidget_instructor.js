@@ -17,10 +17,10 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
             calendar : {
                 sameDay: '[Today from] h:mma',
                 nextDay: '[Tomorrow from] h:mma',
-                sameElse: '[On] dddd MMM Do [from] h:mma',
-                lastWeek: '[On] dddd MMM Do [from] h:mma',
-                nextWeek: '[On] dddd MMM Do [from] h:mma',
-                lastDay: '[On] dddd MMM Do [from] h:mma'
+                sameElse: 'dddd MMM Do [from] h:mma',
+                lastWeek: 'dddd MMM Do [from] h:mma',
+                nextWeek: 'dddd MMM Do [from] h:mma',
+                lastDay: 'dddd MMM Do [from] h:mma'
             }
         });
 
@@ -106,11 +106,11 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
         };
 
         var getValuesForTemplate = function (data) {
-            var eventTypeClass = {OH: 'purple', DS: 'orange', SH: 'magenta'};
+            var eventType = {OH: 'Office Hours', DS: 'Discussion Section', SH: 'Study Hall'};
             var tz = jstz.determine();
-            var linksText = 'RSVP';
+            var linksText = 'rsvp';
             if (moment.unix(data.start).utc() < moment.utc()) {
-                linksText = 'Join';
+                linksText = 'join';
             }
             var linksToEvent;
             if (data.temp_link) {
@@ -118,13 +118,23 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
             } else {
                 linksToEvent = shindig_defaults.links_to_events_cms + data.eid + '/?hash_key=' + hashKeyUser
             }
+
+            var classStringDate = '';
+            var startDate = moment.unix(data.start).utc();
+            if (startDate.isSame(moment.utc(), 'day')) {
+                classStringDate = 'today';
+            } else if (startDate.isSame(moment.utc().add(1, 'day'), 'day')) {
+                classStringDate = 'tomorrow';
+            }
+
             return {
-                eventType: eventTypeClass[data.event_type],
+                eventType: eventType[data.event_type],
                 name: data.event_name,
                 title: data.subheading,
                 description: data.description,
-                stringDate: moment.unix(data.start).utc().calendar() + moment.unix(data.end).utc().format("[ to] h:mma"),
-                startDate: moment.unix(data.start).utc().format("MM/DD/YY HH:mm"),
+                stringDate: startDate.calendar() + moment.unix(data.end).utc().format("[ -] h:mma"),
+                classStringDate: classStringDate,
+                startDate: startDate.format("MM/DD/YY HH:mm"),
                 endDate: moment.unix(data.end).utc().format("MM/DD/YY HH:mm"),
                 timezone: tz.name(),
                 institution: shindig_defaults.institution,
@@ -150,14 +160,15 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
             var searchDate = $('[data-search-date]', element).val();
             if (searchText || searchDate) {
                 var searchEvent = _.filter(dataEvents, function (data) {
+                    var isTextName = data.event_name.toLowerCase().indexOf(searchText) != -1;
                     var isTextTitle = data.subheading.toLowerCase().indexOf(searchText) != -1;
                     var isTextDescription = data.description.toLowerCase().indexOf(searchText) != -1;
                     var isDate = moment.unix(data.start).utc().isSame(moment.utc(searchDate), 'day');
                     if (searchText && searchDate) {
-                        return (isTextTitle || isTextDescription) && isDate
+                        return (isTextTitle || isTextDescription || isTextName) && isDate
                     }
                     if (searchText) {
-                        return isTextTitle || isTextDescription
+                        return isTextTitle || isTextDescription || isTextName
                     }
                     if (searchDate) {
                         return isDate
