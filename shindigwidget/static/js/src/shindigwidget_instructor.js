@@ -201,8 +201,10 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
                     data: form.serialize(),
                     success: function (data) {
                         if (data.create) {
-                            $('[data-search-text]', element).val(data.event.subheading);
-                            $('[data-search-date]', element).val(moment.unix(data.event.start).utc().format('YYYY-MM-DD'));
+                            $('[data-search-text]', element).val(data.event[0].event_name);
+                            if (data.event.length == 1) {
+                                $('[data-search-date]', element).val(moment.unix(data.event[0].start).utc().format('YYYY-MM-DD'));
+                            }
                             renderEvents(data.event);
                             isChangedEvents = true;
                             dataEvents = dataEvents.concat(data.event);
@@ -257,6 +259,7 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
             $(element).find('[data-title]').val('');
             $(element).find('[data-description]').val('');
             $(element).find('[data-startdate]').val(moment.utc().format('YYYY-MM-DD'));
+            $(element).find('[data-enddate]').val('');
             $(element).find('[data-start-time]').val('');
             $(element).find('[data-end-time]').val('');
         };
