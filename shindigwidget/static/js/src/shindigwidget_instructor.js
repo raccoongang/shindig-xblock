@@ -302,5 +302,38 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
         $('[data-schedule]', element).on('change', function () {
             $('[data-schedul-error]', element).addClass('hidden');
         });
+
+        function filterTimeZones() {
+            var timeZones = {
+                "United States": {
+                    "Eastern": "America\/New_York",
+                    "Central": "America\/Chicago",
+                    "Mountain": "America\/Denver",
+                    "Arizona": "America\/Phoenix",
+                    "Pacific": "America\/Los_Angeles",
+                    "Alaska": "America\/Anchorage",
+                    "Hawaii": "Pacific\/Honolulu"
+                },
+                "United Kingdom": {"London": "Europe\/London"},
+                "UTC": {"UTC": "UTC"}
+            };
+            var country = $('select[name=country]');
+            var tz = $('select[name=timeZone]');
+            tz.children().remove();
+
+            var selectedCountryLabel = country.find(':selected').attr('label');
+            $.each(timeZones[selectedCountryLabel], function (k, v) {
+                var newOption = $('<option value="' + v + '" label="' + k + '">'
+                    + k + '</option>');
+                if (typeof(savedTimeZone) == 'string' && v == savedTimeZone) {
+                    $(newOption).attr('selected', 'selected');
+                }
+                tz.append(newOption);
+            });
+            return true;
+        }
+        filterTimeZones();
+        $('select[name=country]').change(filterTimeZones);
+
     });
 }
