@@ -88,9 +88,9 @@ function ShindigStudentXBlock(runtime, element, shindig_defaults) {
             addthisevent.generate();
             actionToggleActive();
             if (dataEvents.length > events.length) {
-                $('[data-block-more]', element).removeClass('is-hidden');
+                $('[data-btn-more]', element).removeClass('hidden');
             } else {
-                $('[data-block-more]', element).addClass('is-hidden');
+                $('[data-btn-more]', element).addClass('hidden');
             }
 
         };
