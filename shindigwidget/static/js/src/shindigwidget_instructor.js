@@ -145,11 +145,11 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
             }
         };
 
-        $('[data-btn-more], [data-search-clear]', element).on('click', function () {
-            event.preventDefault();
+        $('[data-btn-more], [data-search-clear]', element).on('click submit', function () {
             $('[data-search-text]', element).val('');
             $('[data-search-date]', element).val('');
             renderEvents(dataEvents);
+            return false;
         });
 
         var search = function(event) {

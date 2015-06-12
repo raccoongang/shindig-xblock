@@ -1358,6 +1358,18 @@ and also iPads specifically.
     font: 16px/19px "Helvetica Neue Medium", Arial, sans-serif;
     text-decoration: none;
 }
+#shindig-signup .event .title-holder .date.today span,
+#shindig-signup-student .event .title-holder .date.today span{
+  font-weight: normal;
+  font-style: normal;
+  text-transform: none;
+}
+#shindig-signup .event .title-holder .date.tomorrow span,
+#shindig-signup-student .event .title-holder .date.tomorrow span{
+  font-weight: normal;
+  font-style: normal;
+  text-transform: none;
+}
 #shindig-signup .event .title-holder .date.today,
 #shindig-signup-student .event .title-holder .date.today{
     text-transform: uppercase;
