@@ -39,7 +39,6 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
         $(element).find('[data-institution]').val(shindig_defaults.institution);
         $(element).find('[data-course]').val(shindig_defaults.course);
         //$(element).find('[data-service-phone]').val(shindig_defaults.service_phone);
-        $(element).find('[data-startdate]').val(moment.utc().format('YYYY-MM-DD'));
 
         $.ajax({
             url: runtime.handlerUrl(element, 'get_user_email_and_username'),
@@ -282,7 +281,7 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
             $(element).find('[data-name]').val('');
             $(element).find('[data-title]').val('');
             $(element).find('[data-description]').val('');
-            $(element).find('[data-startdate]').val(moment.utc().format('YYYY-MM-DD'));
+            $("[data-startdate]", element).datepicker('setDate', moment.utc().format('MM/DD/YYYY'));
             $(element).find('[data-enddate]').val('');
             $(element).find('[data-start-time]').val('');
             $(element).find('[data-end-time]').val('');
@@ -317,8 +316,8 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
                 "United Kingdom": {"London": "Europe\/London"},
                 "UTC": {"UTC": "UTC"}
             };
-            var country = $('select[name=country]');
-            var tz = $('select[name=timeZone]');
+            var country = $('select[name=country]', element);
+            var tz = $('select[name=timeZone]', element);
             tz.children().remove();
 
             var selectedCountryLabel = country.find(':selected').attr('label');
@@ -333,7 +332,44 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
             return true;
         }
         filterTimeZones();
-        $('select[name=country]').change(filterTimeZones);
+        $('select[name=country]', element).change(filterTimeZones);
+
+        $("[data-startdate]", element).datepicker({
+            constrainInput: true,
+            dateFormat: "mm/dd/yy",
+            onClose: function( selectedDate ) {
+                $("[data-enddate]", element).datepicker("option", "minDate", selectedDate);
+                $("[data-enddate]", element).datepicker("option", "maxDate", moment(selectedDate).add(20, 'week').utc().format('MM/DD/YYYY'));
+          }
+        });
+
+        $("[data-startdate]", element).datepicker('setDate', moment.utc().format('MM/DD/YYYY'));
+
+        $("[data-enddate]", element).datepicker({
+            constrainInput: true,
+            dateFormat: "mm/dd/yy",
+            maxDate: '+20w',
+            minDate: moment.utc().format('MM/DD/YYYY'),
+            onClose: function(selectedDate) {
+                $("[data-startdate]").datepicker( "option", "maxDate", selectedDate );
+            }
+        });
+
+        $("[data-start-time]", element).timepicker({
+            timeFormat: 'H:i'
+        });
+
+        $("[data-end-time]", element).timepicker({
+            timeFormat: 'H:i'
+        });
+
+        $("[data-start-time]", element).on('changeTime', function(){
+            $("[data-end-time]", element).timepicker('option', 'minTime', $(this).val());
+        });
+
+        $("[data-end-time]", element).on('changeTime', function(){
+            $("[data-start-time]", element).timepicker('option', 'maxTime', $(this).val());
+        });
 
     });
 }
