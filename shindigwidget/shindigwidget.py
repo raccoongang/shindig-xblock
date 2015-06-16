@@ -48,7 +48,7 @@ class ShindigXBlock(XBlock):
     PATH_WIDGET = 'embed_events_widget/'
 
     CUSTOMER_SERVICE_PHONE = "(800)888-8888"
-    HOST_SHINDIG = "http://dev.shindig.com/"
+    HOST_SHINDIG = "http://www.shindig.com/"
     LINKS_TO_EVENTS_CMS = "event/admin/"
     LINKS_TO_EVENTS_LMS = "event/"
 
