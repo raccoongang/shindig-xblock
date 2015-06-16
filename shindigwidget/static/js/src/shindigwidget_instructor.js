@@ -1,337 +1,376 @@
-function ShindigXBlock(runtime, element, shindig_defaults) {
 
-    var shindig = (function () {
-        //TODO:  DRY this code out vis-à-vis student.js
-        var i,
-            host,
-            form = document.getElementById("shindig-signup"),
-            recurring = form.querySelector('#RecurringEvent'),
-            dates = form.querySelectorAll('[type=date]');
+function ShindigStudioXBlock(runtime, element, shindig_defaults) {
 
-        form.action = shindig_defaults.host_events + shindig_defaults.path_events;
+    if (!shindig_defaults.is_valid_settings){
+        alert('xBlock settings are not properly configured!');
+        return
+    }
 
-        if (!!form) {
-            //Quick hack to get host
-            var a = document.createElement('a');
-            a.href = form.action;
-            host = a.host;
+    window.RequireJS.require({
+        paths: {
+            'moment': '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js'
         }
+    });
 
-        //Extend date object to facilitate date range calculation
-        Date.prototype.addMonths = function (n) {
-            var day = this.getDate();
-            this.setMonth(this.getMonth() + n);
-            if (this.getDate() < day) {
-                this.setDate(1);
-                this.setDate(this.getDate() - 1);
+    window.RequireJS.require(['moment'], function (moment) {
 
-            }
-            return this;
-        };
-
-
-        function checkEnter(e) {
-            var evt = (evt) ? evt : ((event) ? event : null);
-            var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
-            if ((evt.keyCode == 13) && (node.type != "submit")) {
-                return false;
-            }
-        }
-
-
-        function setLinkFormat(tr, item) {
-            var td, link, eventLink;
-            td = document.createElement('td');
-
-            link = document.createElement('a');
-            link.className = 'delete-event';
-            link.href = '#';
-            link.setAttribute('data-eid', item.eid);
-            link.innerHTML = "Delete | ";
-            td.appendChild(link);
-
-            //if (item.join_now){
-            //    link.innerHTML = "Join";
-            //    link.target="_blank"
-            //} else {
-            //    link.innerHTML = "Delete | ";
-            //}
-
-            eventLink = document.createElement('a');
-            eventLink.href = shindig_defaults.links_to_events_cms + item.eid;
-            eventLink.target = "_blank";
-            eventLink.innerHTML = "Events";
-            td.appendChild(eventLink);
-            tr.appendChild(td);
-        }
-
-        function dateRangeExceeded(e) {
-            var today = new Date(),
-                dateToTest = new Date(e.target.value);
-
-            // Test for dates more than 6 months out
-            if (dateToTest > today.addMonths(6)) {
-                e.target.setCustomValidity('Please pick a date less than 6 months from now (' +
-                new Date().toString() + ').');
-            } else {
-                e.target.setCustomValidity('');
-            }
-        }
-
-        function validateForm
-        (event) {
-            // fetch cross-browser event object and form node
-            event = (event ? event : window.event);
-
-            var form = (event.target ? event.target : event.srcElement),
-                formvalid = true; //false for testing
-
-            //Test checkboxes for valid state
-            if (recurring.checked) {
-                var checkboxes = form.querySelector('[name="days_of_the_week"]:checked');
-                if (!checkboxes) {
-                    formvalid = false;
-                    var errormsg = form.querySelector('.days-of-week-error');
-                    errormsg.classList.remove('hidden');
-                }
-            }
-
-            // cancel form submit if validation fails
-            if (!formvalid) {
-                if (event.preventDefault) event.preventDefault();
-                //show error message
-
-            } else {
-                if (document.querySelector('.fltrow')) {
-                    //Set filters
-                    var subheading = form.querySelector('#subheading').value,
-                        eventType = form.querySelector('[name="event_type"]:checked').value;
-                    setFilterGrid('event-table');
-                    TF_SetFilterValue('event-table', 0, eventType + ' - ' + subheading);
-                    TF_SetFilterValue('event-table', 1, form.querySelector('#description').value);
-                    TF_Filter("event-table");
-                }
-
-            }
-            return formvalid;
-        }
-
-        // Add additional validation rules
-        i = dates.length; //or 10
-        while (i--) {
-            dates[i].addEventListener('input', dateRangeExceeded);
-        }
-
-        //Default start date to current date
-        document.getElementById('startdate').value = new Date().toISOString().slice(0, 10);
-        document.getElementById('enddate').value = new Date().toISOString().slice(0, 10);
-
-        // onsubmit used for easier cross-browser compatibility
-        form.onsubmit = validateForm;
-        form.onkeypress = checkEnter;
-
-
-        return {
-            host: host,
-            path: shindig_defaults.path_events,
-            buildLink: setLinkFormat
-        };
-    }());
-
-
-    (function () {
-        "use strict";
-
-        //Set up local vars
-        var postTarget, clearFilters, el, getEvents, populateEvents, buildTD, webcalURL, isFirstTime;
-
-        isFirstTime = true;
-        webcalURL = "webcal://" + shindig.host + '/createical?eid=';
-
-
-        //Set up event handler for iframe target onload
-        postTarget = document.getElementById("postTarget");
-        if (!!postTarget) {
-            postTarget.onload = function () {
-                if (isFirstTime) {
-                    isFirstTime = false;
-                } else {
-                    getEvents();
-                    //Set the Events tab as the active tab
-                    var eventsRadioButton = document.getElementById('s3');
-                    if (eventsRadioButton) {
-                        eventsRadioButton.checked = true;
-                    }
-                }
-            };
-        }
-
-        //Set up event handler for Clear Filters
-        clearFilters = document.getElementById("shindig-clear-filters");
-        if (!!clearFilters) {
-            clearFilters.onclick = function () {
-                TF_ClearFilters('event-table');
-                TF_Filter('event-table');
-            };
-        }
-
-        //Populate Event creation fields with provided default values
-        for (var element in shindig_defaults) {
-            if (shindig_defaults.hasOwnProperty(element)) {
-                // Set default values for specific elements if they exist
-                el = document.getElementById(element);
-                if (el) {
-                    el.value = shindig_defaults[element];
-                }
-            }
-        }
-
-        //Initialize events list
-        JSONP.init({
-            error: function (ex) {
-                alert("Failed to load : " + ex.url);
+        moment.locale('en', {
+            calendar : {
+                sameDay: '[Today from] h:mma',
+                nextDay: '[Tomorrow from] h:mma',
+                sameElse: 'dddd MMM Do [from] h:mma',
+                lastWeek: 'dddd MMM Do [from] h:mma',
+                nextWeek: 'dddd MMM Do [from] h:mma',
+                lastDay: 'dddd MMM Do [from] h:mma'
             }
         });
 
-        buildTD = function (tr, data) {
-            var td;
-            td = document.createElement('td');
-            td.innerHTML = data;
-            tr.appendChild(td);
-            return td;
-        };
+        addthisevent.settings({
+            license: "replace-with-your-licensekey",
+            css: false,
+            outlook: {show: true, text: "Outlook Calendar"},
+            google: {show: true, text: "Google Calendar"},
+            yahoo: {show: true, text: "Yahoo Calendar"},
+            outlookcom: {show: true, text: "Outlook.com"},
+            appleical: {show: true, text: "Apple iCalendar"},
+            dropdown: {order: "appleical,google,outlook,outlookcom,yahoo"}
+        });
 
-        populateEvents = function (data) {
-            $('.shindig-load').addClass('is-hidden');
-            var eventDateSortable,
-                eventList = document.getElementById('event-list'),
-                len = data.length || 0,
-                item = null,
-                tr = null;
+        // initialize default fields
+        $(element).find('[data-institution]').val(shindig_defaults.institution);
+        $(element).find('[data-course]').val(shindig_defaults.course);
+        //$(element).find('[data-service-phone]').val(shindig_defaults.service_phone);
 
-
-            //Reset event list
-            isFirstTime = false;
-            eventList.innerHTML = "";
-
-            //Populate event list rows
-            if (!!eventList && !!data && len > 0) {
-
-                for (var i = 0; i < len; i++) {
-
-                    var eventDate, eventDateSortable, now, startTime, endTime, special;
-                    item = data[i];
-
-                    now = new Date();
-                    startTime = new Date(item.start * 1000);
-                    startTime = new Date(startTime.getUTCFullYear(),
-                                         startTime.getUTCMonth(),
-                                         startTime.getUTCDate(),
-                                         startTime.getUTCHours(),
-                                         startTime.getUTCMinutes());
-                    eventDate = startTime.toDateString();
-                    try {
-                        eventDateSortable = startTime.toISOString().slice(0, 10);
-                    } catch (ex) {
-                        eventDateSortable = ex.message;
-                    }
-                    try {
-                        startTime = startTime.toLocaleTimeString();
-                    } catch (ex) {
-                        startTime = ex.message;
-                    }
-
-
-                    endTime = new Date(item.end * 1000);
-                    endTime = new Date(endTime.getUTCFullYear(),
-                                       endTime.getUTCMonth(),
-                                       endTime.getUTCDate(),
-                                       endTime.getUTCHours(),
-                                       endTime.getUTCMinutes());
-                    endTime   = endTime.toLocaleTimeString();
-
-                    tr = document.createElement('tr');
-                    tr.className += ("event-type " + item.event_type);
-
-                    buildTD(tr, item.event_type +
-                    ' - ' +
-                    item.subheading +
-                    '<a href="' +
-                    webcalURL +
-                    item.eid +
-                    '" title="Click to add to Calendar">' +
-                    '<i class="icon-calendar"></i>' +
-                    '</a>');
-                    buildTD(tr, item.description);
-                    special = buildTD(tr, eventDate);
-                    //Set custom sort key for date value
-                    special.setAttribute('sorttable_customkey', eventDateSortable);
-                    buildTD(tr, startTime);
-                    buildTD(tr, endTime);
-                    shindig.buildLink(tr, item);
-                    eventList.appendChild(tr);
-                }
+        $.ajax({
+            url: runtime.handlerUrl(element, 'get_user_email_and_username'),
+            type: "GET",
+            success: function (data) {
+                $(element).find("[data-user-email]").val(data.email);
+                //$(element).find("[data-username]").val(data.username);
             }
+        });
 
-            if (len > 0) {
-                setFilterGrid('event-table');
-                TF_Filter("event-table");
+        var hashKeyUser = false;
+        var getHashKeyUser = $.ajax({
+            url: runtime.handlerUrl(element, 'get_hash_key_user'),
+            type: "GET",
+            success: function (data) {
+                hashKeyUser = data.hash_key;
             }
+        });
 
-            actionDelete(getEvents);
-            //if (len > 0) {
-            //    if (!document.querySelector('.fltrow')) {
-            //        //Set event filters
-            //        window.setTimeout(function () {
-            //            setFilterGrid('event-table');
-            //            TF_Filter("event-table");
-            //        }, 100);
-            //    } else {
-            //        TF_Filter("event-table");
-            //    }
-            //}
-
-        };
-
-        getEvents = function () {
-            $('.shindig-load').removeClass('is-hidden');
-            var institution, course;
-            //Get the current institution
-            institution = shindig_defaults.institution;
-            //Get the current course
-            course = shindig_defaults.course;
-
-            //Get existing events
-            JSONP.get(
-                '//' + shindig.host + '/' + shindig.path,
-                {institution: institution, course: course},
-                populateEvents
-            );
-        };
-
-        //Initialize event table
-        getEvents();
-
-    })();
-
-    $('.action-cancel').click(function (event) {
-        TblId.pop();
-    });
-
-    var actionDelete = function (callback) {
-        $('.delete-event').click(function (event) {
-            event.preventDefault();
+        // initialize event list
+        var dataEvents = [];
+        var isChangedEvents = false;
+        var getEvents = function () {
+            $('.shindig-load', element).removeClass('is-hidden');
             $.ajax({
-                url: runtime.handlerUrl(element, 'remove_events'),
-                type: "POST",
-                data: {'eid': $(event.currentTarget).data('eid')},
-                success: function(data){
-                    if (data.remove){
-                        callback();
+                url: runtime.handlerUrl(element, 'get_events'),
+                type: "GET",
+                success: function (data) {
+                    if (data.status) {
+                        var intervalID = setInterval(function () {
+                            if (getHashKeyUser.isResolved()) {
+                                dataEvents = data.events;
+                                renderEvents(dataEvents.slice(0, 3));
+                                clearInterval(intervalID)
+                            }
+                        }, 300)
+
                     }
                 }
             });
-        });
-    }
+        };
 
+        getEvents();
+
+        var renderEvents = function(events) {
+            var eventList = '';
+            var template = _.template($('#event-item', element).text());
+            _.each(events, function(event){
+                var values = getValuesForTemplate(event);
+                eventList += template(values);
+            });
+            $('.shindig-load', element).addClass('is-hidden');
+            $("[data-event-list]", element).html(eventList);
+            $('[data-event]:first', element).addClass('active');
+            addthisevent.generate();
+            actionDelete();
+            actionToggleActive();
+            if (dataEvents.length > events.length) {
+                $('[data-btn-more]', element).removeClass('hidden');
+            } else {
+                $('[data-btn-more]', element).addClass('hidden');
+            }
+
+        };
+
+        var getValuesForTemplate = function (data) {
+            var eventType = {OH: 'Office Hours', DS: 'Discussion Section', SH: 'Study Hall'};
+            var tz = jstz.determine();
+            var linksText = 'rsvp';
+            if (moment.unix(data.start).utc() < moment.utc()) {
+                linksText = 'join';
+            }
+            var linksToEvent;
+            if (data.temp_link) {
+                linksToEvent = shindig_defaults.links_to_events_cms + data.temp_link + '/?hash_key=' + hashKeyUser
+            } else {
+                linksToEvent = shindig_defaults.links_to_events_cms + data.eid + '/?hash_key=' + hashKeyUser
+            }
+
+            var classStringDate = '';
+            var startDate = moment.unix(data.start).utc();
+            if (startDate.isSame(moment.utc(), 'day')) {
+                classStringDate = 'today';
+            } else if (startDate.isSame(moment.utc().add(1, 'day'), 'day')) {
+                classStringDate = 'tomorrow';
+            }
+
+            return {
+                eventType: eventType[data.event_type],
+                name: data.event_name,
+                title: data.subheading,
+                description: data.description,
+                stringDate: startDate.calendar() + moment.unix(data.end).utc().format("[ -] h:mma"),
+                classStringDate: classStringDate,
+                startDate: startDate.format("MM/DD/YY HH:mm"),
+                endDate: moment.unix(data.end).utc().format("MM/DD/YY HH:mm"),
+                timezone: tz.name(),
+                institution: shindig_defaults.institution,
+                email: shindig_defaults.service_phone,
+                eid: data.eid,
+                linksToEvent: linksToEvent,
+                linksText: linksText
+            }
+        };
+
+        $('[data-btn-more], [data-search-clear]', element).on('click submit', function () {
+            $('[data-search-text]', element).val('');
+            $('[data-search-date]', element).val('');
+            renderEvents(dataEvents);
+            return false;
+        });
+
+        var search = function(event) {
+            if (event) {
+                event.preventDefault();
+            }
+            var searchText = $('[data-search-text]', element).val().toLowerCase();
+            var searchDate = $('[data-search-date]', element).val();
+            if (searchText || searchDate) {
+                var searchEvent = _.filter(dataEvents, function (data) {
+                    var isTextName = data.event_name.toLowerCase().indexOf(searchText) != -1;
+                    var isTextTitle = data.subheading.toLowerCase().indexOf(searchText) != -1;
+                    var isTextDescription = data.description.toLowerCase().indexOf(searchText) != -1;
+                    var isDate = moment.unix(data.start).utc().isSame(moment.utc(searchDate), 'day');
+                    if (searchText && searchDate) {
+                        return (isTextTitle || isTextDescription || isTextName) && isDate
+                    }
+                    if (searchText) {
+                        return isTextTitle || isTextDescription || isTextName
+                    }
+                    if (searchDate) {
+                        return isDate
+                    }
+                });
+                renderEvents(searchEvent);
+            }
+        };
+
+        $('[data-search-btn]', element).on('click', search);
+        $('[data-search-text]', element).on('keypress', function (event) {
+            if (event.which == 13) {
+                search(event);
+            }
+        });
+        $('[data-search-date]', element).on('change', function (event) {
+            var searchDate = $(event.currentTarget).val();
+            var searchText = $('[data-search-text]', element).val();
+            if (searchText || searchDate) {
+                search();
+            } else {
+                renderEvents(dataEvents);
+            }
+        });
+
+        // create new event
+        var form = $('#shindig-signup', element);
+        form.on('submit', createEvent);
+
+        function createEvent(event) {
+            event.preventDefault();
+            var formValid = validateForm();
+            if (formValid) {
+                $('#s3', element).prop("checked", true);
+                $('.shindig-load', element).removeClass('is-hidden');
+                $('[data-btn-more]', element).addClass('hidden');
+                $("[data-event-list]", element).html('');
+                $.ajax({
+                    url: runtime.handlerUrl(element, 'create_event'),
+                    type: "POST",
+                    data: form.serialize(),
+                    success: function (data) {
+                        if (data.create) {
+                            $('[data-search-text]', element).val(data.event[0].event_name);
+                            if (data.event.length == 1) {
+                                $('[data-search-date]', element).val(moment.unix(data.event[0].start).utc().format('YYYY-MM-DD'));
+                            } else {
+                                $('[data-search-date]', element).val('');
+                            }
+                            renderEvents(data.event);
+                            isChangedEvents = true;
+                            dataEvents = dataEvents.concat(data.event);
+                            dataEvents.sort(function(ev1, ev2) {
+                                return ev1.start - ev2.start
+                            });
+                            clearForm();
+                        } else {
+                            var error = 'Error create. ' + data.error;
+                            alert(error);
+                            renderEvents(dataEvents.slice(0, 3));
+                        }
+                    }
+                });
+            }
+        }
+
+        function validateForm() {
+            var formValid = true;
+
+            // validation schedule
+            var recurring = $('[data-recurring]', element)[0];
+            if (recurring.checked) {
+                var dayOfTheWeek = $('[data-schedule]:checked', element);
+                if (!dayOfTheWeek.length) {
+                    formValid = false;
+                    $('[data-schedul-error]', element).removeClass('hidden');
+                }
+            }
+
+            return formValid;
+        }
+
+        // remove event
+        var actionDelete = function () {
+            $('[data-delete-event]', element).on('click', function (event) {
+                event.preventDefault();
+                var eid = $(event.currentTarget).data('eid')
+                $.ajax({
+                    url: runtime.handlerUrl(element, 'remove_event'),
+                    type: "POST",
+                    data: {'eid': eid},
+                    success: function (data) {
+                        if (data.remove) {
+                            $(event.currentTarget).parents('.list-item').remove();
+                            var dataEid = _.map(dataEvents, function(data){ return data.eid });
+                            isChangedEvents = true;
+                            dataEvents.splice(_.indexOf(dataEid, eid), 1);
+                        }
+                    }
+                });
+            });
+        };
+
+        var actionToggleActive = function () {
+            $('[data-toggle-active]', element).on('click', function (event) {
+                $(event.currentTarget).parents('.event').toggleClass('active');
+            })
+        };
+
+        var clearForm = function(){
+            $(element).find('[data-name]').val('');
+            $(element).find('[data-title]').val('');
+            $(element).find('[data-description]').val('');
+            $("[data-startdate]", element).datepicker('setDate', moment.utc().format('MM/DD/YYYY'));
+            $(element).find('[data-enddate]').val('');
+            $(element).find('[data-start-time]').val('');
+            $(element).find('[data-end-time]').val('');
+        };
+
+        $('.action-cancel').on('click', function () {
+            if (isChangedEvents) {
+                runtime.notify('save', {state: 'start'});
+                runtime.notify('save', {state: 'end'});
+            }
+        });
+
+        $('[name = "series"]', element).on('change', function (event) {
+            $('[data-toggle-series]').toggleClass('hidden');
+        });
+
+        $('[data-schedule]', element).on('change', function () {
+            $('[data-schedul-error]', element).addClass('hidden');
+        });
+
+        function filterTimeZones() {
+            var timeZones = {
+                "United States": {
+                    "Eastern": "America\/New_York",
+                    "Central": "America\/Chicago",
+                    "Mountain": "America\/Denver",
+                    "Arizona": "America\/Phoenix",
+                    "Pacific": "America\/Los_Angeles",
+                    "Alaska": "America\/Anchorage",
+                    "Hawaii": "Pacific\/Honolulu"
+                },
+                "United Kingdom": {"London": "Europe\/London"},
+                "UTC": {"UTC": "UTC"}
+            };
+            var country = $('select[name=country]', element);
+            var tz = $('select[name=timeZone]', element);
+            tz.children().remove();
+
+            var selectedCountryLabel = country.find(':selected').attr('label');
+            $.each(timeZones[selectedCountryLabel], function (k, v) {
+                var newOption = $('<option value="' + v + '" label="' + k + '">'
+                    + k + '</option>');
+                if (typeof(savedTimeZone) == 'string' && v == savedTimeZone) {
+                    $(newOption).attr('selected', 'selected');
+                }
+                tz.append(newOption);
+            });
+            return true;
+        }
+        filterTimeZones();
+        $('select[name=country]', element).change(filterTimeZones);
+
+        $("[data-startdate]", element).datepicker({
+            constrainInput: true,
+            dateFormat: "mm/dd/yy",
+            onClose: function( selectedDate ) {
+                $("[data-enddate]", element).datepicker("option", "minDate", selectedDate);
+                $("[data-enddate]", element).datepicker("option", "maxDate", moment(selectedDate).add(20, 'week').utc().format('MM/DD/YYYY'));
+          }
+        });
+
+        $("[data-startdate]", element).datepicker('setDate', moment.utc().format('MM/DD/YYYY'));
+
+        $("[data-enddate]", element).datepicker({
+            constrainInput: true,
+            dateFormat: "mm/dd/yy",
+            maxDate: '+20w',
+            minDate: moment.utc().format('MM/DD/YYYY'),
+            onClose: function(selectedDate) {
+                $("[data-startdate]").datepicker( "option", "maxDate", selectedDate );
+            }
+        });
+
+        $("[data-start-time]", element).timepicker({
+            timeFormat: 'H:i'
+        });
+
+        $("[data-end-time]", element).timepicker({
+            timeFormat: 'H:i'
+        });
+
+        $("[data-start-time]", element).on('changeTime', function(){
+            $("[data-end-time]", element).timepicker('option', 'minTime', $(this).val());
+        });
+
+        $("[data-end-time]", element).on('changeTime', function(){
+            $("[data-start-time]", element).timepicker('option', 'maxTime', $(this).val());
+        });
+
+    });
 }

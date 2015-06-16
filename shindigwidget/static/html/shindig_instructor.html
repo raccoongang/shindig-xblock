@@ -1,149 +1,155 @@
 <div class="shindigwidget_block">
-<form id="shindig-signup"
-      class="form-horizontal"
-      method="post"
-      target="postTarget"
-      action=""
-      autocomplete="on">
-<div class="tab-container">
-<input type="radio" id="s1" name="s" checked="">
-<input type="radio" id="s2" name="s">
-<input type="radio" id="s3" name="s">
-<div class="tabs">
-    <label for="s1">Info</label>
-    <label for="s2">Create</label>
-    <label for="s3">Events</label>
-</div>
-<ul class="sections">
-<!-- Default Information read from environment -->
-<li>
-    <div class="well">
-        <div class="control-group required">
-            <!-- Instituion -->
-            <label class="control-label">Institution</label>
-            <div class="controls">
-                <div class="input-prepend">
-                    <span class="add-on"><i class="icon-home"></i></span>
-                    <input type="text"
-                           class="input-xlarge"
-                           id="institution"
-                           name="institution"
-                           placeholder="Name of Institution"
-                           required="required"
-                           readonly="readonly">
+  <form id="shindig-signup"
+        class="form-horizontal"
+        method="post"
+        action=""
+        autocomplete="on">
+    <div class="tab-container">
+      <input type="radio" id="s1" name="s" checked="">
+      <input type="radio" id="s2" name="s">
+      <input type="radio" id="s3" name="s">
+      <input type="radio" id="s4" name="s">
+      <div class="tabs">
+        <label for="s1">Info</label>
+        <label for="s2">Create</label>
+        <label for="s3">Shindig</label>
+        <label for="s4">Embed code</label>
+      </div>
+      <ul class="sections">
+        <!-- Default Information read from environment -->
+        <li>
+          <div class="well">
+            <div class="column-holder">
+              <div class="column-left">
+                <div class="control-group required">
+                  <!-- Instituion -->
+                  <label class="control-label">Institution</label>
+                  <div class="controls">
+                    <div class="input-prepend">
+                      <span class="add-on"><i class="icon-home"></i></span>
+                      <input data-institution
+                             type="text"
+                             class="input-xlarge"
+                             name="institution"
+                             placeholder="Name of Institution"
+                             required="required"
+                             readonly="readonly" />
+                    </div>
+                  </div>
+                  <!-- Course -->
+                  <label class="control-label">Course</label>
+                  <div class="controls">
+                    <div class="input-prepend">
+                      <span class="add-on"><i class="icon-book"></i></span>
+                      <input data-course
+                             type="text"
+                             class="input-xlarge"
+                             name="course"
+                             placeholder="Course Name"
+                             required="required"
+                             readonly="readonly" />
+                    </div>
+                  </div>
                 </div>
-            </div>
-            <!-- Course -->
-            <label class="control-label">Course</label>
-            <div class="controls">
-                <div class="input-prepend">
-                    <span class="add-on"><i class="icon-book"></i></span>
-                    <input type="text"
-                           class="input-xlarge"
-                           id="course"
-                           name="course"
-                           placeholder="Course Name"
-                           required="required"
-                           readonly="readonly">
-                </div>
-            </div>
-        </div>
-        <!-- Contact Info -->
-        <div class="control-group required">
-            <label class="control-label">Course Admin #</label>
-            <div class="controls">
-                <div class="input-prepend">
-                    <span class="add-on"><i class="icon-headphones"></i></span>
-                    <input type="tel"
-                           class="input-xlarge"
-                           id="customerServicePhone"
-                           name="service_phone"
-                           title="Phone Number Format: (999)999-9999"
-                           placeholder="Enter a contact number"
-                           required="required">
-                </div>
-            </div>
-            <!-- Customer Service Email -->
-            <label  title="This email will be used to send event confirmations to the event planner."
-                    class="control-label required">Course Admin Email</label>
-            <div class="controls">
-                <div title="This email will be used to send event confirmations to the event planner."
-                     class="input-prepend">
-                    <span class="add-on"><i class="icon-envelope"></i></span>
-                    <input type="email" class="input-xlarge" id="customerServiceEmail" name="service_email" placeholder="Enter an email address"  required="required">
-                </div>
-            </div>
-        </div>
-        <div class="control-group required">
-            <!-- Time Zone -->
-            <label class="control-label required">Time Zone</label>
-            <div class="controls">
-                <div class="input-prepend">
-                    <span class="add-on"><i class="icon-time"></i></span>
-                    <select name="time_zone" id="timeZone" class="shindigInput inputLabel required valid"  required="required">
-                        <option value="America/New_York" label="Eastern">Eastern</option>
-                        <option value="America/Chicago" label="Central">Central</option>
-                        <option value="America/Denver" label="Mountain">Mountain</option>
-                        <option value="America/Phoenix" label="Arizona">Arizona</option>
-                        <option value="America/Los_Angeles" label="Pacific">Pacific</option>
-                        <option value="America/Anchorage" label="Alaska">Alaska</option>
-                        <option value="Pacific/Honolulu" label="Hawaii">Hawaii</option>
-                    </select>
-                </div>
-            </div>
-            <!-- Country -->
-            <label class="control-label">Country</label>
-            <div class="controls">
-                <div class="input-prepend">
-                    <span class="add-on"><i class="icon-flag"></i></span>
-                    <select name="country" id="country" class="shindigInput inputLabel"  required="required" >
+                <div class="control-group required">
+                  <!-- Country -->
+                  <label class="control-label">Country</label>
+                  <div class="controls">
+                    <div class="input-prepend">
+                      <span class="add-on"><i class="icon-flag"></i></span>
+                      <select name="country" id="country" class="shindigInput inputLabel"  required="required" >
                         <option value="0" label="United States">United States</option>
                         <option value="1" label="United Kingdom">United Kingdom</option>
                         <option value="2" label="UTC">UTC</option>
-                    </select>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- Time Zone -->
+                  <label class="control-label required">Time Zone</label>
+                  <div class="controls">
+                    <div class="input-prepend">
+                      <span class="add-on"><i class="icon-time"></i></span>
+                      <select name="timeZone" id="timeZone" class="shindigInput inputLabel required valid"  required="required">
+                      </select>
+                    </div>
+                  </div>
                 </div>
+              </div>
+              <div class="column-right">
+                <p>Organize video chat office hours, discussion sections, and study halls for your students within edX. Students can see availability on their dashboard. In these events Instructors can video chat singly or as a group with all, can take questions from any and all students in front of the entire gathering and students themselves can discuss privately with one another.</p>
+
+                <p>Event Types<br/>
+                    -Office Hours - Faculty-led Q&A sessions<br/>
+                    -Discussion Sections - Teaching Assistant or student led discussions on selected course material<br/>
+                    - Study Halls - Unstructured peer to peer teaching, sharing, and review sessions<br/>
+                    These  links will help familiarize you with the Shindig large scale video chat teaching platform’s capabilities.
+                    <a href="http://youtu.be/ICsNKttfsOE">Introduction to Shindig Video</a></p>
+
+                <p>Once you have entered the details below, navigate to the <label for="s2">Create tab</label><br/><br/>
+                   If you have questions about creating or hosting a Shindig event, contact <a href="mailto:edxsupport@shindigevents.com">edxsupport@shindigevents.com</a></p>
+              </div>
             </div>
-        </div>
-        <!-- Next Tab -->
-        <div class="control-group">
-            <div class="controls">
-                <label class="btn btn-info pull-right"
-                       for="s2">Next -></label>
+            <!-- Next Tab -->
+            <div class="control-group">
+              <div class="controls">
+                <label class="btn btn-info pull-right" for="s2">Next -></label>
+              </div>
             </div>
-        </div>
+          </div>
+        </li>
 
-        <div>
-            <p>Organize video chat office hours, discussion sections, and study halls for your students within edX. Students can see availability on their dashboard. In these events Instructors can video chat singly or as a group with all, can take questions from any and all students in front of the entire gathering and students themselves can discuss privately with one another.</p>
-
-            <p>
-                Event Types<br/>
-                -Office Hours - Faculty-led Q&A sessions<br/>
-                -Discussion Sections - Teaching Assistant or student led discussions on selected course material<br/>
-                - Study Halls - Unstructured peer to peer teaching, sharing, and review sessions<br/>
-                These  links will help familiarize you with the Shindig large scale video chat teaching platform’s capabilities.
-                <a href="http://youtu.be/ICsNKttfsOE">Introduction to Shindig Video</a><br/>
-            </p>
-            <p>
-                Once you have entered the details below, navigate to the <label for="s2">Create tab</label><br/>
-                <br/>
-                If you have questions about creating or hosting a Shindig event, contact <a href="mailto:edxsupport@shindigevents.com">edxsupport@shindigevents.com</a>
-            </p>
-            <span>Powered by </span><a href="http://www.shindigevents.com/"><img src="//shindigevents.github.io/shindig-xblock/shindigwidget/static/images/shindig_header_logo.png" class="vcenter"></a>
-        </div>
-
-    </div>
-</li>
-<!-- Event specific information -->
-<li>
-    <div class="well">
-        <!-- moved input under well to allow use of sibling selectors to toggle fields -->
-        <input type="radio" id="OneTimeEvent" name="event_frequency" value="One Time Event" data-toggle="button" checked="checked">
-        <!-- Event Type -->
-        <div class="control-group required">
-            <label class="control-label">Create a new event</label>
-            <div class="controls event-type">
-                <div class="input-prepend">
-                    <div class="btn-group" data-toggle="buttons-radio">
+        <!-- Event specific information -->
+        <li>
+          <div class="well">
+            <div class="event-holder">
+              <div class="column-left">
+                <div class="control-group required">
+                  <!-- Event name -->
+                  <label class="control-label">Name</label>
+                  <div class="controls">
+                    <div class="input-prepend">
+                      <span class="add-on"><i class="icon-info-sign"></i></span>
+                      <input data-name type="text" id="event-name" class="input-xlarge" name="name" placeholder="Name" required="required">
+                    </div>
+                  </div>
+                </div>
+                <div class="control-group required">
+                  <!-- Sub Heading -->
+                  <label class="control-label">Title</label>
+                  <div class="controls">
+                    <div class="input-prepend">
+                      <span class="add-on"><i class="icon-info-sign"></i></span>
+                      <input data-title type="text" class="input-xlarge" id="subheading" name="subheading" placeholder="Title" required="required">
+                    </div>
+                  </div>
+                </div>
+                <div class="control-group required">
+                  <!-- Description -->
+                  <label class="control-label">Description</label>
+                  <div class="controls">
+                    <div class="input-prepend">
+                      <textarea data-description name="description" id="description" class="input-xlarge required" rows="3" cols="80" required="required"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <!-- Teacher's Email -->
+                <div class="control-group required">
+                  <label  title="This email will be used to send event confirmations to the event planner." class="control-label required">Course Admin Email</label>
+                  <div class="controls">
+                    <div title="This email will be used to send event confirmations to the event planner." class="input-prepend">
+                      <em class="add-on"><i class="icon-envelope"></i></em>
+                      <input data-user-email type="email" class="input-xlarge" id="courseadmineml" name="customerService" placeholder="Enter an email address" required="required">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column-right">
+                <!--Event Frequency Toggle -->
+                <div class="control-group required">
+                  <label class="control-label">Create a new event</label>
+                  <div class="controls event-type">
+                    <div class="input-prepend">
+                      <div class="btn-group event-t" data-toggle="buttons-radio">
                         <input type="radio" id="eventType2" name="event_type" value="OH" data-toggle="button" checked="checked">
                         <label class="btn btn-info"
                                for="eventType2"
@@ -161,162 +167,230 @@
                                for="eventType1"
                                title="unmoderated sessions encouraging student to student teaching, sharing and discussion"
                                onclick="">Study Hall</label>
+                      </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="control-group required">
-            <!-- Sub Heading -->
-            <label class="control-label">Title</label>
-            <div class="controls">
-                <div class="input-prepend">
-                    <span class="add-on"><i class="icon-info-sign"></i></span>
-                    <input type="text" class="input-xlarge" id="subheading" name="subheading" placeholder="Title" required="required">
-                </div>
-            </div>
-            <!-- Description -->
-            <label class="control-label">Description</label>
-            <div class="controls">
-                <div class="input-prepend">
-                    <textarea name="description" id="description" class="input-xlarge required" rows="3" cols="80" required="required"></textarea>
-                </div>
-            </div>
-        </div>
-        <!--Event Frequency Toggle -->
-        <div class="control-group required">
-            <label class="control-label">Event Frequency</label>
-            <div class="controls event-type">
-                <div class="input-prepend">
-                    <div class="btn-group" data-toggle="buttons-radio">
-                        <!-- Input for OneTimeEvent was moved up under well to allow use of sibling selectors -->
+                  </div>
+                  <label class="control-label">Event Frequency</label>
+                  <div class="controls event-type">
+                    <div class="input-prepend">
+                      <div class="btn-group event-f" data-toggle="buttons-radio">
+                        <input type="radio" id="OneTimeEvent" name="series" value="false" data-toggle="button" checked="checked" required="required">
                         <label class="btn btn-info"
                                title="Select for single day event"
-                               onclick="document.getElementById('enddate').required=false;"
+                               onclick="document.getElementById('enddate').required=false; $('[data-label-text-startdate]').text('On');"
                                for="OneTimeEvent">&nbsp;&nbsp;&nbsp;&nbsp;One Time&nbsp;&nbsp;&nbsp;&nbsp;</label>
                         <!-- Input for RecurrentEvent -->
-                        <input type="radio" id="RecurringEvent" name="event_frequency" value="Recurring Event" data-toggle="button" required="required">
+                        <input data-recurring type="radio" id="RecurringEvent" name="series" value="true" data-toggle="button" required="required">
                         <label class="btn btn-info"
                                title="Select for Recurrent Events (ex: MWF between now and 2014-12-25)"
-                               onclick="document.getElementById('enddate').required=true"
+                               onclick="document.getElementById('enddate').required=true; $('[data-label-text-startdate]').text('Beginning');"
                                for="RecurringEvent" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Recurring&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                      </div>
                     </div>
-                </div>
-            </div>
-            <!-- Days of the Week -->
-            <label class="control-label">Every</label>
-            <div class="controls day-of-week">
-                <div title="For repeating events, select which days of the week the event will take place on."
-                     class="input-prepend">
-                    <div class="btn-group" data-toggle="buttons-radio">
-                        <input type="checkbox" id="Sun" name="days_of_the_week" value="0" data-toggle="button">
+                  </div>
+                  <!-- Days of the Week -->
+                  <label data-toggle-series class="control-label hidden">Every</label>
+                  <div data-toggle-series class="controls day-of-week hidden">
+                    <div title="For repeating events, select which days of the week the event will take place on."
+                         class="input-prepend">
+                      <div class="btn-group days-week" data-toggle="buttons-radio">
+                        <input data-schedule type="checkbox" id="Sun" name="schedule[]" value="Sun" data-toggle="button">
                         <label class="btn btn-info" for="Sun" onclick="">Sun</label>
 
-                        <input type="checkbox" id="Mon" name="days_of_the_week" value="1" data-toggle="button">
+                        <input data-schedule type="checkbox" id="Mon" name="schedule[]" value="Mon" data-toggle="button" checked="checked">
                         <label class="btn btn-info" for="Mon" onclick="">Mon</label>
 
-                        <input type="checkbox" id="Tue" name="days_of_the_week" value="2" data-toggle="button">
+                        <input data-schedule type="checkbox" id="Tue" name="schedule[]" value="Tue" data-toggle="button">
                         <label class="btn btn-info" for="Tue" onclick="">Tue</label>
 
-                        <input type="checkbox" id="Wed" name="days_of_the_week" value="3" data-toggle="button">
+                        <input data-schedule type="checkbox" id="Wed" name="schedule[]" value="Wed" data-toggle="button">
                         <label class="btn btn-info" for="Wed" onclick="">Wed</label>
 
-                        <input type="checkbox" id="Thu" name="days_of_the_week" value="4" data-toggle="button">
+                        <input data-schedule type="checkbox" id="Thu" name="schedule[]" value="Thu" data-toggle="button">
                         <label class="btn btn-info" for="Thu" onclick="">Thu</label>
 
-                        <input type="checkbox" id="Fri" name="days_of_the_week" value="5" data-toggle="button">
+                        <input data-schedule type="checkbox" id="Fri" name="schedule[]" value="Fri" data-toggle="button">
                         <label class="btn btn-info" for="Fri" onclick="">Fri</label>
 
-                        <input type="checkbox" id="Sat" name="days_of_the_week" value="6" data-toggle="button">
+                        <input data-schedule type="checkbox" id="Sat" name="schedule[]" value="Sat" data-toggle="button">
                         <label class="btn btn-info" for="Sat" onclick="">Sat</label>
+                      </div>
                     </div>
+                    <div data-schedul-error class="days-of-week-error hidden">You must select at least one day of the week</div>
+                  </div>
                 </div>
-                <div class="days-of-week-error hidden">You must select at least one day of the week</div>
+                <!-- Date -->
+                <div class="control-group required">
+                  <div class="time-unit">
+                    <label data-label-text-startdate class="control-label">On</label>
+                    <div class="controls">
+                      <div title="Enter or use the calendar to select an event date or date range for recurring events." class="input-prepend">
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                        <input data-startdate type="text" class="input-small" name="startDate" placeholder="mm/dd/yyyy" required="required">
+                      </div>
+                    </div>
+                  </div>
+                  <div data-toggle-series class="time-unit hidden">
+                    <label class="control-label">Until</label>
+                    <div class="controls">
+                      <div title="Enter or use the calendar to select an event date or date range for recurring events." class="input-prepend">
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                        <input data-enddate id="enddate" type="text" class="input-small" name="endDate" placeholder="mm/dd/yyyy" />
+                      </div>
+                    </div>
+                  </div>
+                  <br/>
+                  <div class="time-unit">
+                    <!-- Time -->
+                    <label class="control-label">From</label>
+                    <div class="controls">
+                      <div title="Select the event's daily start and end times." class="input-prepend">
+                        <span class="add-on"><i class="icon-time"></i></span>
+                            <input data-start-time type="text" class="input-small" id="starttime" name="startTime" placeholder="hh:mm" required="required">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="time-unit">
+                    <label class="control-label">To</label>
+                    <div class="controls">
+                      <div title="Select the event's daily start and end times." class="input-prepend">
+                        <span class="add-on"><i class="icon-time"></i></span>
+                        <input data-end-time type="text" class="input-small" id="endtime" name="endTime" placeholder="hh:mm" required="required">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--div class="control-group required">
+                  <p>Instructor details</p>
+                </div-->
+                <!-- Teacher's name -->
+                <!--div class="control-group required">
+                  <label class="control-label">Admin name</label>
+                  <div class="controls">
+                    <div title="Admin name" class="input-prepend">
+                      <span class="add-on"><i class="icon-person"></i></span>
+                      <input data-username type="text" class="input-xlarge" name="teacher_name" placeholder="" required="required">
+                    </div>
+                  </div>
+                </div-->
+
+                <!--div class="control-group required">
+                  <label class="control-label">Course Admin #</label>
+                  <div class="controls">
+                    <div class="input-prepend">
+                      <span class="add-on"><i class="icon-headphones"></i></span>
+                      <input data-service-phone
+                             type="tel"
+                             id="customerServicePhone"
+                             class="input-xlarge"
+                             name="service_phone"
+                             title="Phone Number Format: (999)999-9999"
+                             placeholder="Enter a contact number"
+                             required="required">
+                    </div>
+                  </div>
+                </div-->
+                <!-- Create My Event -->
+                <div class="control-group indent">
+                  <label class="control-label"></label>
+                  <div class="controls">
+                    <button type="submit"
+                            class="btn btn-success"
+                            rel="tooltip"
+                            title="Create Event">Create My Event</button>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
-        <!-- Date -->
-        <div class="control-group required">
-            <label class="control-label event-date required"></label>
-            <div class="controls">
-                <div title="Enter or use the calendar to select an event date or date range for recurring events."
-                     class="input-prepend">
-                    <input type="date" class="input-small" id="startdate" name="start_date" placeholder="Start Date" required="required">
-                    <span> Until </span>
-                    <span class="add-on"><i class="icon-calendar"></i></span>
-                    <input type="date" class="input-small" id="enddate" name="end_date" placeholder="End Date">
+          </div>
+        </li>
+
+        <li>
+          <div class="schedule">
+            <div class='top-bar'>
+              <div class="utils">
+                <div class="input-prepend" style="display: none;">
+                  <span class="add-on"><i class="icon-calendar"></i></span>
+                  <input data-search-date type="date" class="input-small" id="search-startdate">
+                </div>
+                <div class="search-box">
+                  <input data-search-text class="search-input" type="text" />
+                  <button data-search-btn type="button" class="search-btn">Search</button>
+                  <button data-search-clear type="button" class="search-clear icon-clear">X</button>
+                  <span class="add-on"><i class="icon-search"></i></span>
+                </div>
+              </div>
+              <div class='legend'>
+                <em class="desc">Shindigs are online video chats where you can address questions to the instructor or talk privately with one another</em>
+                <!--em title="Faculty-led Q&A sessions">
+                    <span style='background:#E6BCFE;'></span>Office Hours (OH)</em>
+                <em title="Teaching Assistant or student led discussions on selected course material">
+                    <span style='background:#FFD98B;'></span>Discussion Section (DS)</em>
+                <em title="Unstructured peer to peer teaching, sharing, and review sessions">
+                    <span style='background:#A2EBBC;'></span>Study Hall (SH)</em-->
+              </div>
+            </div>
+            <div class="list-holder">
+              <div class="ui-loading shindig-load">
+                <p><span class="spin"><i class="icon fa fa-refresh"></i></span> <span class="copy">Loading</span></p>
+              </div>
+              <div data-event-list>
+                <!-- render js event list-->
+              </div>
+            </div>
+            <div class="control-group more">
+                <div class="controls">
+                  <a href="http://www.shindigevents.com/" target="_blank">
+                    <img src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAGUAAAApCAYAAAAs5ufYAAAACXBIWXMAAAsTAAALEwEAmpwYAACJZ2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS41LWMwMjEgNzkuMTU1NzcyLCAyMDE0LzAxLzEzLTE5OjQ0OjAwICAgICAgICAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iCiAgICAgICAgICAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIKICAgICAgICAgICAgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIgogICAgICAgICAgICB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIKICAgICAgICAgICAgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIKICAgICAgICAgICAgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiCiAgICAgICAgICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIgogICAgICAgICAgICB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyI+CiAgICAgICAgIDx4bXA6Q3JlYXRvclRvb2w+QWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpPC94bXA6Q3JlYXRvclRvb2w+CiAgICAgICAgIDx4bXA6Q3JlYXRlRGF0ZT4yMDE1LTA1LTIxVDE3OjI0OjMwLTA0OjAwPC94bXA6Q3JlYXRlRGF0ZT4KICAgICAgICAgPHhtcDpNb2RpZnlEYXRlPjIwMTUtMDYtMTFUMTY6Mjc6NDgrMDM6MDA8L3htcDpNb2RpZnlEYXRlPgogICAgICAgICA8eG1wOk1ldGFkYXRhRGF0ZT4yMDE1LTA2LTExVDE2OjI3OjQ4KzAzOjAwPC94bXA6TWV0YWRhdGFEYXRlPgogICAgICAgICA8ZGM6Zm9ybWF0PmltYWdlL3BuZzwvZGM6Zm9ybWF0PgogICAgICAgICA8cGhvdG9zaG9wOkNvbG9yTW9kZT4zPC9waG90b3Nob3A6Q29sb3JNb2RlPgogICAgICAgICA8cGhvdG9zaG9wOlRleHRMYXllcnM+CiAgICAgICAgICAgIDxyZGY6QmFnPgogICAgICAgICAgICAgICA8cmRmOmxpIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgICAgICAgPHBob3Rvc2hvcDpMYXllck5hbWU+TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdCwgc2VkIGRvPC9waG90b3Nob3A6TGF5ZXJOYW1lPgogICAgICAgICAgICAgICAgICA8cGhvdG9zaG9wOkxheWVyVGV4dD5Mb3JlbSBpcHN1bSBkb2xvciBzaXQgYW1ldCwgY29uc2VjdGV0dXIgYWRpcGlzY2luZyBlbGl0LCBzZWQgZG8gZWl1c21vZCB0ZW1wb3IgaW5jaWRpZHVudCB1dCBsYWJvcmUgZXQgZG9sb3JlIG1hZ25hIGFsaXF1YS4gVXQgZW5pbSBhZCBtaW5pbSB2ZW5pYW0sIHF1aXMgbm9zdHJ1ZCBleGVyY2l0YXRpb24gdWxsYW1jbyBsYWJvcmlzIG5pc2kgdXQgYWxpcXVpcCBleCBlYSBjb21tb2RvIGNvbnNlcXVhdC4gRHVpcyBhdXRlIGlydXJlIGRvbG9yIGluIHJlcHJlaGVuZGVyaXQgaW4gdm9sdXB0YXRlIHZlbGl0IGVzc2UgY2lsbHVtIGRvbG9yZSBldSBmdWdpYXQgbnVsbGEgcGFyaWF0dXIuIEV4Y2VwdGV1ciBzaW50IG9jY2FlY2F0IGN1cGlkYXRhdCBub24gcHJvaWRlbnQsIHN1bnQgaW4gY3VscGEgcXVpIG9mZmljaWEgZGVzZXJ1bnQgbW9sbGl0IGFuaW0gaWQgZXN0IGxhYm9ydW08L3Bob3Rvc2hvcDpMYXllclRleHQ+CiAgICAgICAgICAgICAgIDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgICAgICAgPHBob3Rvc2hvcDpMYXllck5hbWU+U2hpbmRpZzwvcGhvdG9zaG9wOkxheWVyTmFtZT4KICAgICAgICAgICAgICAgICAgPHBob3Rvc2hvcDpMYXllclRleHQ+U2hpbmRpZzwvcGhvdG9zaG9wOkxheWVyVGV4dD4KICAgICAgICAgICAgICAgPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGkgcmRmOnBhcnNlVHlwZT0iUmVzb3VyY2UiPgogICAgICAgICAgICAgICAgICA8cGhvdG9zaG9wOkxheWVyTmFtZT5ORVc8L3Bob3Rvc2hvcDpMYXllck5hbWU+CiAgICAgICAgICAgICAgICAgIDxwaG90b3Nob3A6TGF5ZXJUZXh0Pk5FVzwvcGhvdG9zaG9wOkxheWVyVGV4dD4KICAgICAgICAgICAgICAgPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGkgcmRmOnBhcnNlVHlwZT0iUmVzb3VyY2UiPgogICAgICAgICAgICAgICAgICA8cGhvdG9zaG9wOkxheWVyTmFtZT5Ub2RheSBmcm9tIDk6MDAgLSAxMjowMFBNIDwvcGhvdG9zaG9wOkxheWVyTmFtZT4KICAgICAgICAgICAgICAgICAgPHBob3Rvc2hvcDpMYXllclRleHQ+VG9kYXkgZnJvbSA5OjAwIC0gMTI6MDBQTSA8L3Bob3Rvc2hvcDpMYXllclRleHQ+CiAgICAgICAgICAgICAgIDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgICAgICAgPHBob3Rvc2hvcDpMYXllck5hbWU+VG9tb3Jyb3cgZnJvbSA2OjAwIC0gODowMFBNIDwvcGhvdG9zaG9wOkxheWVyTmFtZT4KICAgICAgICAgICAgICAgICAgPHBob3Rvc2hvcDpMYXllclRleHQ+VG9tb3Jyb3cgZnJvbSA2OjAwIC0gODowMFBNIDwvcGhvdG9zaG9wOkxheWVyVGV4dD4KICAgICAgICAgICAgICAgPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGkgcmRmOnBhcnNlVHlwZT0iUmVzb3VyY2UiPgogICAgICAgICAgICAgICAgICA8cGhvdG9zaG9wOkxheWVyTmFtZT5TYXR1cmRheSBNYXkgMjNyZCBmcm9tIDExOjE1YW0gLSAxOjAwcG0gPC9waG90b3Nob3A6TGF5ZXJOYW1lPgogICAgICAgICAgICAgICAgICA8cGhvdG9zaG9wOkxheWVyVGV4dD5TYXR1cmRheSBNYXkgMjNyZCBmcm9tIDExOjE1YW0gLSAxOjAwcG0gPC9waG90b3Nob3A6TGF5ZXJUZXh0PgogICAgICAgICAgICAgICA8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+CiAgICAgICAgICAgICAgICAgIDxwaG90b3Nob3A6TGF5ZXJOYW1lPlJTVlA8L3Bob3Rvc2hvcDpMYXllck5hbWU+CiAgICAgICAgICAgICAgICAgIDxwaG90b3Nob3A6TGF5ZXJUZXh0PlJTVlA8L3Bob3Rvc2hvcDpMYXllclRleHQ+CiAgICAgICAgICAgICAgIDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgICAgICAgPHBob3Rvc2hvcDpMYXllck5hbWU+UlNWUDwvcGhvdG9zaG9wOkxheWVyTmFtZT4KICAgICAgICAgICAgICAgICAgPHBob3Rvc2hvcDpMYXllclRleHQ+UlNWUDwvcGhvdG9zaG9wOkxheWVyVGV4dD4KICAgICAgICAgICAgICAgPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGkgcmRmOnBhcnNlVHlwZT0iUmVzb3VyY2UiPgogICAgICAgICAgICAgICAgICA8cGhvdG9zaG9wOkxheWVyTmFtZT5Nb3JlPC9waG90b3Nob3A6TGF5ZXJOYW1lPgogICAgICAgICAgICAgICAgICA8cGhvdG9zaG9wOkxheWVyVGV4dD5Nb3JlPC9waG90b3Nob3A6TGF5ZXJUZXh0PgogICAgICAgICAgICAgICA8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+CiAgICAgICAgICAgICAgICAgIDxwaG90b3Nob3A6TGF5ZXJOYW1lPkpvaW48L3Bob3Rvc2hvcDpMYXllck5hbWU+CiAgICAgICAgICAgICAgICAgIDxwaG90b3Nob3A6TGF5ZXJUZXh0PkpvaW48L3Bob3Rvc2hvcDpMYXllclRleHQ+CiAgICAgICAgICAgICAgIDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgICAgICAgPHBob3Rvc2hvcDpMYXllck5hbWU+VklFVyBVTklUIElOIFNUVURJTzwvcGhvdG9zaG9wOkxheWVyTmFtZT4KICAgICAgICAgICAgICAgICAgPHBob3Rvc2hvcDpMYXllclRleHQ+VklFVyBVTklUIElOIFNUVURJTzwvcGhvdG9zaG9wOkxheWVyVGV4dD4KICAgICAgICAgICAgICAgPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGkgcmRmOnBhcnNlVHlwZT0iUmVzb3VyY2UiPgogICAgICAgICAgICAgICAgICA8cGhvdG9zaG9wOkxheWVyTmFtZT5TaGluZGlncyBhcmUgb25saW5lIHZpZGVvIGNoYXRzIHdoZXJlIHlvdSBjYW4gYWRkcmVzcyBxdWVzdGlvbnM8L3Bob3Rvc2hvcDpMYXllck5hbWU+CiAgICAgICAgICAgICAgICAgIDxwaG90b3Nob3A6TGF5ZXJUZXh0PlNoaW5kaWdzIGFyZSBvbmxpbmUgdmlkZW8gY2hhdHMgd2hlcmUgeW91IGNhbiBhZGRyZXNzIHF1ZXN0aW9ucyAgdG8gdGhlIGluc3RydWN0b3Igb3IgdGFsayBwcml2YXRlbHkgd2l0aCBvbmUgYW5vdGhlciA8L3Bob3Rvc2hvcDpMYXllclRleHQ+CiAgICAgICAgICAgICAgIDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgICAgICAgPHBob3Rvc2hvcDpMYXllck5hbWU+U29tZSBhbm90aGVyIGxpdmUgZXZlbnQ8L3Bob3Rvc2hvcDpMYXllck5hbWU+CiAgICAgICAgICAgICAgICAgIDxwaG90b3Nob3A6TGF5ZXJUZXh0PlNvbWUgYW5vdGhlciBsaXZlIGV2ZW50PC9waG90b3Nob3A6TGF5ZXJUZXh0PgogICAgICAgICAgICAgICA8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+CiAgICAgICAgICAgICAgICAgIDxwaG90b3Nob3A6TGF5ZXJOYW1lPlN0dWR5IEhhbGwgPC9waG90b3Nob3A6TGF5ZXJOYW1lPgogICAgICAgICAgICAgICAgICA8cGhvdG9zaG9wOkxheWVyVGV4dD5TdHVkeSBIYWxsIDwvcGhvdG9zaG9wOkxheWVyVGV4dD4KICAgICAgICAgICAgICAgPC9yZGY6bGk+CiAgICAgICAgICAgIDwvcmRmOkJhZz4KICAgICAgICAgPC9waG90b3Nob3A6VGV4dExheWVycz4KICAgICAgICAgPHBob3Rvc2hvcDpEb2N1bWVudEFuY2VzdG9ycz4KICAgICAgICAgICAgPHJkZjpCYWc+CiAgICAgICAgICAgICAgIDxyZGY6bGk+MDg2RDczMDQyRTJBMzMwN0JDNDQ4M0U2QzFCMUQ5REI8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT4xQTM3MUIwRDcwRDUzMEQ1QzVBMkVFQjdBODVGQjEyMDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPjFBODkxOTI4MzUzMEZBNzA5RjQ2RDE5QjJFN0ZCODREPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+MjQ1QTZBQUM0QUY5MTZCMURBN0MzNDhFNzM1N0YzRDQ8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT41MTcyRUI0RTdCMEM3OEY5NzdGNjRGM0NEQjFFMzhFNjwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPjUzMzk2NEVDOTg1RTVFNUUxN0Q0QTE4MDFEQzZGOEMwPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+NUJCQUFFMzVDREQ1MTI4RkJDOURCRUExNTA4NjBBNDU8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT44QkVBNjZCRDBEOEMzMEI0QTdFMjI4Q0E3MUZBQTYyRDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPjkwMTc3MTA3MEU1REY2QkMyNkREQkQwQUZBQjgzMUQ1PC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+OUE4NEY4OEQwQkE4MzQzODBFNDk0OUY5MzE0MTA0NDU8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT5BNzMxMkZGNDUyQUQ1MkFGQkQ0RTM2REEzRDQ4QTJCQTwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPkJGOTU2NkRBQUZGMTYwMEVBNjIxMEI3MUUzNTk0REZDPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+RjIyQkYwOThDNjlEQUQwNDI2RjI0MDA1NEJEMjc1QzI8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT5hZG9iZTpkb2NpZDpwaG90b3Nob3A6MDk1MjM2MmQtMTQyMS0xMTc4LTk4MzMtOTA4OTg3OTM2ODgwPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+YWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOjFiNDdmNjYwLTQwYjItMTE3OC1iNTdhLTlkYWMxZDNlMTU1MDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPmFkb2JlOmRvY2lkOnBob3Rvc2hvcDoyYWU2M2NkZS0wYTBhLTExZGMtOWVjOS04NDJlNDViZDA0ZTU8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT5hZG9iZTpkb2NpZDpwaG90b3Nob3A6MzkxNTZmMjUtODBlYi0xMWRiLWE5NzgtYzVlNmU2M2U0NWRlPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+YWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOjQyMjk1NjU5LTQwYTUtMTE3OC1iNTdhLTlkYWMxZDNlMTU1MDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPmFkb2JlOmRvY2lkOnBob3Rvc2hvcDo2NTQ1YjVlZi0xNDBmLTExNzgtOTgzMy05MDg5ODc5MzY4ODA8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT5hZG9iZTpkb2NpZDpwaG90b3Nob3A6NjgwOTM4YWUtNDEzNC0xMTc4LWI1N2EtOWRhYzFkM2UxNTUwPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+YWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOjZjYzcyZGQ0LWMxMjItMTFkYS05ZWEwLWI0MTAyMTdiYzYwNDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPmFkb2JlOmRvY2lkOnBob3Rvc2hvcDo2ZjVlYThjYS1mNDViLTExNzctYmY0Ny1hOWM0MDJhODcwODY8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT5hZG9iZTpkb2NpZDpwaG90b3Nob3A6NzVkZTZhZTctMDk3My0xMTc4LTg0MTUtYzYxNDBjNTYwMzUzPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+YWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOjc1ZWVmYTVkLWY3NDctMTE3Ny1hN2QwLWIzOTI3YTg5OTllNzwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPmFkb2JlOmRvY2lkOnBob3Rvc2hvcDo4MTMxNTFiMC0yZTZhLTExNzgtODY1Yi1iZTk4ZGI3MTkzYzU8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT5hZG9iZTpkb2NpZDpwaG90b3Nob3A6YjllYjNlZmYtNDU5Zi0xMTc4LThkYWItOWRmMGI2YjdiOTIwPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+YWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOmJjODg0YTcwLTc2MmMtMTFkZS1iYzc1LWNjYzdjYjU0OTlhNzwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPmFkb2JlOmRvY2lkOnBob3Rvc2hvcDpjNjU0NzkxZi1mNDViLTExNzctYmY0Ny1hOWM0MDJhODcwODY8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT5hZG9iZTpkb2NpZDpwaG90b3Nob3A6Yzk4MjRhMTktMzc4Zi0xMWRiLTlmNTgtYjAyODM2NDdkOWJkPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+YWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOmRkMTMyM2QxLTExZjgtMTE3OC1iYjcxLTkwYzIzOTc2ZWY2MDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPmFkb2JlOmRvY2lkOnBob3Rvc2hvcDpmNmUzYTQxOC0zZTFmLTExNzgtOTgzYS04MWExNGZiOGNiZDE8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT51dWlkOjAwRDRENjU1MzVFRTExREI5MkY3QjNENzczQUQ4NEM5PC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+dXVpZDowOUU3REJDMTY4MzFERjExOUU0RkY2QjRERkE0MkE3RTwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnV1aWQ6MEM2QUQyQjBEMzY5REYxMUFBOTJDRTFENTZDNjE1QkE8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT51dWlkOjEwNENDQTk2NDQ2RkRFMTE5MUU1Qjk1RDY3N0Y5NTdDPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+dXVpZDoxMEUzMEQwOTI2NzBERjExODNCMEQyOTFFNjFGQzczQTwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnV1aWQ6MTk1MDE1MDhFMkVGMTFERDhCRUNDQjZCNDU1MkJFQTc8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT51dWlkOjFCMUQzQTc4ODJBQ0RGMTFCNDQ3RDZGQjE4NjIzQzI0PC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+dXVpZDoxQzRCQUQ0NTk4RkNERTExOUZEMUFGNTlGQzJDNzMwNjwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnV1aWQ6MUZBQTE4RjQ3OUZBREUxMUE5NTNGMjU1RUMzN0VBQkY8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT51dWlkOjI4NjkxODE0RkQ5M0RFMTFBNTFERDQ5NTlDREU3QkQ0PC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+dXVpZDozMDY2QTEzRDY5MERERDExQkQ5Mzk2M0Y5QTVFMEIzMzwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnV1aWQ6MzJCRkE2REZEMjE1REYxMUExNjNGM0U3NjgwNkVFRjE8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT51dWlkOjM2RDBERDUyMEM1RkREMTE5RjRFQTc2NkEzNzI4MzAyPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+dXVpZDozQjBDNTMzNDY5MERERDExQkQ5Mzk2M0Y5QTVFMEIzMzwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnV1aWQ6NDBBQUZDQTdEODZCREUxMUI5MTk4NDE0NkVENjQxNUI8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT51dWlkOjQ4NjBEODFENDBBOURGMTFCNkEzQkE3NTA2QTM4RjkyPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+dXVpZDo2NEU5REM3OEFGQkJERTExOUVDOEE4NTMwREQyRUMzRTwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnV1aWQ6NkJFNUQyNURBREI1REUxMUJEODI5Njk5MkREQjc3Mzg8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT51dWlkOjdDNDhGN0E4N0E2NkRDMTE4QTlEODIyRDMzMjI4REQzPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+dXVpZDo3RUUzNDBEQkNFRDhERTExOTUyQTk5RUJERkM3RkZBMjwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnV1aWQ6ODJDRDgzODA2M0UwREYxMTg1Q0M5OEIyRDc4NzdGMkE8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT51dWlkOjg0MDc5RUJCN0VGMURFMTFBOTRBRENGRUI0MENGQUIxPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+dXVpZDo4NjZFNzNGRDRBQUFERjExODgwMEMyRTNGOEMyREYzNjwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnV1aWQ6OTBBREY3RDUzOThBMTFERjg2MTE5NDM2QTE3Q0IyMjc8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT51dWlkOjk1MkEzMzI0N0I3NERFMTFCQkExOUU1QUVFOTE5QzQ3PC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+dXVpZDo5N0Y0NTA2OTk0RkFERDExQjY1RkQ5MUM2OURFQjI2OTwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnV1aWQ6OTk0OUExRTQ0MTM1REYxMTg3QzVEOTA0QjdDMkVFNzI8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT51dWlkOjlBNDg4OEMzQTA5Q0REMTFBQjg4QzcxMkRDQTA1RkZCPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+dXVpZDo5QjhFNkE1NUVDRjhERDExQjU3MTlFRTJGOTlFQjQ5MTwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnV1aWQ6QTk3MjUyNUYyMTRFREYxMTg3MzI4MTE2RDdBRDFEMzg8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT51dWlkOkI1OTI4MjRDMzU5M0RFMTFBRDJCREVFMEQ1ODJGM0MzPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+dXVpZDpCRDlENjg5MTM4MUFERjExQjgwREQ4QkIxMENFMjU0RjwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnV1aWQ6QzlERjhBM0MyOUUyREYxMTlGRjc4NUJCNTNEQjVFQzQ8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT51dWlkOkNBMjg3QUMxQ0E4RURGMTFCODNFQ0NCMzg3RDNCNTNCPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+dXVpZDpEMEQ5MjY4ODQwQUFERjExODgwMEMyRTNGOEMyREYzNjwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnV1aWQ6RDE5ODE1QjM5RDREREYxMTgxNkU4NTlCN0RDQTMyMzQ8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT51dWlkOkQyMjk1Q0EyRkVCNURGMTE5QTY5OENFRkQyMzhEMDU5PC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+dXVpZDpEOTRCNTlGNjI2OUFERTExQThFODg1RDEwN0E4NEVDNTwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnV1aWQ6REM4MDc0MjM5MTEwREYxMTg1NkZGMjVGODk5NkE2NDY8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT51dWlkOkVDQTE0NDlENTE0N0RGMTFBQUQ3REY2OTBFODg0RTVCPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+dXVpZDpGMzAzMjY2MTM0MUFERTExQjUwQjkxQzE3NkIzNkE0QzwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnV1aWQ6RjZGM0Q5NjE1MDM4REYxMThGOUZFNDM1NUIzMjFDQjg8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT51dWlkOkZFNjExOUNCMUY5MkRGMTE5NDQ2Q0ZBRTRFOTNDRkE1PC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDowMDFFQjk4QTBGMjA2ODExODcxRjg5OURGNzkyNjQ2NjwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6MDE4MDExNzQwNzIwNjgxMTgwODNENENEQThFQzhEM0M8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjAxODAxMTc0MDcyMDY4MTE5MTA5RjMwNTY0NkVCNTdEPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDowMTgwMTE3NDA3MjA2ODExOTEwOUZBMjk3QTdBNTkwNDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6MDE4MDExNzQwNzIwNjgxMTkyQjBCQUE5MDRERTBGOEQ8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjAxODAxMTc0MDcyMDY4MTE5MkIwQzVFODRFQTgzN0MzPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDowMTgwMTE3NDA3MjA2ODExOTQ1N0U4N0NBOEJDNTIwQjwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6MDE4MDExNzQwNzIwNjgxMTk1QjM4MUM5ODk0M0I2Q0Q8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjAxODAxMTc0MDcyMDY4MTE5N0E1REFGMjU4M0EwQTRCPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDowMTgwMTE3NDA3MjA2ODExOTk0Q0FBQkEwM0REOTg1RjwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6MDE4MDExNzQwNzIwNjgxMUFCMDhFOEU4RUUzRjAyODk8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjAxODAxMTc0MDcyMDY4MTFBQ0FGODQ1MUMxOEI1QTlDPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODhDNkMzMzA3RDU4NjI0MjwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTkxMDlDNjVBNzA0MDEzNDA8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjAyODAxMTc0MDcyMDY4MTFCRURDOTY3RENBMDZGMTBCPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDowMzgwMTE3NDA3MjA2ODExODcxRkY5Nzc5NjZENUVBNzwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6MDM4MDExNzQwNzIwNjgxMTg4QzZDMzMwN0Q1ODYyNDI8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjAzODAxMTc0MDcyMDY4MTE4QzE0QTQxRTZBMjY4RkQ0PC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDowMzgwMTE3NDA3MjA2ODExOEY2MkJERUQ0NDVGMERBRDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6MDM4MDExNzQwNzIwNjgxMThGNjJGQTI2QjFEMjM3N0E8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjA0ODAxMTc0MDcyMDY4MTE5MkIwQzVFODRFQTgzN0MzPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDowNDgwMTE3NDA3MjA2ODExQUNBRjg0NTFDMThCNUE5QzwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6MDY4MDExNzQwNzIwNjgxMThCMzJBNzUxQjg1M0YxRjA8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjA2RDlDQkZEMUUyMDY4MTFCODc4QkM1RTIyMTREOUI1PC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDowNzgwMTE3NDA3MjA2ODExOEMxNEFDQzAyMTUxNUVBOTwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6MDc4MDExNzQwNzIwNjgxMUFGRkQ5QTdDNjE5RjhBOTI8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjA4ODAxMTc0MDcyMDY4MTE5MTA5ODg0QTEwRDQxMTNDPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDowQUJFNEEzMzRGMjA2ODExOTk0QzhDQ0NFNzE2QkQyQzwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6MEJCRTRBMzM0RjIwNjgxMTk5NEM4Q0NDRTcxNkJEMkM8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjBEQkU0QTMzNEYyMDY4MTE5OTRDOENDQ0U3MTZCRDJDPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDowRTkzMjFDNjM1MjA2ODExOEMzQUZEQjcyRUQ0N0ZERTwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6MGE2NDE5MDgtYTEzOC00MDBjLTk1NTAtNmI1NjRhNGQzYjkzPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDoxMjgzOEQ5QTE5MjA2ODExOEQ0QTkzRjA0NTdFRTg1QTwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6MTI5QzE4MTkxNTIwNjgxMUFDQUY4NDUxQzE4QjVBOUM8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjFGRTVBRUVERTY2MzExRTQ5RDA2RjNDNzE3RkM0M0JDPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDoyNTUzRjFCNTAwQTkxMUUwODRDMThFRDQ3RjU1RkVCOTwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6MjU1M0YxQjkwMEE5MTFFMDg0QzE4RUQ0N0Y1NUZFQjk8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjJCNzZDODMwNjcyMDY4MTE4NzFGRTRGOTE1MjQyNDI5PC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDozNDFFNzhGMjVFMjA2ODExOTdBNUY4NzFDN0JDQTBFQzwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6MzQ2RTI3NzMzRTIwNjgxMUE5NjFBQjMyMkI5RUZGNDg8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjNGMkY4MDI1RjEyMjY4MTE4RjYyRTdCQTZFNTc3NUUwPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDo0QjQxNzMwNzE2MjA2ODExQUZGRDlBN0M2MTlGOEE5MjwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6NEM2QUJGMEMzMDIwNjgxMTg4QzZGNzA5RkE5RUQ2MDE8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjRENDE3MzA3MTYyMDY4MTFBRkZEOUE3QzYxOUY4QTkyPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDo0ZjVlMjc4MS0wOWY1LTRiYTEtYjBhZC04MzI2ZWE0Zjc2YTE8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjUxNTQ2RkREMTMyMDY4MTE5MkIwQkFBOTA0REUwRjhEPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDo1NDU0NkZERDEzMjA2ODExOTJCMEJBQTkwNERFMEY4RDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6NTdGQjIzRDJBNjIwNjgxMTkyQjBCNjcyREVENThCOTI8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjVFRkY3RTY0RDUyMDY4MTFCNDEwRUQxRDdBQ0JDNEY3PC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDo2Mzg4ODBFODA5MjA2ODExOTJCMEJBQTkwNERFMEY4RDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6NjQ4ODgwRTgwOTIwNjgxMTkyQjBCQUE5MDRERTBGOEQ8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjY1MEY2QkRBQ0EyMTY4MTE5MTA5ODRCNDVBMzI5OUNBPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDo2Njg4ODBFODA5MjA2ODExOTJCMEJBQTkwNERFMEY4RDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6Njc4ODgwRTgwOTIwNjgxMTkyQjBCQUE5MDRERTBGOEQ8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjZCNEJGMkIzNjcyMDY4MTE4N0Q1QjREMEZEQzRGMERFPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDo2RDMwOEJBQTBDMjA2ODExODZDMEM1NzAxRTVDMDJGMjwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6NzEzMkJCNjM4RjIwNjgxMTg4QzZENzdGQ0VGQkJCRjU8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjczMDQwN0U4MEYyMDY4MTE4NzFGRDU3MEQ0MkFCRDRCPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDo3NTA5RkIxOUE5MjA2ODExODkxQUJBREU1ODUxMTAxOTwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6NzU5MDcxNjYwMTlDREUxMUIxRkJGOTQ1MDNFOTk2NjU8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjc2MDQwN0U4MEYyMDY4MTE4NzFGRDU3MEQ0MkFCRDRCPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDo4MDFGRjUyRTgwMjQ2ODExODcxRkY5MkM1RUFCRjM0NjwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6ODA1MTdGMUExMjIwNjgxMUFFNTY4NEVFMTJCMTBCMDk8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjg1NEY3NDcxNjYyMDY4MTE5OEFCQzc5QjMzRkM3NjUwPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDo5Mzc3NzY4MDc1MjU2ODExODhDNkMwMDc1OTJFRUJEMzwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6OUVBMjQ4OTJBMTIwNjgxMTkxMDk4NEI0NUEzMjk5Q0E8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOjliNzc4NmI2LTgzZTQtNDZkNS1iYzQ3LWIyODEwZDRmZjlhYzwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6QTI2NTkzRDMwODIwNjgxMTkyQjA5RUMwMzRGQ0JDQTM8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOkE5RUExOTJGMjkyMDY4MTE4REJCODJERDYyMjU5OEREPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDpBQTUzQTY2NjU3MjA2ODExOTk0QzhDQ0NFNzE2QkQyQzwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6QUNDRTczQUE2ODIxNjgxMTkxMDk4NEI0NUEzMjk5Q0E8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOkIxQUQ1RTcwNDUyMDY4MTE4NTRBOURBNzA1Mjk0RTAyPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDpCNUY1QkJDNjA4MjA2ODExOTk0QzhDQ0NFNzE2QkQyQzwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6QjhGNUJCQzYwODIwNjgxMTk5NEM4Q0NDRTcxNkJEMkM8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOkJCMzU2NUU4MTUyMDY4MTE5MkIwQkFBOTA0REUwRjhEPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDpCRjEzMDhBOTBEMjA2ODExODhDNkY3MDlGQTlFRDYwMTwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6QzIzNTY1RTgxNTIwNjgxMTkyQjBCQUE5MDRERTBGOEQ8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOkMzNzNDRUMwMzYyMDY4MTE4RjYyRDBGNzAxMEFDMDJGPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDpDQTAzNzA0MjBCMjA2ODExOTJCMEE1MEQ5NzBFNjg5RDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6Q0ExMTc0OUUyMjIwNjgxMUE5NjFBQjMyMkI5RUZGNDg8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOkNGOTU2OTFDMTQyMDY4MTE4NzFGQkFBNzkzQzY1MTU1PC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDpENDA1NEVDMTE5MjA2ODExOTJCMEJBQTkwNERFMEY4RDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6RDQ1QkI1QzgyQzIwNjgxMTg3NzBFOEI2MzhGM0QyOUM8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOkQ5MDZEQTgzM0UyMDY4MTE5MTA5REQ1Qjg4MDJGMTI2PC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDpERjJEREREQzAyNzExMUUwQUM3Qzg5RkY5MzI3NkExNDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6RjA3MDI2QUU2QzIwNjgxMUJEOUZGMDNDQzQyMDkzNUQ8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOkY0Q0M4NzVFMTYyMDY4MTFCRURDODlEMDQ1MkM5RkEyPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDpGNTk1NkY2QkE5NTdERjExQjMyMDhFQTlBRTAyRDQ0NjwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6RjY2NkQ4MTM5NDIwNjgxMUE3QkFGOUJGMjhDNTBFOTQ8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOkY3NUQ5MThBMTEyMDY4MTE5MkIwOEJFRTI5Qzc1REQyPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDpGNzdGMTE3NDA3MjA2ODExODcxRkNDREM3OTI2NUE5ODwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6Rjc3RjExNzQwNzIwNjgxMTkxMDlGOEZFMjc3MThENUE8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOkY3N0YxMTc0MDcyMDY4MTFBOEU3QzQ3ODc5ODQwMzBEPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDpGNzdGMTE3NDA3MjA2ODExQURBMDg1QTdFNEJFNTAxMDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6Rjg3RjExNzQwNzIwNjgxMThDMTRBNDU2RUQ0MzJEOEM8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOkY4N0YxMTc0MDcyMDY4MTFBQjA4QTVFQTlFNTM3NzY1PC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDpGOEIxMjAwRUM4MjA2ODExOEY2MkI1NUM5NEI1RjFDQTwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6Rjk3RjExNzQwNzIwNjgxMUFCMDhBNUVBOUU1Mzc3NjU8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOkZBN0YxMTc0MDcyMDY4MTE4QTZEQkFFM0FBRTg0MEFFPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDpGQjdGMTE3NDA3MjA2ODExODcxRkNDREM3OTI2NUE5ODwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6RkJDNEQyMDQwQTIwNjgxMTkxMDlDQzY0MkM0NEVDMEM8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT54bXAuZGlkOkZEN0YxMTc0MDcyMDY4MTE4NzFGQ0NEQzc5MjY1QTk4PC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+eG1wLmRpZDpGRjdGMTE3NDA3MjA2ODExOEY0RUFCRUFFREVGRDFEODwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpPnhtcC5kaWQ6YzBlYTM5ZjctZDI5MS00NGE0LWIxODAtOWI2ZTQ3MDdmOGZkPC9yZGY6bGk+CiAgICAgICAgICAgIDwvcmRmOkJhZz4KICAgICAgICAgPC9waG90b3Nob3A6RG9jdW1lbnRBbmNlc3RvcnM+CiAgICAgICAgIDx4bXBNTTpJbnN0YW5jZUlEPnhtcC5paWQ6N2U5NTBiZjctZDliMS1hMjQ2LWI3ZGItYTZmYjc2YWE2ZTk3PC94bXBNTTpJbnN0YW5jZUlEPgogICAgICAgICA8eG1wTU06RG9jdW1lbnRJRD5hZG9iZTpkb2NpZDpwaG90b3Nob3A6OTNiMTllMTYtMTAzZC0xMWU1LThlMTctOGJlYTllMzlkNGZkPC94bXBNTTpEb2N1bWVudElEPgogICAgICAgICA8eG1wTU06T3JpZ2luYWxEb2N1bWVudElEPnhtcC5kaWQ6YzBlYTM5ZjctZDI5MS00NGE0LWIxODAtOWI2ZTQ3MDdmOGZkPC94bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ+CiAgICAgICAgIDx4bXBNTTpIaXN0b3J5PgogICAgICAgICAgICA8cmRmOlNlcT4KICAgICAgICAgICAgICAgPHJkZjpsaSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDphY3Rpb24+Y3JlYXRlZDwvc3RFdnQ6YWN0aW9uPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6aW5zdGFuY2VJRD54bXAuaWlkOmMwZWEzOWY3LWQyOTEtNDRhNC1iMTgwLTliNmU0NzA3ZjhmZDwvc3RFdnQ6aW5zdGFuY2VJRD4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OndoZW4+MjAxNS0wNS0yMVQxNzoyNDozMC0wNDowMDwvc3RFdnQ6d2hlbj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OnNvZnR3YXJlQWdlbnQ+QWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKE1hY2ludG9zaCk8L3N0RXZ0OnNvZnR3YXJlQWdlbnQ+CiAgICAgICAgICAgICAgIDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OmFjdGlvbj5zYXZlZDwvc3RFdnQ6YWN0aW9uPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6aW5zdGFuY2VJRD54bXAuaWlkOmNkNmIyMTZhLWM0NmYtNDE2Yi05NGNmLTllNWJhMzI2MTc4NTwvc3RFdnQ6aW5zdGFuY2VJRD4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OndoZW4+MjAxNS0wNS0yMVQxNzoyNTo1NS0wNDowMDwvc3RFdnQ6d2hlbj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OnNvZnR3YXJlQWdlbnQ+QWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKE1hY2ludG9zaCk8L3N0RXZ0OnNvZnR3YXJlQWdlbnQ+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDpjaGFuZ2VkPi88L3N0RXZ0OmNoYW5nZWQ+CiAgICAgICAgICAgICAgIDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OmFjdGlvbj5zYXZlZDwvc3RFdnQ6YWN0aW9uPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6aW5zdGFuY2VJRD54bXAuaWlkOjY4ZTQyMjZlLTBhMzUtNDNjYS1hZWFjLWE0MDdiNDdjNGEwYzwvc3RFdnQ6aW5zdGFuY2VJRD4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OndoZW4+MjAxNS0wNS0yMVQxNzozNDo0My0wNDowMDwvc3RFdnQ6d2hlbj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OnNvZnR3YXJlQWdlbnQ+QWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKE1hY2ludG9zaCk8L3N0RXZ0OnNvZnR3YXJlQWdlbnQ+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDpjaGFuZ2VkPi88L3N0RXZ0OmNoYW5nZWQ+CiAgICAgICAgICAgICAgIDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OmFjdGlvbj5jb252ZXJ0ZWQ8L3N0RXZ0OmFjdGlvbj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OnBhcmFtZXRlcnM+ZnJvbSBpbWFnZS9wbmcgdG8gYXBwbGljYXRpb24vdm5kLmFkb2JlLnBob3Rvc2hvcDwvc3RFdnQ6cGFyYW1ldGVycz4KICAgICAgICAgICAgICAgPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGkgcmRmOnBhcnNlVHlwZT0iUmVzb3VyY2UiPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6YWN0aW9uPmRlcml2ZWQ8L3N0RXZ0OmFjdGlvbj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OnBhcmFtZXRlcnM+Y29udmVydGVkIGZyb20gaW1hZ2UvcG5nIHRvIGFwcGxpY2F0aW9uL3ZuZC5hZG9iZS5waG90b3Nob3A8L3N0RXZ0OnBhcmFtZXRlcnM+CiAgICAgICAgICAgICAgIDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OmFjdGlvbj5zYXZlZDwvc3RFdnQ6YWN0aW9uPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6aW5zdGFuY2VJRD54bXAuaWlkOjBhNjQxOTA4LWExMzgtNDAwYy05NTUwLTZiNTY0YTRkM2I5Mzwvc3RFdnQ6aW5zdGFuY2VJRD4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OndoZW4+MjAxNS0wNS0yMVQxNzozNDo0My0wNDowMDwvc3RFdnQ6d2hlbj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OnNvZnR3YXJlQWdlbnQ+QWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKE1hY2ludG9zaCk8L3N0RXZ0OnNvZnR3YXJlQWdlbnQ+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDpjaGFuZ2VkPi88L3N0RXZ0OmNoYW5nZWQ+CiAgICAgICAgICAgICAgIDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OmFjdGlvbj5zYXZlZDwvc3RFdnQ6YWN0aW9uPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6aW5zdGFuY2VJRD54bXAuaWlkOjFmNDNiZDM2LTBiM2QtNzU0Mi1iYWM0LWY3ZDE4NzBjYWZlNTwvc3RFdnQ6aW5zdGFuY2VJRD4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OndoZW4+MjAxNS0wNi0xMVQxNjoyNzo0OCswMzowMDwvc3RFdnQ6d2hlbj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OnNvZnR3YXJlQWdlbnQ+QWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpPC9zdEV2dDpzb2Z0d2FyZUFnZW50PgogICAgICAgICAgICAgICAgICA8c3RFdnQ6Y2hhbmdlZD4vPC9zdEV2dDpjaGFuZ2VkPgogICAgICAgICAgICAgICA8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDphY3Rpb24+Y29udmVydGVkPC9zdEV2dDphY3Rpb24+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDpwYXJhbWV0ZXJzPmZyb20gYXBwbGljYXRpb24vdm5kLmFkb2JlLnBob3Rvc2hvcCB0byBpbWFnZS9wbmc8L3N0RXZ0OnBhcmFtZXRlcnM+CiAgICAgICAgICAgICAgIDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OmFjdGlvbj5kZXJpdmVkPC9zdEV2dDphY3Rpb24+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDpwYXJhbWV0ZXJzPmNvbnZlcnRlZCBmcm9tIGFwcGxpY2F0aW9uL3ZuZC5hZG9iZS5waG90b3Nob3AgdG8gaW1hZ2UvcG5nPC9zdEV2dDpwYXJhbWV0ZXJzPgogICAgICAgICAgICAgICA8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDphY3Rpb24+c2F2ZWQ8L3N0RXZ0OmFjdGlvbj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0Omluc3RhbmNlSUQ+eG1wLmlpZDo3ZTk1MGJmNy1kOWIxLWEyNDYtYjdkYi1hNmZiNzZhYTZlOTc8L3N0RXZ0Omluc3RhbmNlSUQ+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDp3aGVuPjIwMTUtMDYtMTFUMTY6Mjc6NDgrMDM6MDA8L3N0RXZ0OndoZW4+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDpzb2Z0d2FyZUFnZW50PkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE0IChXaW5kb3dzKTwvc3RFdnQ6c29mdHdhcmVBZ2VudD4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OmNoYW5nZWQ+Lzwvc3RFdnQ6Y2hhbmdlZD4KICAgICAgICAgICAgICAgPC9yZGY6bGk+CiAgICAgICAgICAgIDwvcmRmOlNlcT4KICAgICAgICAgPC94bXBNTTpIaXN0b3J5PgogICAgICAgICA8eG1wTU06RGVyaXZlZEZyb20gcmRmOnBhcnNlVHlwZT0iUmVzb3VyY2UiPgogICAgICAgICAgICA8c3RSZWY6aW5zdGFuY2VJRD54bXAuaWlkOjFmNDNiZDM2LTBiM2QtNzU0Mi1iYWM0LWY3ZDE4NzBjYWZlNTwvc3RSZWY6aW5zdGFuY2VJRD4KICAgICAgICAgICAgPHN0UmVmOmRvY3VtZW50SUQ+YWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOjc4Mzg2NDNhLTRhMDgtMTE3OC1hNzBmLWE3MjhkMmFjMTk0ZTwvc3RSZWY6ZG9jdW1lbnRJRD4KICAgICAgICAgICAgPHN0UmVmOm9yaWdpbmFsRG9jdW1lbnRJRD54bXAuZGlkOmMwZWEzOWY3LWQyOTEtNDRhNC1iMTgwLTliNmU0NzA3ZjhmZDwvc3RSZWY6b3JpZ2luYWxEb2N1bWVudElEPgogICAgICAgICA8L3htcE1NOkRlcml2ZWRGcm9tPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICAgICA8dGlmZjpYUmVzb2x1dGlvbj43MjAwMDAvMTAwMDA8L3RpZmY6WFJlc29sdXRpb24+CiAgICAgICAgIDx0aWZmOllSZXNvbHV0aW9uPjcyMDAwMC8xMDAwMDwvdGlmZjpZUmVzb2x1dGlvbj4KICAgICAgICAgPHRpZmY6UmVzb2x1dGlvblVuaXQ+MjwvdGlmZjpSZXNvbHV0aW9uVW5pdD4KICAgICAgICAgPGV4aWY6Q29sb3JTcGFjZT42NTUzNTwvZXhpZjpDb2xvclNwYWNlPgogICAgICAgICA8ZXhpZjpQaXhlbFhEaW1lbnNpb24+MTAxPC9leGlmOlBpeGVsWERpbWVuc2lvbj4KICAgICAgICAgPGV4aWY6UGl4ZWxZRGltZW5zaW9uPjQxPC9leGlmOlBpeGVsWURpbWVuc2lvbj4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgCjw/eHBhY2tldCBlbmQ9InciPz6J/QWVAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAf3SURBVHja7Jt9bJXVHcc/UBAYUttawAoiggMmbAiC4uYydcqZm4zIVOxgLAQFEmI0W+ZLYjTKgtvixnyPEzb2VuPezazmOMwEtwXWsfEOK6BSFGQg9gVKaaH1j/N99HD63Hpv77192e03ObnPc+7zcu75nt/7ub1KS0tnAeOAI8BfgD1kF4uAOqAs6C8F9gNr4m4qKysjV9Ab+CZwFDgBPAlckeV3jgemxPTPAr5ED+gD7AU2AmuBPOAbwN+y+M4Dem+IJuCtHkqcpNQCI3R+PjBIx9MTTF5/oFjHY4CZOi4GJgFDgDPUNwH4indvMXB9gucOBHbr+T5KgGG5JikDgXrgTKmuhdLv9wF/BX4GfB54CviC7M9Q4BlglaRrFFAO/AY4Bvxc50/r+SU6/wVwLnA4Zix9gccksf8AqoEvA//UmC7PJUmpBoYDy4BfAjXAzcDVwKUi69PArcBzImwjsED3viEypwCfABbLkC+W4T4MXCLJ2wI8D5yKGctx4A/AD/T+scA5wC49N6fUVyMwVyv0p5q8Gk1Sf6BCKu1WYAdwMfA74DxN3DvAUuCgvLd1wAqpnInANmC5JOZloNBTbz7qgA1aCO+K7GYRk5drpJwB/FkTDVCllfx9qaJ6EZAHLNHK761VfRB4FNiqvku9Z/8J+B/wiCb4kJyIy0RsiAnAbcCNImetbNAKYECu2ZR9kooIa4GTwO3At9X3oByCzcA1uq9cRn0RsFIT+aLIaZaqy5ca+wnwW636QqAoZiw7dP1zIhzgXuA7skM5g16lpaWd8d7z5Yong/nAgrKysitySX11BvYmKcUAtwDv55r66qqIPMCxwOweUroG1svNng+sN8Z01jguU5z0KeAiZTuuz9TDrbWtbUpLS8uHJ8aYr8owj5RbXKk4Yac+K621vlNAJ05WR2EVLj8YYQ1wZTZJ6eNN7nLgzuD7aeENxpgqEVQhr2t3T7YqC4beGDM7hpBEGAF8EbhH8cks77shynXdnSBA7EEKNuWOdt7fD1cXmQj8V1ITJTSfp/1Z337ATSK5CHgVl4frSpirhVmkVNR1wN8zScolQX+tdOdgBXwlmqhEE3g/MMcjJF1Mw+XhIgzvgqRMwdWGIgz2jgco8L4Zl246JLu8GdiuthOX4sIY0xuXAN4LrItICVXNI9bapYEtKfAIOgeYgUtOolWS0aC2G2ufQkn2JK+vSK79TK/vJFBpjNmu41vU35TIJa6L8RKqcVnhnSKpwiOlEJdw/H9DXxLXclqC8wZ9LgsIaUtLXaR22jvTiVNOxvyAZO1FscS9RXanJrjmTVzGuV7nf/QCyrG4fQS7cCWEpnaOf4wkfKhWctjOlq1IhB9KpdZqDOs8W9Nlg8d7cdnmYqm8wZqAguC6ZuAFeX9VXhpmeswzvx6ogN+rrzHFsS3BZbfTKQm8reajIIbI/cD3PPs8XJ/nqq93Jkmpkvubr9VfG3y/MAW3/AZcdfNzCliTxdekNvZLut6U5EVtD63zbJcDj2fAbvXX5EYLqyrBdRV6Xxzy5GGOA1ZHBEWkNAbGfpIxppe1tqWNSLQZeCmDEX0xrsR8FTAaV1qOVvIzuNJyIqdgmFpcJrlSkrFa53dmyJF4ELjLO58uAlLBKWvtAeCAMaYOOMsnZRMw1bt4HnCTMaYRV2s5IRtyVN9XSzLKcUWoUxki5kqpuPOAyUH+6ek0bMdLwLVy830jvCKILaLf6tvNpcQX5cIQIWOOTh9vcFOD7waondXG/TOkwm6IIeY24F8ygsdk1Gu8OAjgdeCzwX0lWfKinsRVN32N8GvgtY+598YEpGQ9ol+pCPqadjxjhtTDY0H/6iQi+kNpjv8t4Fu4jRUFMa1ItqqvAr0Lu02axVp7yhgzE3hW3kyqWBxDSkdgr+cuJ0I5bqsSdE5ZeRJu52eDFsfAIChHiyq/lfdlra0H5hhjHsYVl4rkANQHqqdOqmoaLvEIrtbQt4suvKbA0+tojMDt4ml/nGKt3YrL/rYJY8wmj5SMGrpujFpc6bowY8GjEmP5QK1c3rbQ0sNBKzQD31W0nx4pxphd8vOj/VW3A0/0zHG78CPZj/vl3keu9RFJUdT88+PKmZ0mKRd2YPolF/CUWkEQ38UF4ZGWujsMHtuDMIdV300m7F3cvjMUkU9WimSfvLmDgWpOJ/qvTtumeBgn9or5KHnmf5Yoyo6wh9STgp2Fl72xX0frWlCTCKrC5dSuzeJYiowxo3Ab6KMg/VhESk0QuS8yxixMYZX8qhuplh8r2zCsjeh/lFq6OFPPGQlcoOYfx1VqX4lIeZXTN0CkIra7cJu4owh7ZBcnpUbB3AsZmngfeXKQpmoezk7x/hPAAxEpD+E2mKW6A6VC6ZnIkI3BVdLGSfS7KrYq4L0Ktz9hPC4vlm4QPEjZjfYuljnW2i1RmmWTMWYWbmdKfoKYpAq3YyXamFeB+5dVS6CPN6mlGm1ny3A2ygPaw+m5uEbAqvk29pMiaLx0fZQzy/R/ZI7jNlJswO0GfdFaeyRMs5QbY0bjSq6j5EdXRs1a25Agsk9nYHcAr+C2KE2UpNXEeHaJkEzJYJ6uS2YBnMT9JWMH7q8bEfpL+scD73mTmiyOAv8RAdHnTlw9pW3vy1p7WP51R2E/Lgka4j0Z5Mkiq877cQ2S1Erc/zE/Dg0ZGGcDbj/ARq9vKa5G/xmRtU1ErcOVKqLJ/zduP1xzsi/7YABKewVPBXIWSQAAAABJRU5ErkJggg==" />
+                  </a>
+                  <button data-btn-more class="btn-shape more pull-right hidden">More</button>
                 </div>
             </div>
-            <!-- Time -->
-            <label class="control-label">From</label>
-            <div class="controls">
-                <div title="Select the event's daily start and end times."
-                     class="input-prepend">
-                    <input type="time" class="input-small" id="starttime" name="start_time" placeholder="Start Time" required="required">
-                    <span> &nbsp; to &nbsp;</span>
-                    <span class="add-on"><i class="icon-time"></i></span>
-                    <input type="time" class="input-small" id="endtime" name="end_time" placeholder="End Time" required="required">
-                </div>
-            </div>
-        </div>
-        <!-- Create My Event -->
-        <div class="control-group">
-            <label class="control-label"></label>
-            <div class="controls">
-                <button type="submit"
-                        class="btn btn-success pull-right"
-                        rel="tooltip"
-                        title="Create Event">Create My Event</button>
-            </div>
-        </div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <textarea rows="20" cols="60" readonly="readonly">{embed_code}</textarea>
+          </div>
+        </li>
+      </ul>
     </div>
-</li>
-<!-- Editable List of Created Events (delete only for now -->
-<li>
-
-
-    <a id="shindig-clear-filters" href="javascript:void(0)">Clear Filters</a>
-    <table id="event-table" class="sortable">
-        <thead>
-        <tr>
-            <th>&nbsp;&nbsp;&nbsp;Title&nbsp;&nbsp;&nbsp;</th>
-            <th>&nbsp;&nbsp;Description&nbsp;&nbsp;</th>
-            <th>Event&nbsp;Date</th>
-            <th>Start&nbsp;Time</th>
-            <th>End&nbsp;Time</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody id="event-list">
-            <tr>
-                <td colspan="6">
-                    <div class="ui-loading shindig-load">
-                      <p><span class="spin"><i class="icon fa fa-refresh"></i></span> <span class="copy">Loading</span></p>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-        <tfoot>
-        <tr>
-            <th colspan="6">
-                <div class='shindig-legend'>
-                    <div class='legend-scale'>
-                        <ul class='legend-labels'>
-                            <li title="Faculty-led Q&A sessions">
-                                <span style='background:#60C0C5;'></span>Office Hours (OH)</li>
-                            <li title="Teaching Assistant or student led discussions on selected course material">
-                                <span style='background:#FFCC66;'></span>Discussion Section (DS)</li>
-                            <li title="Unstructured peer to peer teaching, sharing, and review sessions">
-                                <span style='background:#438FA8;'></span>Study Hall (SH)</li>
-                        </ul>
-                    </div>
-                </div>
-            </th>
-        </tr>
-        </tfoot>
-    </table>
-</li>
-</ul>
+  </form>
 </div>
-</form>
-<iframe id="postTarget" class="hide" name="postTarget"></iframe>
 
-</div>
+<script id="event-item" type="text/template">
+  <div class="list-item">
+    <em class="plane"><%= eventType %></em>
+    <div data-event class="event">
+      <div class="title-holder">
+        <div title="Add to Calendar" class="addthisevent date <%= classStringDate %>">
+            <%= stringDate %>
+            <span class="start"><%= startDate %></span>
+            <span class="end"><%= endDate %></span>
+            <span class="timezone"><%= timezone %></span>
+            <span class="title"><%= title %></span>
+            <span class="description"><%= description %></span>
+            <span class="location">Location of the event</span>
+            <span class="organizer"><%= institution %></span>
+            <span class="organizer_email"><%= email %></span>
+            <span class="all_day_event">false</span>
+            <span class="date_format">MM/DD/YYYY</span>
+        </div>
+        <div class="wrap">
+          <span data-toggle-active class="icon-wrap"></span>
+          <h2><%= name %></h2>
+        </div>
+      </div>
+      <div class="event-info">
+        <p><%= title %></p>
+        <%= description %>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <a href="<%= linksToEvent %>" target="_blank" class="btn-shape <%= linksText %> pull-right"><%= linksText %></a>
+          <button data-delete-event data-eid="<%= eid %>" class="btn-shape dlt pull-right" type="button" title="Delete Event" >Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>

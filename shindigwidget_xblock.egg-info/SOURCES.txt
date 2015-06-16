@@ -7,8 +7,12 @@ shindigwidget/static/html/shindig_instructor.html
 shindigwidget/static/html/shindig_student.html
 shindigwidget/static/images/shindig_header_logo.png
 shindigwidget/static/js/src/detect.js
+shindigwidget/static/js/src/jsonp.js
 shindigwidget/static/js/src/modernizr.js
-shindigwidget/static/js/src/shindigwidget.js
+shindigwidget/static/js/src/shindigwidget_instructor.js
+shindigwidget/static/js/src/shindigwidget_student.js
+shindigwidget/static/js/src/sorttable.js
+shindigwidget/static/js/src/tablefilter.js
 shindigwidget_xblock.egg-info/PKG-INFO
 shindigwidget_xblock.egg-info/SOURCES.txt
 shindigwidget_xblock.egg-info/dependency_links.txt
