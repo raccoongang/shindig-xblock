@@ -48,8 +48,9 @@ class ShindigXBlock(XBlock):
     PATH_WIDGET = 'embed_events_widget/'
 
     CUSTOMER_SERVICE_PHONE = "(800)888-8888"
-    LINKS_TO_EVENTS_CMS = "http://dev.shindig.com/event/admin/"
-    LINKS_TO_EVENTS_LMS = "http://dev.shindig.com/event/"
+    HOST_SHINDIG = "http://dev.shindig.com/"
+    LINKS_TO_EVENTS_CMS = "event/admin/"
+    LINKS_TO_EVENTS_LMS = "event/"
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
@@ -193,8 +194,8 @@ class ShindigXBlock(XBlock):
                 "institution": course.org if course else 'institution',
                 "course": course.number if course else 'course',
                 "course_run": course.url_name if course else 'course_run',
-                "links_to_events_cms": self.LINKS_TO_EVENTS_CMS,
-                "links_to_events_lms": self.LINKS_TO_EVENTS_LMS,
+                "links_to_events_cms": self.HOST_SHINDIG + self.LINKS_TO_EVENTS_CMS,
+                "links_to_events_lms": self.HOST_SHINDIG + self.LINKS_TO_EVENTS_LMS,
                 'is_valid_settings': self.is_valid_settings(shindig_settings)}
 
     def get_token(self, request):
