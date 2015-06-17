@@ -40,7 +40,7 @@ def quote_slashes(text):
 
 class ShindigXBlock(XBlock):
 
-    SHINDIG_HOST_SERVER = "http://54.152.207.64/"
+    SHINDIG_HOST_SERVER = "http://54.83.13.6/"
     PATH_EVENTS = "api/events/"
     PATH_TOKEN = "o/token/"
     PATH_HASH_KEY_USER = "api/lti_users/"
