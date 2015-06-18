@@ -336,10 +336,10 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
 
         $("[data-startdate]", element).datepicker({
             constrainInput: true,
+            maxDate: '+20w',
             dateFormat: "mm/dd/yy",
             onClose: function( selectedDate ) {
                 $("[data-enddate]", element).datepicker("option", "minDate", selectedDate);
-                $("[data-enddate]", element).datepicker("option", "maxDate", moment(selectedDate).add(20, 'week').utc().format('MM/DD/YYYY'));
           }
         });
 
