@@ -336,11 +336,11 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
         $('select[name=country]', element).change(filterTimeZones);
 
         $("[data-startdate]", element).datepicker({
+            maxDate: '+20w',
             constrainInput: true,
             dateFormat: "mm/dd/yy",
             onClose: function( selectedDate ) {
                 $("[data-enddate]", element).datepicker("option", "minDate", selectedDate);
-                $("[data-enddate]", element).datepicker("option", "maxDate", moment(selectedDate).add(20, 'week').utc().format('MM/DD/YYYY'));
           }
         });
 
