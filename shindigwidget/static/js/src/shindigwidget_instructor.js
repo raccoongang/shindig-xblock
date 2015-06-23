@@ -367,19 +367,39 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
         });
 
         $("[data-start-time]", element).timepicker({
-            timeFormat: 'H:i'
+            showLeadingZero: true,
+            onSelect: function(time, endTimePickerInst) {
+                $("[data-end-time]", element).timepicker('option', {
+                    minTime: {
+                        hour: endTimePickerInst.hours,
+                        minute: endTimePickerInst.minutes
+                    }
+                });
+            },
+            onClose: function(time, inst) {
+                var endSelect = $("[data-end-time]", element).timepicker('getTime');
+                if (endSelect && endSelect == time) {
+                    $("[data-start-time]", element).val('');
+                }
+            }
         });
 
         $("[data-end-time]", element).timepicker({
-            timeFormat: 'H:i'
-        });
-
-        $("[data-start-time]", element).on('changeTime', function(){
-            $("[data-end-time]", element).timepicker('option', 'minTime', $(this).val());
-        });
-
-        $("[data-end-time]", element).on('changeTime', function(){
-            $("[data-start-time]", element).timepicker('option', 'maxTime', $(this).val());
+            showLeadingZero: true,
+            onSelect: function(time, startTimePickerInst) {
+                $("[data-start-time]", element).timepicker('option', {
+                    maxTime: {
+                        hour: startTimePickerInst.hours,
+                        minute: startTimePickerInst.minutes
+                    }
+                });
+            },
+            onClose: function(time, inst) {
+                var startSelect = $("[data-start-time]", element).timepicker('getTime');
+                if (startSelect && startSelect == time) {
+                    $("[data-end-time]", element).val('');
+                }
+            }
         });
 
     });

@@ -67,6 +67,8 @@ class ShindigXBlock(XBlock):
                                     embed_code=self.embed_code(shindig_defaults)))
         if self.runtime.__class__.__name__ == 'WorkbenchRuntime':
             self.add_javascript_and_css(frag)
+        frag.add_css(self.resource_string("static/css/jquery.ui.timepicker.css"))
+        frag.add_javascript(self.resource_string("static/js/src/jquery.ui.timepicker.js"))
         frag.add_javascript(self.resource_string("static/js/src/shindigwidget_instructor.js"))
         frag.initialize_js('ShindigStudioXBlock', json_args=shindig_defaults)
         return frag
