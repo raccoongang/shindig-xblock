@@ -38,7 +38,17 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
         // initialize default fields
         $(element).find('[data-institution]').val(shindig_defaults.institution);
         $(element).find('[data-course]').val(shindig_defaults.course);
-        //$(element).find('[data-service-phone]').val(shindig_defaults.service_phone);
+
+        function initNewEventName() {
+            var maxEid = _.max(dataEvents, function(event){ return event.eid; }).eid;
+            if (maxEid) {
+                maxEid += 1;
+            } else {
+                maxEid = 1
+            }
+            var newEventName = shindig_defaults.course + ' ' + shindig_defaults.course_run + ' #' + maxEid;
+            $(element).find('[data-name]').val(newEventName);
+        }
 
         $.ajax({
             url: runtime.handlerUrl(element, 'get_user_email_and_username'),
@@ -71,6 +81,7 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
                         var intervalID = setInterval(function () {
                             if (getHashKeyUser.isResolved()) {
                                 dataEvents = data.events;
+                                initNewEventName();
                                 renderEvents(dataEvents.slice(0, 3));
                                 clearInterval(intervalID)
                             }
@@ -285,6 +296,7 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
             $(element).find('[data-enddate]').val('');
             $(element).find('[data-start-time]').val('');
             $(element).find('[data-end-time]').val('');
+            initNewEventName();
         };
 
         $('.action-cancel').on('click', function () {
