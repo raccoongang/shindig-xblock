@@ -325,8 +325,7 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
                     "Alaska": "America\/Anchorage",
                     "Hawaii": "Pacific\/Honolulu"
                 },
-                "United Kingdom": {"London": "Europe\/London"},
-                "UTC": {"UTC": "UTC"}
+                "United Kingdom": {"London": "Europe\/London"}
             };
             var country = $('select[name=country]', element);
             var tz = $('select[name=timeZone]', element);
