@@ -109,11 +109,10 @@ class ShindigXBlock(XBlock):
         return Response(json_body={'status': False})
 
     @XBlock.handler
-    def create_event(self, request, suffix=''):
+    def create_or_edit_event(self, request, suffix=''):
         access_token = self.get_token(request)
         shindig_settings = self.get_shindig_settings()
         if access_token:
-            url = self.SHINDIG_HOST_SERVER + self.PATH_EVENTS
             headers = {"Authorization": "Bearer " + access_token}
             data = request.params.mixed()
             course = self.get_course_obj()
@@ -122,13 +121,19 @@ class ShindigXBlock(XBlock):
                 'email': shindig_settings['EMAIL'],
                 'password': shindig_settings['PASSWORD']
             })
-            req = requests.post(url, headers=headers, data=data)
+            eid = data.get('eid', False)
+            url = self.SHINDIG_HOST_SERVER + self.PATH_EVENTS
+            if eid:
+                url += eid + '/'
+                req = requests.put(url, headers=headers, data=data)
+            else:
+                req = requests.post(url, headers=headers, data=data)
 
-            if req.status_code == 201:
-                return Response(json_body={'create': True,
+            if req.status_code == 201 or req.status_code == 206:
+                return Response(json_body={'save': True,
                                            'event': req.json()})
             else:
-                return Response(json_body={'create': False, 'error': req.json().get('error', '')})
+                return Response(json_body={'save': False, 'error': req.json().get('error', '')})
         return Response(json_body={'create': False, 'error': ''})
 
     @XBlock.handler

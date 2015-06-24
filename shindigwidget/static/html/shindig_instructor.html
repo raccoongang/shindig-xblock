@@ -11,7 +11,7 @@
       <input type="radio" id="s4" name="s">
       <div class="tabs">
         <label for="s1">Info</label>
-        <label for="s2">Create</label>
+        <label for="s2" data-text-tab2>Create</label>
         <label for="s3">Shindig</label>
         <label for="s4">Embed code</label>
       </div>
@@ -57,7 +57,7 @@
                   <div class="controls">
                     <div class="input-prepend">
                       <span class="add-on"><i class="icon-flag"></i></span>
-                      <select name="country" id="country" class="shindigInput inputLabel"  required="required" >
+                      <select data-country name="country" id="country" class="shindigInput inputLabel"  required="required" >
                         <option value="0" label="United States">United States</option>
                         <option value="1" label="United Kingdom">United Kingdom</option>
                       </select>
@@ -68,7 +68,7 @@
                   <div class="controls">
                     <div class="input-prepend">
                       <span class="add-on"><i class="icon-time"></i></span>
-                      <select name="timeZone" id="timeZone" class="shindigInput inputLabel required valid"  required="required">
+                      <select data-timezone name="timeZone" id="timeZone" class="shindigInput inputLabel required valid"  required="required">
                       </select>
                     </div>
                   </div>
@@ -173,16 +173,14 @@
                   <div class="controls event-type">
                     <div class="input-prepend">
                       <div class="btn-group event-f" data-toggle="buttons-radio">
-                        <input type="radio" id="OneTimeEvent" name="series" value="false" data-toggle="button" checked="checked" required="required">
+                        <input data-one-time type="radio" id="OneTimeEvent" name="series" value="false" data-toggle="button" checked="checked" required="required">
                         <label class="btn btn-info"
                                title="Select for single day event"
-                               onclick="document.getElementById('enddate').required=false; $('[data-label-text-startdate]').text('On');"
                                for="OneTimeEvent">&nbsp;&nbsp;&nbsp;&nbsp;One Time&nbsp;&nbsp;&nbsp;&nbsp;</label>
                         <!-- Input for RecurrentEvent -->
                         <input data-recurring type="radio" id="RecurringEvent" name="series" value="true" data-toggle="button" required="required">
                         <label class="btn btn-info"
                                title="Select for Recurrent Events (ex: MWF between now and 2014-12-25)"
-                               onclick="document.getElementById('enddate').required=true; $('[data-label-text-startdate]').text('Beginning');"
                                for="RecurringEvent" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Recurring&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                       </div>
                     </div>
@@ -293,10 +291,9 @@
                 <div class="control-group indent">
                   <label class="control-label"></label>
                   <div class="controls">
-                    <button type="submit"
-                            class="btn btn-success"
-                            rel="tooltip"
-                            title="Create Event">Create My Event</button>
+                    <button data-submit-form
+                            type="submit"
+                            class="btn btn-success">Create My Event</button>
                   </div>
                 </div>
               </div>
@@ -386,8 +383,9 @@
       </div>
       <div class="control-group">
         <div class="controls">
+          <button data-delete-event data-eid="<%= eid %>" class="btn-shape dlt pull-right" type="button" title="Delete Event">Delete</button>
+          <button data-edit-event data-eid="<%= eid %>" class="btn-shape edit pull-right" type="button" title="Edit Event">Edit</button>
           <a href="<%= linksToEvent %>" target="_blank" class="btn-shape <%= linksText %> pull-right"><%= linksText %></a>
-          <button data-delete-event data-eid="<%= eid %>" class="btn-shape dlt pull-right" type="button" title="Delete Event" >Delete</button>
         </div>
       </div>
     </div>
