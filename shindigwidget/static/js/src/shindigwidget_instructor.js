@@ -67,7 +67,7 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
             } else {
                 maxEid = 1
             }
-            var newEventName = shindig_defaults.course + ' ' + shindig_defaults.course_run + ' #' + maxEid;
+            var newEventName = shindig_defaults.course_display_name + ' ' + shindig_defaults.course_run + ' #' + maxEid;
             $(element).find('[data-name]').val(newEventName);
         }
 

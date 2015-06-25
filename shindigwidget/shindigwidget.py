@@ -201,6 +201,7 @@ class ShindigXBlock(XBlock):
                 "institution": course.org if course else 'institution',
                 "course": course.number if course else 'course',
                 "course_run": course.url_name if course else 'course_run',
+                "course_display_name": course.display_name if course else 'course_display_name',
                 "links_to_events_cms": self.HOST_SHINDIG + self.LINKS_TO_EVENTS_CMS,
                 "links_to_events_lms": self.HOST_SHINDIG + self.LINKS_TO_EVENTS_LMS,
                 'is_valid_settings': self.is_valid_settings(shindig_settings)}
@@ -272,10 +273,12 @@ class ShindigXBlock(XBlock):
         url: urlUserDetail,
         type: 'GET',
         success: function (data) {{
-            var url = '{}{}' + data.hash_key + '/?course={}&institution={}&course_run={}';
+            var url = '{}{}' + data.hash_key + '/?course={}&institution={}&course_run={}&course_display_name={}';
             if (data.user_email_shindig) {{
                 url += '&email=' + data.user_email_shindig + '&password=' + data.user_password_shindig;
             }}
+            var cacheParamValue = (new Date()).getTime();
+            url += "?cache=" + cacheParamValue;
             $('#iframe-shindig').attr('src', url);
         }}
     }});
@@ -285,6 +288,7 @@ class ShindigXBlock(XBlock):
                    self.PATH_WIDGET,
                    shindig_defaults['course'],
                    shindig_defaults['institution'],
-                   shindig_defaults['course_run'])
+                   shindig_defaults['course_run'],
+                   shindig_defaults['course_display_name'])
 
         return code
