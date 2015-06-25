@@ -142,9 +142,9 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
         var getValuesForTemplate = function (data) {
             var eventType = {OH: 'Office Hours', DS: 'Discussion Section', SH: 'Study Hall'};
             var tz = jstz.determine();
-            var linksText = 'rsvp';
-            if (moment.unix(data.start).utc() < moment.utc()) {
-                linksText = 'join';
+            var hasShowLink = false;
+            if (moment.unix(data.start) < moment().add(1, 'hour')) {
+                hasShowLink = true;
             }
             var linksToEvent;
             if (data.temp_link) {
@@ -154,10 +154,10 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
             }
 
             var classStringDate = '';
-            var startDate = moment.unix(data.start).utc();
-            if (startDate.isSame(moment.utc(), 'day')) {
+            var startDate = moment.unix(data.start);
+            if (startDate.isSame(moment(), 'day')) {
                 classStringDate = 'today';
-            } else if (startDate.isSame(moment.utc().add(1, 'day'), 'day')) {
+            } else if (startDate.isSame(moment().add(1, 'day'), 'day')) {
                 classStringDate = 'tomorrow';
             }
 
@@ -166,16 +166,16 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
                 name: data.event_name,
                 title: data.subheading,
                 description: data.description,
-                stringDate: startDate.calendar() + moment.unix(data.end).utc().format("[ -] h:mma"),
+                stringDate: startDate.calendar() + moment.unix(data.end).format("[ -] h:mma"),
                 classStringDate: classStringDate,
                 startDate: startDate.format("MM/DD/YY HH:mm"),
-                endDate: moment.unix(data.end).utc().format("MM/DD/YY HH:mm"),
+                endDate: moment.unix(data.end).format("MM/DD/YY HH:mm"),
                 timezone: tz.name(),
                 institution: shindig_defaults.institution,
                 email: shindig_defaults.service_phone,
                 eid: data.eid,
                 linksToEvent: linksToEvent,
-                linksText: linksText
+                hasShowLink: hasShowLink
             }
         };
 
@@ -197,7 +197,7 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
                     var isTextName = data.event_name.toLowerCase().indexOf(searchText) != -1;
                     var isTextTitle = data.subheading.toLowerCase().indexOf(searchText) != -1;
                     var isTextDescription = data.description.toLowerCase().indexOf(searchText) != -1;
-                    var isDate = moment.unix(data.start).utc().isSame(moment.utc(searchDate), 'day');
+                    var isDate = moment.unix(data.start).isSame(moment(searchDate), 'day');
                     if (searchText && searchDate) {
                         return (isTextTitle || isTextDescription || isTextName) && isDate
                     }
@@ -353,7 +353,7 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
             $(element).find('[name="event_type"][value="OH"]').prop("checked", true);
             $(element).find('[name="series"]').prop('disabled', false);
             $(element).find('[name="series"][value="false"]').click();
-            $(element).find('[data-startdate]').datepicker('setDate', moment.utc().format('MM/DD/YYYY'));
+            $(element).find('[data-startdate]').datepicker('setDate', moment().format('MM/DD/YYYY'));
             $(element).find('[data-enddate]').val('');
             $(element).find('[data-start-time]').val('');
             $(element).find('[data-end-time]').val('');
@@ -421,13 +421,13 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
           }
         });
 
-        $("[data-startdate]", element).datepicker('setDate', moment.utc().format('MM/DD/YYYY'));
+        $("[data-startdate]", element).datepicker('setDate', moment().format('MM/DD/YYYY'));
 
         $("[data-enddate]", element).datepicker({
             constrainInput: true,
             dateFormat: "mm/dd/yy",
             maxDate: '+20w',
-            minDate: moment.utc().format('MM/DD/YYYY'),
+            minDate: moment().format('MM/DD/YYYY'),
             onClose: function(selectedDate) {
                 $("[data-startdate]").datepicker( "option", "maxDate", selectedDate );
             }

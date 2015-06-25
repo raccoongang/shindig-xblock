@@ -385,7 +385,7 @@
         <div class="controls">
           <button data-delete-event data-eid="<%= eid %>" class="btn-shape dlt pull-right" type="button" title="Delete Event">Delete</button>
           <button data-edit-event data-eid="<%= eid %>" class="btn-shape edit pull-right" type="button" title="Edit Event">Edit</button>
-          <a href="<%= linksToEvent %>" target="_blank" class="btn-shape <%= linksText %> pull-right"><%= linksText %></a>
+          <% if(hasShowLink) {{ %><a href="<%= linksToEvent %>" target="_blank" class="btn-shape join pull-right">Join</a><% }} %>
         </div>
       </div>
     </div>
