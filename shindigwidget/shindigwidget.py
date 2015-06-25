@@ -277,7 +277,7 @@ class ShindigXBlock(XBlock):
                 url += '&email=' + data.user_email_shindig + '&password=' + data.user_password_shindig;
             }}
             var cacheParamValue = (new Date()).getTime();
-            url += "?cache=" + cacheParamValue;
+            url += "&cache=" + cacheParamValue;
             $('#iframe-shindig').attr('src', url);
         }}
     }});
