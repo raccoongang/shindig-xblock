@@ -8,11 +8,21 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
 
     window.RequireJS.require({
         paths: {
-            'moment': '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js'
+            'moment': '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min',
+            'moment-timezone': '//cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.4.0/moment-timezone.min'
+        },
+        shim: {
+            'moment': {
+                exports: 'moment'
+            },
+            'moment-timezone': {
+                exports: 'moment-timezone'
+            }
         }
     });
 
-    window.RequireJS.require(['moment'], function (moment) {
+    window.RequireJS.require(['moment', 'moment-timezone'], function (moment) {
+
 
         moment.locale('en', {
             calendar : {
@@ -24,6 +34,17 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
                 lastDay: 'dddd MMM Do [from] h:mma'
             }
         });
+
+        moment.tz.add([
+            "America/New_York|EST EDT EWT EPT|50 40 40 40|01010101010101010101010101010101010101010101010102301010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-261t0 1nX0 11B0 1nX0 11B0 1qL0 1a10 11z0 1qN0 WL0 1qN0 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1qN0 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1qN0 WL0 1qN0 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1qN0 WL0 1qN0 11z0 1o10 11z0 RB0 8x40 iv0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1qN0 WL0 1qN0 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1cN0 1cL0 1cN0 1cL0 s10 1Vz0 LB0 1BX0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0",
+            "America/Chicago|CST CDT EST CWT CPT|60 50 50 50 50|01010101010101010101010101010101010102010101010103401010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-261s0 1nX0 11B0 1nX0 1wp0 TX0 WN0 1qL0 1cN0 WL0 1qN0 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1qN0 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1qN0 WL0 1qN0 11z0 1o10 11z0 11B0 1Hz0 14p0 11z0 1o10 11z0 1qN0 WL0 1qN0 11z0 1o10 11z0 RB0 8x30 iw0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1qN0 WL0 1qN0 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1cN0 1cL0 1cN0 1cL0 s10 1Vz0 LB0 1BX0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0",
+            "America/Denver|MST MDT MWT MPT|70 60 60 60|01010101023010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-261r0 1nX0 11B0 1nX0 11B0 1qL0 WN0 mn0 Ord0 8x20 ix0 LCN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1cN0 1cL0 1cN0 1cL0 s10 1Vz0 LB0 1BX0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0",
+            "America/Phoenix|MST MDT MWT|70 60 60|01010202010|-261r0 1nX0 11B0 1nX0 SgN0 4Al1 Ap0 1db0 SWqX 1cL0",
+            "America/Los_Angeles|PST PDT PWT PPT|80 70 70 70|010102301010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-261q0 1nX0 11B0 1nX0 SgN0 8x10 iy0 5Wp0 1Vb0 3dB0 WL0 1qN0 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1qN0 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1qN0 WL0 1qN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1cN0 1cL0 1cN0 1cL0 s10 1Vz0 LB0 1BX0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0",
+            "America/Anchorage|CAT CAWT CAPT AHST AHDT YST AKST AKDT|a0 90 90 a0 90 90 90 80|012034343434343434343434343434343456767676767676767676767676767676767676767676767676767676767676767676767676767676767676767676767676767676767676|-17T00 8wX0 iA0 Qlb0 52O0 1cL0 1cN0 1cL0 1cN0 1fz0 1cN0 1cL0 1cN0 1cL0 s10 1Vz0 LB0 1BX0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1a10 1fz0 cm0 10q0 1cL0 1cN0 1cL0 1cN0 1cL0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0",
+            "Pacific/Honolulu|HST HDT HST|au 9u a0|010102|-1thLu 8x0 lef0 8Pz0 46p0",
+            "Europe/London|GMT BST BDST|0 -10 -20|0101010101010101010101010101010101010101010101010121212121210101210101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-2axa0 Rc0 1fA0 14M0 1fc0 1g00 1co0 1dc0 1co0 1oo0 1400 1dc0 19A0 1io0 1io0 WM0 1o00 14o0 1o00 17c0 1io0 17c0 1fA0 1a00 1lc0 17c0 1io0 17c0 1fA0 1a00 1io0 17c0 1io0 17c0 1fA0 1cM0 1io0 17c0 1fA0 1a00 1io0 17c0 1io0 17c0 1fA0 1a00 1io0 1qM0 Dc0 2Rz0 Dc0 1zc0 Oo0 1zc0 Rc0 1wo0 17c0 1iM0 FA0 xB0 1fA0 1a00 14o0 bb0 LA0 xB0 Rc0 1wo0 11A0 1o00 17c0 1fA0 1a00 1fA0 1cM0 1fA0 1a00 17c0 1fA0 1a00 1io0 17c0 1lc0 17c0 1fA0 1a00 1io0 17c0 1io0 17c0 1fA0 1a00 1a00 1qM0 WM0 1qM0 11A0 1o00 WM0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1tA0 IM0 90o0 U00 1tA0 U00 1tA0 U00 1tA0 U00 1tA0 WM0 1qM0 WM0 1qM0 WM0 1tA0 U00 1tA0 U00 1tA0 11z0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 14o0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00"
+        ]);
 
         addthisevent.settings({
             license: "replace-with-your-licensekey",
@@ -39,13 +60,25 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
         // initialize default fields
         $(element).find('[data-institution]').val(shindig_defaults.institution);
         $(element).find('[data-course]').val(shindig_defaults.course);
-        //$(element).find('[data-service-phone]').val(shindig_defaults.service_phone);
 
+        function initNewEventName() {
+            var maxEid = _.max(dataEvents, function(event){ return event.eid; }).eid;
+            if (maxEid) {
+                maxEid += 1;
+            } else {
+                maxEid = 1
+            }
+            var newEventName = shindig_defaults.course_display_name + ' ' + shindig_defaults.course_run + ' #' + maxEid;
+            $(element).find('[data-name]').val(newEventName);
+        }
+
+        var userEmail;
         $.ajax({
             url: runtime.handlerUrl(element, 'get_user_email_and_username'),
             type: "GET",
             success: function (data) {
-                $(element).find("[data-user-email]").val(data.email);
+                userEmail = data.email;
+                $(element).find("[data-user-email]").val(userEmail);
                 //$(element).find("[data-username]").val(data.username);
             }
         });
@@ -72,6 +105,7 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
                         var intervalID = setInterval(function () {
                             if (getHashKeyUser.isResolved()) {
                                 dataEvents = data.events;
+                                initNewEventName();
                                 renderEvents(dataEvents.slice(0, 3));
                                 clearInterval(intervalID)
                             }
@@ -96,6 +130,7 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
             $('[data-event]:first', element).addClass('active');
             addthisevent.generate();
             actionDelete();
+            actionEdit();
             actionToggleActive();
             if (dataEvents.length > events.length) {
                 $('[data-btn-more]', element).removeClass('hidden');
@@ -108,9 +143,9 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
         var getValuesForTemplate = function (data) {
             var eventType = {OH: 'Office Hours', DS: 'Discussion Section', SH: 'Study Hall'};
             var tz = jstz.determine();
-            var linksText = 'rsvp';
-            if (moment.unix(data.start).utc() < moment.utc()) {
-                linksText = 'join';
+            var hasShowLink = false;
+            if (moment.unix(data.start) < moment().add(1, 'hour')) {
+                hasShowLink = true;
             }
             var linksToEvent;
             if (data.temp_link) {
@@ -120,10 +155,10 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
             }
 
             var classStringDate = '';
-            var startDate = moment.unix(data.start).utc();
-            if (startDate.isSame(moment.utc(), 'day')) {
+            var startDate = moment.unix(data.start);
+            if (startDate.isSame(moment(), 'day')) {
                 classStringDate = 'today';
-            } else if (startDate.isSame(moment.utc().add(1, 'day'), 'day')) {
+            } else if (startDate.isSame(moment().add(1, 'day'), 'day')) {
                 classStringDate = 'tomorrow';
             }
 
@@ -132,16 +167,16 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
                 name: data.event_name,
                 title: data.subheading,
                 description: data.description,
-                stringDate: startDate.calendar() + moment.unix(data.end).utc().format("[ -] h:mma"),
+                stringDate: startDate.calendar() + moment.unix(data.end).format("[ -] h:mma"),
                 classStringDate: classStringDate,
                 startDate: startDate.format("MM/DD/YY HH:mm"),
-                endDate: moment.unix(data.end).utc().format("MM/DD/YY HH:mm"),
+                endDate: moment.unix(data.end).format("MM/DD/YY HH:mm"),
                 timezone: tz.name(),
                 institution: shindig_defaults.institution,
                 email: shindig_defaults.service_phone,
                 eid: data.eid,
                 linksToEvent: linksToEvent,
-                linksText: linksText
+                hasShowLink: hasShowLink
             }
         };
 
@@ -163,7 +198,7 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
                     var isTextName = data.event_name.toLowerCase().indexOf(searchText) != -1;
                     var isTextTitle = data.subheading.toLowerCase().indexOf(searchText) != -1;
                     var isTextDescription = data.description.toLowerCase().indexOf(searchText) != -1;
-                    var isDate = moment.unix(data.start).utc().isSame(moment.utc(searchDate), 'day');
+                    var isDate = moment.unix(data.start).isSame(moment(searchDate), 'day');
                     if (searchText && searchDate) {
                         return (isTextTitle || isTextDescription || isTextName) && isDate
                     }
@@ -194,11 +229,11 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
             }
         });
 
-        // create new event
+        // create new event or edit event
         var form = $('#shindig-signup', element);
-        form.on('submit', createEvent);
+        form.on('submit', createOrEditEvent);
 
-        function createEvent(event) {
+        function createOrEditEvent(event) {
             event.preventDefault();
             var formValid = validateForm();
             if (formValid) {
@@ -206,27 +241,31 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
                 $('.shindig-load', element).removeClass('is-hidden');
                 $('[data-btn-more]', element).addClass('hidden');
                 $("[data-event-list]", element).html('');
+                var dataForm = form.serialize();
+                if (eidEditEvent) {
+                    dataForm = dataForm + '&eid=' + eidEditEvent
+                }
                 $.ajax({
-                    url: runtime.handlerUrl(element, 'create_event'),
+                    url: runtime.handlerUrl(element, 'create_or_edit_event'),
                     type: "POST",
-                    data: form.serialize(),
+                    data: dataForm,
                     success: function (data) {
-                        if (data.create) {
+                        if (data.save) {
                             $('[data-search-text]', element).val(data.event[0].event_name);
-                            if (data.event.length == 1) {
-                                $('[data-search-date]', element).val(moment.unix(data.event[0].start).utc().format('YYYY-MM-DD'));
+                            if (eidEditEvent) {
+                                var dataEid = _.map(dataEvents, function(data){ return data.eid });
+                                dataEvents.splice(_.indexOf(dataEid, eidEditEvent), 1, data.event[0])
                             } else {
-                                $('[data-search-date]', element).val('');
+                                dataEvents = dataEvents.concat(data.event);
                             }
                             renderEvents(data.event);
                             isChangedEvents = true;
-                            dataEvents = dataEvents.concat(data.event);
                             dataEvents.sort(function(ev1, ev2) {
                                 return ev1.start - ev2.start
                             });
                             clearForm();
                         } else {
-                            var error = 'Error create. ' + data.error;
+                            var error = 'Error save. ' + data.error;
                             alert(error);
                             renderEvents(dataEvents.slice(0, 3));
                         }
@@ -247,7 +286,6 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
                     $('[data-schedul-error]', element).removeClass('hidden');
                 }
             }
-
             return formValid;
         }
 
@@ -255,7 +293,7 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
         var actionDelete = function () {
             $('[data-delete-event]', element).on('click', function (event) {
                 event.preventDefault();
-                var eid = $(event.currentTarget).data('eid')
+                var eid = $(event.currentTarget).data('eid');
                 $.ajax({
                     url: runtime.handlerUrl(element, 'remove_event'),
                     type: "POST",
@@ -272,6 +310,33 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
             });
         };
 
+        var eidEditEvent = false;
+        function actionEdit() {
+            $('[data-edit-event]', element).on('click', renderEditTab)
+        }
+
+        function renderEditTab(ev) {
+            ev.preventDefault();
+            var eid = $(ev.currentTarget).data('eid');
+            eidEditEvent = eid;
+            $('#s2', element).prop("checked", true);
+            var event = _.findWhere(dataEvents, {eid: eid});
+            $('[data-text-tab2]', element).text('Edit');
+            $('[data-submit-form]', element).text('Edit event');
+            $(element).find('[data-country]').val(event.country).trigger('change');
+            $(element).find('[data-timezone]').val(event.time_zone);
+            $(element).find('[data-name]').val(event.event_name);
+            $(element).find('[data-title]').val(event.subheading);
+            $(element).find('[data-description]').val(event.description);
+            $(element).find('[data-user-email]').val(event.service_email);
+            $(element).find('[name="event_type"][value=' + event.event_type + ']').prop("checked", true);
+            $(element).find('[name="series"][value="false"]').click();
+            $(element).find('[name="series"]').prop('disabled', true);
+            $(element).find('[data-startdate]').datepicker('setDate', moment.unix(event.start).tz(event.time_zone).format('MM/DD/YYYY'));
+            $(element).find('[data-start-time]').timepicker('setTime', moment.unix(event.start).tz(event.time_zone).format('HH:mm'));
+            $(element).find('[data-end-time]').timepicker('setTime', moment.unix(event.end).tz(event.time_zone).format('HH:mm'));
+        }
+
         var actionToggleActive = function () {
             $('[data-toggle-active]', element).on('click', function (event) {
                 $(event.currentTarget).parents('.event').toggleClass('active');
@@ -279,10 +344,17 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
         };
 
         var clearForm = function(){
-            $(element).find('[data-name]').val('');
+            eidEditEvent  = false;
+            initNewEventName();
+            $('[data-text-tab2]', element).text('Create');
+            $('[data-submit-form]', element).text('Create My Event');
             $(element).find('[data-title]').val('');
             $(element).find('[data-description]').val('');
-            $("[data-startdate]", element).datepicker('setDate', moment.utc().format('MM/DD/YYYY'));
+            $(element).find('[data-user-email]').val(userEmail);
+            $(element).find('[name="event_type"][value="OH"]').prop("checked", true);
+            $(element).find('[name="series"]').prop('disabled', false);
+            $(element).find('[name="series"][value="false"]').click();
+            $(element).find('[data-startdate]').datepicker('setDate', moment().format('MM/DD/YYYY'));
             $(element).find('[data-enddate]').val('');
             $(element).find('[data-start-time]').val('');
             $(element).find('[data-end-time]').val('');
@@ -296,7 +368,14 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
         });
 
         $('[name = "series"]', element).on('change', function (event) {
-            $('[data-toggle-series]').toggleClass('hidden');
+            $('[data-toggle-series]', element).toggleClass('hidden');
+            if (event.currentTarget.value == 'true') {
+                $('[data-enddate]', element).prop('required', true);
+                $('[data-label-text-startdate]', element).text('Beginning');
+            } else {
+                $('[data-enddate]', element).prop('required', false);
+                $('[data-label-text-startdate]', element).text('On');
+            }
         });
 
         $('[data-schedule]', element).on('change', function () {
@@ -314,8 +393,7 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
                     "Alaska": "America\/Anchorage",
                     "Hawaii": "Pacific\/Honolulu"
                 },
-                "United Kingdom": {"London": "Europe\/London"},
-                "UTC": {"UTC": "UTC"}
+                "United Kingdom": {"London": "Europe\/London"}
             };
             var country = $('select[name=country]', element);
             var tz = $('select[name=timeZone]', element);
@@ -338,38 +416,61 @@ function ShindigStudioXBlock(runtime, element, shindig_defaults) {
         $("[data-startdate]", element).datepicker({
             maxDate: '+20w',
             constrainInput: true,
+            maxDate: '+20w',
             dateFormat: "mm/dd/yy",
             onClose: function( selectedDate ) {
                 $("[data-enddate]", element).datepicker("option", "minDate", selectedDate);
           }
         });
 
-        $("[data-startdate]", element).datepicker('setDate', moment.utc().format('MM/DD/YYYY'));
+        $("[data-startdate]", element).datepicker('setDate', moment().format('MM/DD/YYYY'));
 
         $("[data-enddate]", element).datepicker({
             constrainInput: true,
             dateFormat: "mm/dd/yy",
             maxDate: '+20w',
-            minDate: moment.utc().format('MM/DD/YYYY'),
+            minDate: moment().format('MM/DD/YYYY'),
             onClose: function(selectedDate) {
                 $("[data-startdate]").datepicker( "option", "maxDate", selectedDate );
             }
         });
 
         $("[data-start-time]", element).timepicker({
-            timeFormat: 'H:i'
+            showLeadingZero: true,
+            defaultTime: '',
+            onSelect: function(time, endTimePickerInst) {
+                $("[data-end-time]", element).timepicker('option', {
+                    minTime: {
+                        hour: endTimePickerInst.hours,
+                        minute: endTimePickerInst.minutes
+                    }
+                });
+            },
+            onClose: function(time, inst) {
+                var endSelect = $("[data-end-time]", element).timepicker('getTime');
+                if (endSelect && endSelect == time) {
+                    $("[data-start-time]", element).val('');
+                }
+            }
         });
 
         $("[data-end-time]", element).timepicker({
-            timeFormat: 'H:i'
-        });
-
-        $("[data-start-time]", element).on('changeTime', function(){
-            $("[data-end-time]", element).timepicker('option', 'minTime', $(this).val());
-        });
-
-        $("[data-end-time]", element).on('changeTime', function(){
-            $("[data-start-time]", element).timepicker('option', 'maxTime', $(this).val());
+            showLeadingZero: true,
+            defaultTime: '',
+            onSelect: function(time, startTimePickerInst) {
+                $("[data-start-time]", element).timepicker('option', {
+                    maxTime: {
+                        hour: startTimePickerInst.hours,
+                        minute: startTimePickerInst.minutes
+                    }
+                });
+            },
+            onClose: function(time, inst) {
+                var startSelect = $("[data-start-time]", element).timepicker('getTime');
+                if (startSelect && startSelect == time) {
+                    $("[data-end-time]", element).val('');
+                }
+            }
         });
 
     });

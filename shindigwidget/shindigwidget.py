@@ -66,6 +66,8 @@ class ShindigXBlock(XBlock):
                                     embed_code=self.embed_code(shindig_defaults)))
         if self.runtime.__class__.__name__ == 'WorkbenchRuntime':
             self.add_javascript_and_css(frag)
+        frag.add_css(self.resource_string("static/css/jquery.ui.timepicker.css"))
+        frag.add_javascript(self.resource_string("static/js/src/jquery.ui.timepicker.js"))
         frag.add_javascript(self.resource_string("static/js/src/shindigwidget_instructor.js"))
         frag.initialize_js('ShindigStudioXBlock', json_args=shindig_defaults)
         return frag
@@ -106,11 +108,10 @@ class ShindigXBlock(XBlock):
         return Response(json_body={'status': False})
 
     @XBlock.handler
-    def create_event(self, request, suffix=''):
+    def create_or_edit_event(self, request, suffix=''):
         access_token = self.get_token(request)
         shindig_settings = self.get_shindig_settings()
         if access_token:
-            url = self.SHINDIG_HOST_SERVER + self.PATH_EVENTS
             headers = {"Authorization": "Bearer " + access_token}
             data = request.params.mixed()
             course = self.get_course_obj()
@@ -119,13 +120,19 @@ class ShindigXBlock(XBlock):
                 'email': shindig_settings['EMAIL'],
                 'password': shindig_settings['PASSWORD']
             })
-            req = requests.post(url, headers=headers, data=data)
+            eid = data.get('eid', False)
+            url = self.SHINDIG_HOST_SERVER + self.PATH_EVENTS
+            if eid:
+                url += eid + '/'
+                req = requests.put(url, headers=headers, data=data)
+            else:
+                req = requests.post(url, headers=headers, data=data)
 
-            if req.status_code == 201:
-                return Response(json_body={'create': True,
+            if req.status_code == 201 or req.status_code == 206:
+                return Response(json_body={'save': True,
                                            'event': req.json()})
             else:
-                return Response(json_body={'create': False, 'error': req.json().get('error', '')})
+                return Response(json_body={'save': False, 'error': req.json().get('error', '')})
         return Response(json_body={'create': False, 'error': ''})
 
     @XBlock.handler
@@ -193,6 +200,7 @@ class ShindigXBlock(XBlock):
                 "institution": course.org if course else 'institution',
                 "course": course.number if course else 'course',
                 "course_run": course.url_name if course else 'course_run',
+                "course_display_name": course.display_name if course else 'course_display_name',
                 "links_to_events_cms": self.HOST_SHINDIG + self.LINKS_TO_EVENTS_CMS,
                 "links_to_events_lms": self.HOST_SHINDIG + self.LINKS_TO_EVENTS_LMS,
                 'is_valid_settings': self.is_valid_settings(shindig_settings)}
@@ -264,10 +272,12 @@ class ShindigXBlock(XBlock):
         url: urlUserDetail,
         type: 'GET',
         success: function (data) {{
-            var url = '{}{}' + data.hash_key + '/?course={}&institution={}&course_run={}';
+            var url = '{}{}' + data.hash_key + '/?course={}&institution={}&course_run={}&course_display_name={}';
             if (data.user_email_shindig) {{
                 url += '&email=' + data.user_email_shindig + '&password=' + data.user_password_shindig;
             }}
+            var cacheParamValue = (new Date()).getTime();
+            url += "?cache=" + cacheParamValue;
             $('#iframe-shindig').attr('src', url);
         }}
     }});
@@ -277,6 +287,7 @@ class ShindigXBlock(XBlock):
                    self.PATH_WIDGET,
                    shindig_defaults['course'],
                    shindig_defaults['institution'],
-                   shindig_defaults['course_run'])
+                   shindig_defaults['course_run'],
+                   shindig_defaults['course_display_name'])
 
         return code

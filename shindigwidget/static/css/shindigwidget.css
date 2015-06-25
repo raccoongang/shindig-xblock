@@ -1478,6 +1478,11 @@ div.ui-loading.shindig-load p{
     background: #E86767;
 }
 
+#shindig-signup .schedule button.btn-shape.edit{
+    border-color: #166e36;
+    background: #50c67b;
+}
+
 @media only screen and (max-width: 960px){
     #shindig-signup.form-horizontal .column-holder .column-right,
     #shindig-signup-student.form-horizontal .column-holder .column-right{

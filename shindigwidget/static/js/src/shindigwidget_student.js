@@ -100,7 +100,7 @@ function ShindigStudentXBlock(runtime, element, shindig_defaults) {
             var eventType = {OH: 'Office Hours', DS: 'Discussion Section', SH: 'Study Hall'};
             var tz = jstz.determine();
             var linksText = 'rsvp';
-            if (moment.unix(data.start) < moment()) {
+            if (moment.unix(data.start) < moment().add(1, 'hour')) {
                 linksText = 'join';
             }
             var linksToEvent;
